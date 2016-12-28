@@ -4,7 +4,7 @@ import _debug from 'debug'
 
 const debug = _debug('app:server:universal')
 
-export default class {
+export default class Universal {
   static middleware = async(config) => {
     const {__DEV__} = config.globals
     const output    = config.utils_paths.clientServer(config.universal.output)
@@ -27,6 +27,7 @@ export default class {
           })
         })
       } catch (error) {
+        debug('Error compiling server', error)
         return Promise.reject(error)
       }
     }
