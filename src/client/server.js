@@ -9,7 +9,7 @@ import createStore from './store/createStore'
 import AppContainer from './containers/AppContainer'
 import _debug from 'debug'
 import * as Assetic from './modules/Assetic'
-import defaultLayout from '../../config/layout'
+
 import { renderHtmlLayout } from './modules/RenderHtmlLayout'
 import PrettyError from 'pretty-error'
 import { Resolver } from 'react-resolver'
@@ -21,13 +21,12 @@ export default async(config) => {
     await new Promise((resolve, reject) => {
 
       try {
-
+        const defaultLayout = config.defaultLayout
         const initialState  = {}
         const memoryHistory = createMemoryHistory(ctx.req.url)
         const store         = createStore(initialState, memoryHistory)
-        const routesLoc     = config.utils_paths.src('routes/index.js')
+        const routes        = require('routes').default(store)
 
-        const routes  = require(routesLoc).default(store)
         const history = syncHistoryWithStore(memoryHistory, store, {
           selectLocationState: (state) => state.router
         })

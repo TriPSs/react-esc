@@ -7,7 +7,7 @@ const debug = _debug('app:server:universal')
 export default class Universal {
   static middleware = async(config) => {
     const {__DEV__} = config.globals
-    const output    = config.utils_paths.clientServer(config.universal.output)
+    const output    = config.utils_paths.dist(config.universal.output)
 
     if (__DEV__) {
       try {
