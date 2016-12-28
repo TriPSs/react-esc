@@ -22,16 +22,17 @@ export default async(givenConfig) => {
   let clientInfo
 
   if (config.env === 'development') {
-    const compiler     = webpack(webpackConfigClient)
+    const compiler = webpack(webpackConfigClient)
+
     // Enable webpack-dev and webpack-hot middleware
-    const {publicPath} = webpackConfigClient.output
+    const { publicPath } = webpackConfigClient.output
 
     // Catch the hash of the build in order to use it in the universal middleware
     compiler.plugin('done', stats => {
       // Create client info from the fresh build
       clientInfo = {
         assetsByChunkName: {
-          app   : `app.${stats.hash}.js`,
+          app: `app.${stats.hash}.js`,
           vendor: `vendor.${stats.hash}.js`
         }
       }
