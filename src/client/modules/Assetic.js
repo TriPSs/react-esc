@@ -18,22 +18,22 @@ const normalizeAssets = assets => {
   return normalized
 }
 
-export const getAssets = (config, localAssets = []) => (
+export const getAssets = (layout, localAssets = []) => (
   Array.concat(
-    config.helmet.helmetProps.script.map(item => item.src),
-    config.helmet.helmetProps.link.map(item => item.href),
+    layout.script.map(item => item.src),
+    layout.link.map(item => item.href),
     normalizeAssets(localAssets.map(asset => fixLocalAsset(asset)))
   )
 )
 
-export const getAssetsByExtension = (extension, localAssets = []) => (
-  getAssets(localAssets).filter(asset => new RegExp('.(' + extension + ')$').test(asset))
+export const getAssetsByExtension = (layout, extension, localAssets = []) => (
+  getAssets(layout,localAssets).filter(asset => new RegExp('.(' + extension + ')$').test(asset))
 )
 
-export const getScripts = (localAssets = []) => (
-  getAssetsByExtension('js', localAssets)
+export const getScripts = (layout, localAssets = []) => (
+  getAssetsByExtension(layout, 'js', localAssets)
 )
 
-export const getStyles = (localAssets = []) => (
-  getAssetsByExtension('css', localAssets)
+export const getStyles = (layout, localAssets = []) => (
+  getAssetsByExtension(layout, 'css', localAssets)
 )

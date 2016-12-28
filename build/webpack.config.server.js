@@ -23,9 +23,10 @@ export default (config) => {
 // ------------------------------------
 // Entry Points
 // ------------------------------------
+  //TODO:: Checken of die lib server moet hebben of server van persoon zelf
   webpackConfigServer.entry = [
     'babel-polyfill',
-    paths.src(config.entry_server)
+    paths.clientServer(config.entry_server)
   ]
 
 // ------------------------------------

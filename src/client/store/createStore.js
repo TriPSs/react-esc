@@ -9,6 +9,7 @@ export default (initialState = {}, history) => {
   // ======================================================
   const middleware = [thunk, routerMiddleware(history)]
 
+
   // ======================================================
   // Store Enhancers
   // ======================================================

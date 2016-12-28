@@ -7,7 +7,7 @@ const debug = _debug('app:server:universal')
 export default class {
   static middleware = async(config) => {
     const {__DEV__} = config.globals
-    const output    = config.utils_paths.dist(config.universal.output)
+    const output    = config.utils_paths.clientServer(config.universal.output)
 
     if (__DEV__) {
       try {
@@ -27,12 +27,11 @@ export default class {
           })
         })
       } catch (error) {
-
         return Promise.reject(error)
       }
     }
 
-    return Promise.resolve(require(output))
+    return Promise.resolve(require(output).default(config))
   }
 }
 

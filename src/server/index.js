@@ -62,10 +62,8 @@ export default async(givenConfig) => {
     app.use(serve(config.utils_paths.public()))
   }
 
-
   let um = await Universal.middleware(config)
-
-  app.use(um.default(() => clientInfo))
+  app.use(um(() => clientInfo))
 
   return app
 }

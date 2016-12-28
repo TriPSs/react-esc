@@ -2,10 +2,9 @@ import React, { PropTypes } from 'react'
 import { Router } from 'react-router'
 import { Provider } from 'react-redux'
 import Helmet from 'react-helmet'
-import defaultLayout from '../../config/layout'
-import clone from 'clone'
 
 class AppContainer extends React.Component {
+
   static propTypes = {
     layout: PropTypes.object,
     history: PropTypes.object.isRequired,
@@ -20,7 +19,7 @@ class AppContainer extends React.Component {
     return (
       <Provider store={store}>
         <div style={{ height: '100%' }}>
-          <Helmet {...Object.assign(clone(defaultLayout), layout)} />
+          <Helmet {...Object.assign(layout)} />
           <Router history={history} children={routes} key={routerKey} />
         </div>
       </Provider>

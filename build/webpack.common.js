@@ -24,7 +24,7 @@ export default (config) => {
     devtool: config.compiler.devtool,
 
     resolve: {
-      root      : config.path.src(),
+      root      : config.utils_paths.src(),
       extensions: ['', '.js', '.jsx', '.json']
     },
 
