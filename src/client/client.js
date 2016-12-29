@@ -7,7 +7,7 @@ import createStore from './store/createStore'
 import AppContainer from './containers/AppContainer'
 import { Resolver } from 'react-resolver'
 
-((defaultLayout) => {
+export default (defaultLayout, reducers) => {
   // ========================================================
   // Browser History Setup
   // ========================================================
@@ -23,7 +23,7 @@ import { Resolver } from 'react-resolver'
   // so we need to provide a custom `selectLocationState` to inform
   // react-router-redux of its location.
   const initialState = window.___INITIAL_STATE__
-  const store = createStore(initialState, browserHistory)
+  const store = createStore(initialState, browserHistory, reducers)
   const history = syncHistoryWithStore(browserHistory, store, {
     selectLocationState: (state) => state.router
   })
@@ -87,4 +87,4 @@ import { Resolver } from 'react-resolver'
   }
 
   render()
-})()
+}

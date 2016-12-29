@@ -24,7 +24,7 @@ export default async(config) => {
         const defaultLayout = config.defaultLayout
         const initialState  = {}
         const memoryHistory = createMemoryHistory(ctx.req.url)
-        const store         = createStore(initialState, memoryHistory)
+        const store         = createStore(initialState, memoryHistory, config.reducers)
         const routes        = require('routes').default(store)
 
         const history = syncHistoryWithStore(memoryHistory, store, {

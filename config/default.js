@@ -3,6 +3,8 @@ import path from 'path'
 import _debug from 'debug'
 import { argv } from 'yargs'
 import ip from 'ip'
+import defaultLayout from './layout'
+import reducers from '../src/client/store/reducers'
 
 const localip = ip.address()
 const debug = _debug('app:config')
@@ -83,7 +85,10 @@ const config = {
   coverage_reporters : [
     { type : 'text-summary' },
     { type : 'lcov', dir : 'coverage' }
-  ]
+  ],
+
+  defaultLayout,
+  reducers
 }
 
 // ------------------------------------
