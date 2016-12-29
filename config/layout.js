@@ -1,5 +1,5 @@
 // Default Helmet props
-export default Object.freeze({
+export default {
   htmlAttributes: {lang: 'en'},
   title         : 'Title',
   defaultTitle  : 'Default Title',
@@ -13,4 +13,4 @@ export default Object.freeze({
   ],
   script        : [],
   style         : []
-})
+}

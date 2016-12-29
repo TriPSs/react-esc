@@ -10,8 +10,8 @@ export default (config) => {
   debug('Create server configuration.')
   const webpackConfigServer = clone(webpackConfig(config))
 
-  webpackConfigServer.name = 'server'
-  webpackConfigServer.target = 'node'
+  webpackConfigServer.name      = 'server'
+  webpackConfigServer.target    = 'node'
   webpackConfigServer.externals = fs.readdirSync(paths.base('node_modules'))
                                     .concat([
                                       'react-dom/server', 'react/addons'
@@ -20,22 +20,27 @@ export default (config) => {
       return ext
     }, {})
 
-// ------------------------------------
-// Entry Points
-// ------------------------------------
+  // ------------------------------------
+  // Entry Points
+  // ------------------------------------
+  let entryPointDir       = paths.src(config.entry_server);
+
+  if (config.hasOwn('server'))
+    entryPointDir       = paths.clientDir(config.entry_server);
+
   webpackConfigServer.entry = [
     'babel-polyfill',
-    paths.clientServer(config.entry_server)
+    entryPointDir
   ]
 
-// ------------------------------------
-// Bundle Output
-// ------------------------------------
+  // ------------------------------------
+  // Bundle Output
+  // ------------------------------------
   webpackConfigServer.output = {
-    filename: 'server.js',
-    path: paths.dist(),
-    library: 'server',
-    libraryTarget: 'umd',
+    filename      : 'server.js',
+    path          : paths.dist(),
+    library       : 'server',
+    libraryTarget : 'umd',
     umdNamedDefine: true
   }
 
