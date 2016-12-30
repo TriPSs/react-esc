@@ -3,9 +3,9 @@
  */
 import Koa from 'koa'
 import serve from 'koa-static'
-import defaultConfig from '../../config'
+import defaultConfig from '../config'
 import webpack from 'webpack'
-import generateWebpackConfigClient from '../../build/webpack.config.client'
+import generateWebpackConfigClient from '../build/webpack.config.client'
 import Universal from './middleware/universal'
 import webpackDevMiddleware from './middleware/webpack-dev'
 import webpackHMRMiddleware from './middleware/webpack-hmr'
@@ -63,8 +63,12 @@ export default async(givenConfig) => {
     app.use(serve(config.utils_paths.public()))
   }
 
-  let um = await new Universal.middleware(config)
-  app.use(um(() => clientInfo))
+  try {
+    let um = await new Universal.middleware(config)
+    app.use(um(() => clientInfo))
 
+  }catch (e) {
+    debug("Error", e)
+  }
   return app
 }

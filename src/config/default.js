@@ -4,7 +4,8 @@ import _debug from 'debug'
 import { argv } from 'yargs'
 import ip from 'ip'
 import defaultLayout from './layout'
-import reducers from '../src/client/store/reducers'
+import reducers from '../client/store/reducers'
+import AppContainer from '../client/containers/AppContainer'
 
 const localip = ip.address()
 const debug = _debug('app:config')
@@ -88,7 +89,8 @@ const config = {
   ],
 
   defaultLayout,
-  reducers
+  reducers,
+  AppContainer
 }
 
 // ------------------------------------

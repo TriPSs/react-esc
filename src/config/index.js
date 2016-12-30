@@ -11,7 +11,7 @@ export default (givenConfig) => {
   if (givenConfig.hasOwn && (givenConfig.hasOwn.client || givenConfig.hasOwn.server)) {
     const rootBase = (...args) => Reflect.apply(path.resolve, null, [path.resolve(__dirname, '..'), ...args])
 
-    config.utils_paths.clientDir = rootBase.bind(null, 'src/client')
+    config.utils_paths.clientDir = rootBase.bind(null, 'client')
   } else {
     config.utils_paths.clientDir = givenConfig.utils_paths.src
   }

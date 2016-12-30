@@ -4,10 +4,9 @@ import createBrowserHistory from 'history/lib/createBrowserHistory'
 import { useRouterHistory, match } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import createStore from './store/createStore'
-import AppContainer from './containers/AppContainer'
 import { Resolver } from 'react-resolver'
 
-export default (defaultLayout, reducers) => {
+export default (AppContainer, defaultLayout, reducers) => {
   // ========================================================
   // Browser History Setup
   // ========================================================
@@ -52,6 +51,7 @@ export default (defaultLayout, reducers) => {
         return
       }
 
+      const layout = {...defaultLayout, ...(window.__LAYOUT__ || {})}
       Resolver.render(
         () => <AppContainer
           {...renderProps}
@@ -59,7 +59,7 @@ export default (defaultLayout, reducers) => {
           history={history}
           routes={routes}
           routerKey={routerKey}
-          layout={{...defaultLayout, ...(window.___LAYOUT__ || {})}}
+          layout={layout}
         />,
         MOUNT_NODE
       )

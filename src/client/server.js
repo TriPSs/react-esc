@@ -6,7 +6,6 @@ import createMemoryHistory from 'react-router/lib/createMemoryHistory'
 import { getStyles } from 'simple-universal-style-loader'
 import Helmet from 'react-helmet'
 import createStore from './store/createStore'
-import AppContainer from './containers/AppContainer'
 import _debug from 'debug'
 import * as Assetic from './modules/Assetic'
 
@@ -22,6 +21,7 @@ export default async(config) => {
 
       try {
         const defaultLayout = config.defaultLayout
+        const AppContainer  = config.AppContainer
         const initialState  = {}
         const memoryHistory = createMemoryHistory(ctx.req.url)
         const store         = createStore(initialState, memoryHistory, config.reducers)
@@ -53,7 +53,7 @@ export default async(config) => {
             let title  = `${status} - ${message}`
             content    = renderToStaticMarkup(
               <div>
-                <Helmet {...{...layout, title}} />
+                <Helmet {...{...defaultLayout, title}} />
                 <h3>{title}</h3>
                 {children}
               </div>

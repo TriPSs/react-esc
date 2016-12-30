@@ -1,5 +1,5 @@
 import webpack from 'webpack'
-import webpackConfig from '../../../build/webpack.config.server'
+import webpackConfig from '../../build/webpack.config.server'
 import _debug from 'debug'
 
 const debug = _debug('app:server:universal')
