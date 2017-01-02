@@ -1,4 +1,13 @@
 node_modules
 .idea
-lib
-!src/server/lib
+bin
+build
+client
+config
+server
+
+!src/bin
+!src/build
+!src/client
+!src/config
+!src/server

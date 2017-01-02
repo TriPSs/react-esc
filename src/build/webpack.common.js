@@ -40,11 +40,10 @@ export default (config) => {
           loader : 'babel',
           query  : {
             cacheDirectory: true,
-            plugins       : ['transform-runtime', "transform-decorators-legacy"],
+            // plugins: ['transform-runtime'],
             presets       : ['es2015', 'react', 'stage-0']
           }
-        },
-        {
+        }, {
           test  : /\.json$/,
           loader: 'json'
         }, {
