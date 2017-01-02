@@ -11,54 +11,56 @@ export default (config) => {
   const webpackConfig = {
     devtool: config.compiler_devtool,
     resolve: {
-      root: paths.src(),
+      root      : paths.src(),
       extensions: ['', '.js', '.jsx', '.json']
     },
-    module: {
+    module : {
       loaders: []
     }
   }
 
-// ------------------------------------
-// Plugins
-// ------------------------------------
+  // ------------------------------------
+  // Plugins
+  // ------------------------------------
   webpackConfig.plugins = [
     new webpack.DefinePlugin(config.globals)
   ]
 
-// ------------------------------------
-// Loaders
-// ------------------------------------
-// JavaScript / JSON
-  webpackConfig.module.loaders = [{
-    test: /\.(js|jsx)$/,
-    exclude: /node_modules/,
-    loader: 'babel',
-    query: {
-      cacheDirectory: true,
-      plugins: ['transform-runtime', "transform-decorators-legacy"],
-      presets: ['es2015', 'react', 'stage-0']
+  // ------------------------------------
+  // Loaders
+  // ------------------------------------
+  // JavaScript / JSON
+  webpackConfig.module.loaders = [
+    {
+      test   : /\.(js|jsx)$/,
+      exclude: /node_modules/,
+      loader : 'babel',
+      query  : {
+        cacheDirectory: true,
+        plugins       : ['transform-runtime', "transform-decorators-legacy"],
+        presets       : ['es2015', 'react', 'stage-0']
+      }
+    },
+    {
+      test  : /\.json$/,
+      loader: 'json'
     }
-  },
-                                  {
-                                    test: /\.json$/,
-                                    loader: 'json'
-                                  }]
+  ]
 
-// ------------------------------------
-// Style Loaders
-// ------------------------------------
-// We use cssnano with the postcss loader, so we tell
-// css-loader not to duplicate minimization.
+  // ------------------------------------
+  // Style Loaders
+  // ------------------------------------
+  // We use cssnano with the postcss loader, so we tell
+  // css-loader not to duplicate minimization.
   const BASE_CSS_LOADER = 'css?sourceMap&-minimize'
 
-// Add any packge names here whose styles need to be treated as CSS modules.
-// These paths will be combined into a single regex.
+  // Add any packge names here whose styles need to be treated as CSS modules.
+  // These paths will be combined into a single regex.
   const PATHS_TO_TREAT_AS_CSS_MODULES = [
     // 'react-toolbox', (example)
   ]
 
-// If config has CSS modules enabled, treat this project's styles as CSS modules.
+  // If config has CSS modules enabled, treat this project's styles as CSS modules.
   if (config.compiler_css_modules) {
     PATHS_TO_TREAT_AS_CSS_MODULES.push(
       paths.src().replace(/[\^\$\.\*\+\-\?\=\!\:\|\\\/\(\)\[\]\{\}\,]/g, '\\$&') // eslint-disable-line
@@ -66,9 +68,9 @@ export default (config) => {
   }
 
   const isUsingCSSModules = !!PATHS_TO_TREAT_AS_CSS_MODULES.length
-  const cssModulesRegex = new RegExp(`(${PATHS_TO_TREAT_AS_CSS_MODULES.join('|')})`)
+  const cssModulesRegex   = new RegExp(`(${PATHS_TO_TREAT_AS_CSS_MODULES.join('|')})`)
 
-// Loaders for styles that need to be treated as CSS modules.
+  // Loaders for styles that need to be treated as CSS modules.
   if (isUsingCSSModules) {
     const cssModulesLoader = [
       BASE_CSS_LOADER,
@@ -78,7 +80,7 @@ export default (config) => {
     ].join('&')
 
     webpackConfig.module.loaders.push({
-      test: /\.scss$/,
+      test   : /\.scss$/,
       include: cssModulesRegex,
       loaders: [
         'simple-universal-style',
@@ -89,7 +91,7 @@ export default (config) => {
     })
 
     webpackConfig.module.loaders.push({
-      test: /\.css$/,
+      test   : /\.css$/,
       include: cssModulesRegex,
       loaders: [
         'simple-universal-style',
@@ -99,10 +101,10 @@ export default (config) => {
     })
   }
 
-// Loaders for files that should not be treated as CSS modules.
+  // Loaders for files that should not be treated as CSS modules.
   const excludeCSSModules = isUsingCSSModules ? cssModulesRegex : false
   webpackConfig.module.loaders.push({
-    test: /\.scss$/,
+    test   : /\.scss$/,
     exclude: excludeCSSModules,
     loaders: [
       'simple-universal-style',
@@ -112,7 +114,7 @@ export default (config) => {
     ]
   })
   webpackConfig.module.loaders.push({
-    test: /\.css$/,
+    test   : /\.css$/,
     exclude: excludeCSSModules,
     loaders: [
       'simple-universal-style',
@@ -121,41 +123,50 @@ export default (config) => {
     ]
   })
 
-// ------------------------------------
-// Style Configuration
-// ------------------------------------
+  // ------------------------------------
+  // Style Configuration
+  // ------------------------------------
   webpackConfig.sassLoader = {
     includePaths: paths.src('styles')
   }
 
   webpackConfig.postcss = [
     cssnano({
-      autoprefixer: {
-        add: true,
-        remove: true,
+      autoprefixer   : {
+        add     : true,
+        remove  : true,
         browsers: ['last 2 versions']
       },
       discardComments: {
         removeAll: true
       },
-      discardUnused: false,
-      mergeIdents: false,
-      reduceIdents: false,
-      safe: true,
-      sourcemap: true
+      discardUnused  : false,
+      mergeIdents    : false,
+      reduceIdents   : false,
+      safe           : true,
+      sourcemap      : true
     })
   ]
 
-// File loaders
+  // File loaders
   /* eslint-disable */
   webpackConfig.module.loaders.push(
-    { test: /\.woff(\?.*)?$/,  loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff' },
-    { test: /\.woff2(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2' },
-    { test: /\.otf(\?.*)?$/,   loader: 'file?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype' },
-    { test: /\.ttf(\?.*)?$/,   loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream' },
-    { test: /\.eot(\?.*)?$/,   loader: 'file?prefix=fonts/&name=[path][name].[ext]' },
-    { test: /\.svg(\?.*)?$/,   loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml' },
-    { test: /\.(png|jpg)$/,    loader: 'url?limit=8192' }
+    {
+      test  : /\.woff(\?.*)?$/,
+      loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff'
+    },
+    {
+      test  : /\.woff2(\?.*)?$/,
+      loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2'
+    },
+    {test: /\.otf(\?.*)?$/, loader: 'file?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype'},
+    {
+      test  : /\.ttf(\?.*)?$/,
+      loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream'
+    },
+    {test: /\.eot(\?.*)?$/, loader: 'file?prefix=fonts/&name=[path][name].[ext]'},
+    {test: /\.svg(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml'},
+    {test: /\.(png|jpg)$/, loader: 'url?limit=8192'}
   )
   /* eslint-enable */
 
