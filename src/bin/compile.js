@@ -7,7 +7,7 @@ import defaultConfig from '../config'
 
 const debug = _debug('app:bin:compile')
 
-export default class compiler {
+export default class Compiler {
 
   static compile = async(givenConfig) => {
     try {

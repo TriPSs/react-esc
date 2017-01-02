@@ -25,14 +25,14 @@ export default async(givenConfig) => {
     const compiler = webpack(webpackConfigClient)
 
     // Enable webpack-dev and webpack-hot middleware
-    const { publicPath } = webpackConfigClient.output
+    const {publicPath} = webpackConfigClient.output
 
     // Catch the hash of the build in order to use it in the universal middleware
     compiler.plugin('done', stats => {
       // Create client info from the fresh build
       clientInfo = {
         assetsByChunkName: {
-          app: `app.${stats.hash}.js`,
+          app   : `app.${stats.hash}.js`,
           vendor: `vendor.${stats.hash}.js`
         }
       }
@@ -67,8 +67,9 @@ export default async(givenConfig) => {
     let um = await new Universal.middleware(config)
     app.use(um(() => clientInfo))
 
-  }catch (e) {
+  } catch (e) {
     debug("Error", e)
   }
+
   return app
 }

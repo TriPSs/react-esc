@@ -28,15 +28,6 @@ export default (AppContainer, defaultLayout, reducers) => {
   })
 
   // ========================================================
-  // Developer Tools Setup
-  // ========================================================
-  if (0 && __DEBUG__) {
-    if (window.devToolsExtension) {
-      window.devToolsExtension.open()
-    }
-  }
-
-  // ========================================================
   // Render Setup
   // ========================================================
   const MOUNT_NODE = document.getElementById('root')
