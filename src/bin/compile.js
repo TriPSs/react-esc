@@ -27,7 +27,7 @@ export default class Compiler {
 
       debug('Write client info')
       let {hash, version, assetsByChunkName} = stats
-      await new compiler.writeClientInfo({hash, version, assetsByChunkName}, clientInfo)
+      await new Compiler.writeClientInfo({hash, version, assetsByChunkName}, clientInfo)
 
       debug('Run compiler for server')
       stats = await webpackCompiler(webpackConfigServer(config))
