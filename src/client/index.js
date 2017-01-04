@@ -42,7 +42,7 @@ export default (AppContainer, defaultLayout, reducers) => {
         return
       }
 
-      const layout = {...defaultLayout, ...(window.__LAYOUT__ || {})}
+      const layout = {...defaultLayout, ...(window.___LAYOUT__ || {})}
       Resolver.render(
         () => <AppContainer
           {...renderProps}
