@@ -2,10 +2,10 @@ import webpack from 'webpack'
 import webpackConfig from '../../build/webpack.config.server'
 import _debug from 'debug'
 
-const debug = _debug('app:server:universal')
-
 export default class Universal {
   static middleware = async(config) => {
+    const debug = _debug('app:server:universal')
+
     const {__DEV__} = config.globals
     const output    = config.utils_paths.dist(config.universal.output)
 

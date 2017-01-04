@@ -9,7 +9,7 @@ import AppContainer from '../client/containers/AppContainer'
 
 const localip = ip.address()
 const debug = _debug('app:config')
-debug('Creating default configuration.')
+debug('Creating configuration for ESC.')
 
 // ========================================================
 // Default Configuration

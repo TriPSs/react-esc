@@ -47,6 +47,7 @@ export default async(givenConfig) => {
     // when the application is compiled.
     app.use(serve(config.utils_paths.src('static')))
   } else {
+    debug('Read client info.')
     // Get assets from client_info.json
     fs.readJSON(config.utils_paths.dist(config.universal.client_info), (err, data) => {
       if (err) {

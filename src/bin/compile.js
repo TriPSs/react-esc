@@ -7,19 +7,18 @@ import defaultConfig from '../config'
 
 const debug = _debug('app:bin:compile')
 
-export default class Compiler {
+export default class {
 
   static compile = async(givenConfig) => {
     try {
       const config = defaultConfig(givenConfig)
       const paths = config.utils_paths
       const clientInfo = paths.dist(config.universal.client_info)
-
-
+      const clientConfig = webpackConfigClient(config)
       let stats
 
       debug('Run compiler for client')
-      stats = await webpackCompiler(webpackConfigClient(config))
+      stats = await webpackCompiler(clientConfig)
       if (stats.warnings.length && config.compiler_fail_on_warning) {
         debug('Config set to fail on warning, exiting with status code "1".')
         process.exit(1)
@@ -27,10 +26,19 @@ export default class Compiler {
 
       debug('Write client info')
       let {hash, version, assetsByChunkName} = stats
-      await new compiler.writeClientInfo({hash, version, assetsByChunkName}, clientInfo)
+
+      await new Promise((resolve, reject) => {
+        fs.writeJson(clientInfo, {hash, version, assetsByChunkName}, function (err) {
+          if (err) {
+            reject(err)
+          }
+          resolve(true)
+        })
+      })
 
       debug('Run compiler for server')
-      stats = await webpackCompiler(webpackConfigServer(config))
+      const serverConfig = webpackConfigServer(config)
+      stats = await webpackCompiler(serverConfig)
       if (stats.warnings.length && config.compiler_fail_on_warning) {
         debug('Config set to fail on warning, exiting with status code "1".')
         process.exit(1)
@@ -44,15 +52,5 @@ export default class Compiler {
     }
   }
 
-  static writeClientInfo = (data, clientInfo) => {
-    return new Promise((resolve, reject) => {
-      fs.writeJson(clientInfo, data, function (err) {
-        if (err) {
-          reject(err)
-        }
-        resolve(true)
-      })
-    })
-  }
 }
 
