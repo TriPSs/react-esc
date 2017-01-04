@@ -26,7 +26,6 @@ export default class {
 
       debug('Write client info')
       let {hash, version, assetsByChunkName} = stats
-
       await new Promise((resolve, reject) => {
         fs.writeJson(clientInfo, {hash, version, assetsByChunkName}, function (err) {
           if (err) {
