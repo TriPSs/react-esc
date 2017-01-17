@@ -76,7 +76,7 @@ export default async(config) => {
           // we don't have to remove our unused styles generated on server side
           let layout = {
             ...layoutWithLinks,
-            style : getStyles().map(style => ({
+            style: getStyles().map(style => ({
               cssText: style.parts.map(part => `${part.css}\n`).join('\n')
             })),
             script: [

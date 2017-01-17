@@ -45,6 +45,10 @@ export default class {
 
       debug('Copy static assets to dist folder.')
       fs.copySync(paths.src('static'), paths.public())
+
+      debug('Copy images to public img folder.')
+      fs.copySync(paths.dist('img'), paths.public('img'))
+      fs.removeSync(paths.dist('img'))
     } catch (e) {
       debug('Compiler encountered an error.', e)
       process.exit(1)

@@ -23,10 +23,7 @@ export default (config) => {
   // ------------------------------------
   // Entry Points
   // ------------------------------------
-  let entryPointDir       = paths.src(config.entry_server);
-
-  if (config.hasOwn('server'))
-    entryPointDir       = paths.clientDir(config.entry_server);
+  let entryPointDir = paths.clientDir(config.entry_server);
 
   webpackConfigServer.entry = [
     'babel-polyfill',

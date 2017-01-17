@@ -8,7 +8,7 @@ export default (givenConfig) => {
 
   const config = Object.assign(defaultConfig, givenConfig);
 
-  if (givenConfig.hasOwn && (givenConfig.hasOwn.client || givenConfig.hasOwn.server)) {
+  if (!givenConfig.hasOwn || !givenConfig.hasOwn.server) {
     const rootBase = (...args) => Reflect.apply(path.resolve, null, [path.resolve(__dirname, '..'), ...args])
 
     config.utils_paths.clientDir = rootBase.bind(null, 'client')
@@ -20,8 +20,6 @@ export default (givenConfig) => {
   config.utils_paths.src    = config.utils_paths.base.bind(null, config.dir_src)
   config.utils_paths.dist   = config.utils_paths.base.bind(null, config.dir_dist)
   config.utils_paths.public = config.utils_paths.base.bind(null, config.dir_public)
-
-  config.hasOwn = (type) => givenConfig.hasOwn && givenConfig.hasOwn.hasOwnProperty(type) && givenConfig.hasOwn[type]
 
   return config
 }

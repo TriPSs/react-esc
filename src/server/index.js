@@ -65,10 +65,9 @@ export default async(givenConfig) => {
       clientInfo = data
     })
 
-    // Serving ~/dist by default. Ideally these files should be served by
-    // the web server and not the app server when universal is turned off,
-    // but this helps to demo the server in production.
-    app.use(serve(config.utils_paths.public()))
+    if (!config.hasOwn || !config.hasOwn.nginx) {
+      app.use(serve(config.utils_paths.public()))
+    }
   }
 
   let um = await new Universal.middleware(config)

@@ -16,7 +16,8 @@ debug('Creating configuration for ESC.')
 // ========================================================
 const config = {
   hasOwn: {
-    server: true
+    server: false,
+    nginx: false
   },
 
   env : process.env.NODE_ENV || 'development',

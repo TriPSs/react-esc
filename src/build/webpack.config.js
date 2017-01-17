@@ -47,13 +47,10 @@ export default (config) => {
     }
   ]
 
-  // ------------------------------------
-  // Images
-  // ------------------------------------
   webpackConfig.module.loaders.push({
     test: /\.(jpe?g|png|gif|svg)$/i,
     loaders: [
-      'file?hash=sha512&digest=hex&name=[hash].[ext]',
+      'file?hash=sha512&digest=hex&name=img/img-[name]-[hash:6].[ext]',
       'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
     ]
   })
@@ -161,8 +158,7 @@ export default (config) => {
 
   // File loaders
   /* eslint-disable */
-  webpackConfig.module.loaders.push(
-    {
+  webpackConfig.module.loaders.push({
       test  : /\.woff(\?.*)?$/,
       loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff'
     },
@@ -170,14 +166,22 @@ export default (config) => {
       test  : /\.woff2(\?.*)?$/,
       loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2'
     },
-    {test: /\.otf(\?.*)?$/, loader: 'file?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype'},
+    {
+      test: /\.otf(\?.*)?$/,
+      loader: 'file?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype'
+    },
     {
       test  : /\.ttf(\?.*)?$/,
       loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream'
     },
-    {test: /\.eot(\?.*)?$/, loader: 'file?prefix=fonts/&name=[path][name].[ext]'},
-    {test: /\.svg(\?.*)?$/, loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml'}
-  )
+    {
+      test: /\.eot(\?.*)?$/,
+      loader: 'file?prefix=fonts/&name=[path][name].[ext]'
+    },
+    {
+      test: /\.svg(\?.*)?$/,
+      loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml'
+    })
   /* eslint-enable */
 
   return webpackConfig
