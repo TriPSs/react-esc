@@ -51,7 +51,6 @@ const config = {
   // ----------------------------------
   server_host  : process.env.HOST || localip,
   server_port  : process.env.PORT || 3000,
-  compiler_path: process.env.COMPILER_PATH || '/',
 
   universal: {
     output     : 'server.js',
