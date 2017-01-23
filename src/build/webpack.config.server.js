@@ -38,7 +38,8 @@ export default (config) => {
     path          : paths.dist(),
     library       : 'server',
     libraryTarget : 'umd',
-    umdNamedDefine: true
+    umdNamedDefine: true,
+    publicPath: config.compiler_public_path
   }
 
   return webpackConfigServer
