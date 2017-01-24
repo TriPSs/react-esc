@@ -76,14 +76,18 @@ export default async(config) => {
           // we don't have to remove our unused styles generated on server side
           let layout = {
             ...layoutWithLinks,
-            style: getStyles().map(style => ({
-              cssText: style.parts.map(part => `${part.css}\n`).join('\n')
-            })),
             script: [
               ...defaultLayout.script,
               {type: 'text/javascript', innerHTML: `___INITIAL_STATE__ = ${JSON.stringify(store.getState())}`},
               {type: 'text/javascript', innerHTML: `___LAYOUT__ = ${JSON.stringify(layoutWithLinks)}`}
             ]
+          }
+
+          // Only inline all css when in dev mode
+          if (config.compiler_css_inline) {
+            layout.style = getStyles().map(style => ({
+              cssText: style.parts.map(part => `${part.css}\n`).join('\n')
+            }))
           }
 
           // ----------------------------------

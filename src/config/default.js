@@ -49,18 +49,21 @@ const config = {
   // ----------------------------------
   // Server Configuration
   // ----------------------------------
-  server_host  : process.env.HOST || localip,
-  server_port  : process.env.PORT || 3000,
+  server_host: process.env.HOST || localip,
+  server_port: process.env.PORT || 3000,
 
   universal: {
     output     : 'server.js',
-    client_info: 'client_info.json'
+    client_info: 'client_info.json',
   },
+
+  use_compiled_server      : false,
 
   // ----------------------------------
   // Compiler Configuration
   // ----------------------------------
   compiler_css_modules    : true,
+  compiler_css_inline     : true,
   compiler_devtool        : 'source-map',
   compiler_hash_type      : 'hash',
   compiler_fail_on_warning: false,

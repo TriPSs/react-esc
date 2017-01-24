@@ -6,10 +6,10 @@ export default class Universal {
   static middleware = async(config) => {
     const debug = _debug('app:server:universal')
 
-    const {__DEV__} = config.globals
-    const output    = config.utils_paths.dist(config.universal.output)
+    const {use_compiled_server} = config
+    const output                = config.utils_paths.dist(config.universal.output)
 
-    if (__DEV__) {
+    if (!use_compiled_server) {
       try {
         debug('Compile server.')
         await new Promise((resolve, reject) => {
