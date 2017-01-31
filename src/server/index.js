@@ -15,9 +15,9 @@ import _debug from 'debug'
 const debug = _debug('app:server')
 
 export default async(givenConfig) => {
+
   const config              = defaultConfig(givenConfig)
   const webpackConfigClient = generateWebpackConfigClient(config)
-
 
   // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
   // user agent is not known.

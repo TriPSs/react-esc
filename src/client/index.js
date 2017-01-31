@@ -1,12 +1,17 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
+import defaultConfig from '../config/default.client'
 import createBrowserHistory from 'history/lib/createBrowserHistory'
 import { useRouterHistory, match } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import createStore from './store/createStore'
 import { Resolver } from 'react-resolver'
 
-export default (AppContainer, defaultLayout, reducers) => {
+export default (givenConfig) => {
+  const config = {...defaultConfig, ...givenConfig}
+
+  const {AppContainer, defaultLayout} = config
+
   // ========================================================
   // Browser History Setup
   // ========================================================
@@ -22,8 +27,8 @@ export default (AppContainer, defaultLayout, reducers) => {
   // so we need to provide a custom `selectLocationState` to inform
   // react-router-redux of its location.
   const initialState = window.___INITIAL_STATE__
-  const store = createStore(initialState, browserHistory, reducers)
-  const history = syncHistoryWithStore(browserHistory, store, {
+  const store        = createStore(initialState, browserHistory, config)
+  const history      = syncHistoryWithStore(browserHistory, store, {
     selectLocationState: (state) => state.router
   })
 
@@ -35,8 +40,8 @@ export default (AppContainer, defaultLayout, reducers) => {
   let render = (routerKey = null) => {
     const routes = require('routes').default(store)
 
-    match({ history, routes }, (error, redirectLocation, renderProps) => {
-      // todo: Error handling should be improved
+    match({history, routes}, (error, redirectLocation, renderProps) => {
+      // TODO:: Error handling should be improved
       if (error) {
         console.log(error)
         return
@@ -61,12 +66,13 @@ export default (AppContainer, defaultLayout, reducers) => {
   // Enable HMR and catch runtime errors in RedBox
   // This code is excluded from production bundle
   if (__DEV__ && module.hot) {
-    const renderApp = render
+    const renderApp   = render
     const renderError = (error) => {
       const RedBox = require('redbox-react').default
 
-      ReactDOM.render(<RedBox error={error} />, MOUNT_NODE)
+      ReactDOM.render(<RedBox error={error}/>, MOUNT_NODE)
     }
+
     render = () => {
       try {
         renderApp(Math.random())
@@ -74,6 +80,7 @@ export default (AppContainer, defaultLayout, reducers) => {
         renderError(error)
       }
     }
+
     module.hot.accept(['routes'], () => render())
   }
 

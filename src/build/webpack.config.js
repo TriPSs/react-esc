@@ -29,7 +29,7 @@ export default (config) => {
   // ------------------------------------
   // Loaders
   // ------------------------------------
-  // JavaScript / JSON
+  // JavaScript / JSON / IMAGES
   webpackConfig.module.loaders = [
     {
       test   : /\.(js|jsx)$/,
@@ -40,20 +40,28 @@ export default (config) => {
         plugins       : ['transform-runtime', "transform-decorators-legacy"],
         presets       : ['es2015', 'react', 'stage-0']
       }
-    },
-    {
+    }, {
       test  : /\.json$/,
       loader: 'json'
+    }, {
+      test: /\.(jpe?g|png|gif|svg)$/i,
+      loaders: [
+        'file?hash=sha512&digest=hex&name=img/img-[name]-[hash:6].[ext]',
+        'image-webpack-loader'
+      ]
     }
   ]
 
-  webpackConfig.module.loaders.push({
-    test: /\.(jpe?g|png|gif|svg)$/i,
-    loaders: [
-      'file?hash=sha512&digest=hex&name=img/img-[name]-[hash:6].[ext]',
-      'image-webpack?bypassOnDebug&optimizationLevel=7&interlaced=false'
-    ]
-  })
+  // Config images loader
+  webpackConfig.imageWebpackLoader = {
+    bypassOnDebug: true,
+    optipng: {
+      optimizationLevel: 7
+    },
+    gifsicle: {
+      interlaced: false
+    }
+  }
 
   // ------------------------------------
   // Style Loaders

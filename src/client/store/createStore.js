@@ -2,12 +2,29 @@ import { applyMiddleware, compose, createStore } from 'redux'
 import { routerMiddleware } from 'react-router-redux'
 import thunk from 'redux-thunk'
 
-export default (initialState = {}, history, reducers) => {
+export default (initialState = {}, history, config) => {
+
+  const {reducers, middlewares} = config
+
   // ======================================================
   // Middleware Configuration
   // ======================================================
-  const middleware = [thunk, routerMiddleware(history)]
+  const middleware = [
+    thunk,
+    routerMiddleware(history)
+  ]
 
+  // ======================================================
+  // Add all custom middlewares
+  // ======================================================
+  let customMiddlewares = middlewares.collection
+  if (middlewares.byFolder) {
+    customMiddlewares = require('store/middleware').default()
+  }
+
+  customMiddlewares.forEach(customMiddleware => {
+    middleware.push(customMiddleware)
+  })
 
   // ======================================================
   // Store Enhancers
@@ -28,9 +45,9 @@ export default (initialState = {}, history, reducers) => {
     initialState,
     compose(
       applyMiddleware(...middleware),
-      ...enhancers
     )
   )
+
   store.asyncReducers = {}
 
   if (module.hot) {

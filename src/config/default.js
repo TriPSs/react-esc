@@ -3,9 +3,7 @@ import path from 'path'
 import _debug from 'debug'
 import { argv } from 'yargs'
 import ip from 'ip'
-import defaultLayout from './layout'
-import reducers from '../client/store/reducers'
-import AppContainer from '../client/containers/AppContainer'
+import clientConfig from './default.client'
 
 const localip = ip.address()
 const debug   = _debug('app:config')
@@ -92,9 +90,10 @@ const config = {
     {type: 'lcov', dir: 'coverage'}
   ],
 
-  defaultLayout,
-  reducers,
-  AppContainer
+  // ----------------------------------
+  // Merge Client Configuration
+  // ----------------------------------
+  ...clientConfig
 }
 
 // ------------------------------------

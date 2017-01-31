@@ -20,11 +20,10 @@ export default async(config) => {
     await new Promise((resolve, reject) => {
 
       try {
-        const defaultLayout = config.defaultLayout
-        const AppContainer  = config.AppContainer
+        const {AppContainer, defaultLayout} = config
         const initialState  = {}
         const memoryHistory = createMemoryHistory(ctx.req.url)
-        const store         = createStore(initialState, memoryHistory, config.reducers)
+        const store         = createStore(initialState, memoryHistory, config)
         const routes        = require('routes').default(store)
 
         const history = syncHistoryWithStore(memoryHistory, store, {
