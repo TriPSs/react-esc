@@ -1,13 +1,17 @@
 {
   "name": "react-esc",
-  "version": "0.0.70",
+  "version": "1.0.0",
   "description": "Easy to use Client and Server",
   "main": "./lib/index.js",
   "scripts": {
     "build": "babel src -d ./",
-    "prepublish": "npm run build"
+    "prepublish": "npm run build",
+    "postversion": "git push origin master --tags && npm run docs:publish"
   },
-  "author": "",
+  "author": {
+    "name" : "Tycho Bokdam"
+  , "email" : "t.bokdam@seronaris.nl"
+  },
   "license": "ISC",
   "dependencies": {
     "babel-cli": "^6.5.1",
@@ -51,7 +55,7 @@
     "react-dom": "^15.0.0",
     "react-helmet": "^3.1.0",
     "react-redux": "^4.4.5",
-    "react-resolver": "^3.0.3",
+    "react-resolver": "https://github.com/TriPSs/react-resolver",
     "react-router": "^2.2.0",
     "react-router-redux": "^4.0.5",
     "react-styling": "^1.5.0",
