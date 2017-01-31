@@ -17,14 +17,21 @@ export default (initialState = {}, history, config) => {
   // ======================================================
   // Add all custom middlewares
   // ======================================================
-  let customMiddlewares = middlewares.collection
+  // Add from the folder if enabled
   if (middlewares.byFolder) {
-    customMiddlewares = require('store/middleware').default()
+    const customMiddlewares = require('store/middleware').default()
+
+    customMiddlewares.forEach(customMiddleware => {
+      middleware.push(customMiddleware)
+    })
   }
 
-  customMiddlewares.forEach(customMiddleware => {
-    middleware.push(customMiddleware)
-  })
+  // Add from the collection if there are any
+  if (middlewares.collection.length > 0) {
+    middlewares.collection.forEach(customMiddleware => {
+      middleware.push(customMiddleware)
+    })
+  }
 
   // ======================================================
   // Store Enhancers
