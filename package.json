@@ -6,7 +6,7 @@
   "scripts": {
     "build": "babel src -d ./",
     "prepublish": "npm run build",
-    "postversion": "git push origin master --tags && npm run docs:publish"
+    "postversion": "git push origin master --tags"
   },
   "author": {
     "name" : "Tycho Bokdam"
