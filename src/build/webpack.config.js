@@ -26,6 +26,10 @@ export default (config) => {
     new webpack.DefinePlugin(config.globals)
   ]
 
+  if (config.custom_globals) {
+    webpackConfig.plugins.push(new webpack.DefinePlugin(config.custom_globals))
+  }
+
   // ------------------------------------
   // Loaders
   // ------------------------------------

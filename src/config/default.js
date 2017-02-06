@@ -93,7 +93,12 @@ const config = {
   // ----------------------------------
   // Merge Client Configuration
   // ----------------------------------
-  ...clientConfig
+  ...clientConfig,
+
+  // ----------------------------------
+  // Option for the user to add custom GLOBALS
+  // ----------------------------------
+  custom_globals: {}
 }
 
 // ------------------------------------
