@@ -52,6 +52,7 @@ export default (initialState = {}, history, config) => {
     initialState,
     compose(
       applyMiddleware(...middleware),
+      ...enhancers
     )
   )
 
