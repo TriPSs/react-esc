@@ -12,29 +12,33 @@ import * as Assetic from './modules/Assetic'
 import { renderHtmlLayout } from './modules/RenderHtmlLayout'
 import PrettyError from 'pretty-error'
 import { Resolver } from 'react-resolver'
+import CookieStorage from "../Storage/CookieStorage"
 
 export default async(config) => {
   const debug = _debug('app:server:universal:render')
 
   return getClientInfo => async(ctx, next) => {
-    await new Promise((resolve, reject) => {
+    await new Promise((resolve) => {
 
       try {
-        const {AppContainer, defaultLayout} = config
-        const initialState  = {}
-        const memoryHistory = createMemoryHistory(ctx.req.url)
-        const store         = createStore(initialState, memoryHistory, config)
-        const routes        = require('routes').default(store)
+        const { AppContainer, defaultLayout } = config
+        const initialState                    = {}
+        const memoryHistory                   = createMemoryHistory(ctx.req.url)
+        const store                           = createStore(initialState, memoryHistory, config)
+        const routes                          = require('routes').default(store)
 
         const history = syncHistoryWithStore(memoryHistory, store, {
           selectLocationState: (state) => state.router
         })
 
-        match({history, routes, location: ctx.req.url}, async(err, redirect, props) => {
+        match({ history, routes, location: ctx.req.url }, async(err, redirect, props) => {
           debug('Handle route', ctx.req.url)
 
+          // Add Cookie to global so we can use it in the Storage module
+          global.cookie = new CookieStorage(ctx.cookies)
+
           let head, content
-          let {app, vendor} = getClientInfo().assetsByChunkName
+          let { app, vendor } = getClientInfo().assetsByChunkName
 
           let links = Assetic
             .getStyles(defaultLayout, ([vendor, app]))
@@ -43,7 +47,7 @@ export default async(config) => {
               href: `${asset}`
             }))
 
-          const handleError = ({status, message, error = null, children = null}) => {
+          const handleError = ({ status, message, error = null, children = null }) => {
             if (error) {
               let pe = new PrettyError()
               debug(pe.render(error))
@@ -52,16 +56,16 @@ export default async(config) => {
             let title  = `${status} - ${message}`
             content    = renderToStaticMarkup(
               <div>
-                <Helmet {...{...defaultLayout, title}} />
+                <Helmet {...{ ...defaultLayout, title }} />
                 <h3>{title}</h3>
                 {children}
               </div>
             )
             head       = Helmet.rewind()
             ctx.status = 500
-            ctx.body   = renderHtmlLayout(head, <div dangerouslySetInnerHTML={{__html: content}}/>)
+            ctx.body   = renderHtmlLayout(head, <div dangerouslySetInnerHTML={{ __html: content }} />)
 
-            reject()
+            resolve()
           }
 
           // This will be transferred to the client side in __LAYOUT__ variable
@@ -77,8 +81,8 @@ export default async(config) => {
             ...layoutWithLinks,
             script: [
               ...defaultLayout.script,
-              {type: 'text/javascript', innerHTML: `___INITIAL_STATE__ = ${JSON.stringify(store.getState())}`},
-              {type: 'text/javascript', innerHTML: `___LAYOUT__ = ${JSON.stringify(layoutWithLinks)}`}
+              { type: 'text/javascript', innerHTML: `___INITIAL_STATE__ = ${JSON.stringify(store.getState())}` },
+              { type: 'text/javascript', innerHTML: `___LAYOUT__ = ${JSON.stringify(layoutWithLinks)}` }
             ]
           }
 
@@ -93,7 +97,7 @@ export default async(config) => {
           // Internal server error
           // ----------------------------------
           if (err) {
-            handleError({status: 500, message: 'Internal server error', error: err})
+            handleError({ status: 500, message: 'Internal server error', error: err })
             return
           }
 
@@ -104,12 +108,8 @@ export default async(config) => {
           if (typeof err === 'undefined' && typeof redirect === 'undefined' && typeof props === 'undefined') {
             debug('No route found.')
 
-            // We could call our next middleware maybe
-            // await next()
-            // return
-
-            // Or display a 404 page
-            handleError({status: 404, message: 'Page not found'})
+            // Display a 404 page
+            handleError({ status: 404, message: 'Page not found' })
             return
           }
 
@@ -118,30 +118,32 @@ export default async(config) => {
           // ----------------------------------
           let scripts = Assetic
             .getScripts(defaultLayout, [vendor, app])
-            .map((asset, i) => <script key={i} type='text/javascript' src={`${asset}`}/>)
+            .map((asset, i) => <script key={i} type='text/javascript' src={`${asset}`} />)
 
-          Resolver
-            .resolve(() => (
-              <AppContainer
-                history={history}
-                routerKey={Math.random()}
-                routes={routes}
-                store={store}
-                layout={layout}/>
-            )) // Pass a render function for context!
-            .then(({Resolved, data}) => {
-              content = renderToString(
-                <Resolved />
-              )
+          Resolver.resolve(() => (
+            <AppContainer
+              {...{
+                history,
+                routerKey: Math.random(),
+                routes,
+                store,
+                layout
+              }}
+            />
+          )).then(({ Resolved, data }) => {
+            content = renderToString(
+              <Resolved />
+            )
 
-              head       = Helmet.rewind()
-              let body   = <div key='body' {...config.app_mount_point} dangerouslySetInnerHTML={{__html: content}}/>
-              ctx.status = 200
-              ctx.body   = renderHtmlLayout(head, [body, scripts], data)
+            head       = Helmet.rewind()
+            let body   = <div key='body' {...config.app_mount_point} dangerouslySetInnerHTML={{ __html: content }} />
+            ctx.status = 200
+            ctx.body   = renderHtmlLayout(head, [body, scripts], data)
 
-              resolve()
+            resolve()
 
-            }).catch(err => handleError({status: 500, message: 'Internal Server Error', error: err}))
+          }).catch(err => handleError({ status: 500, message: 'Internal Server Error', error: err }))
+
         })
       } catch (e) {
         debug('error', e)

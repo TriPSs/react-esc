@@ -4,7 +4,7 @@ import thunk from 'redux-thunk'
 
 export default (initialState = {}, history, config) => {
 
-  const {reducers, middlewares} = config
+  const { reducers, middlewares, custom_enhancers } = config
 
   // ======================================================
   // Middleware Configuration
@@ -42,6 +42,13 @@ export default (initialState = {}, history, config) => {
     if (typeof devToolsExtension === 'function') {
       enhancers.push(devToolsExtension())
     }
+  }
+
+  // Add the custom enhancers
+  if (custom_enhancers.length > 0) {
+    custom_enhancers.forEach(enhancer => {
+      enhancers.push(enhancer)
+    })
   }
 
   // ======================================================

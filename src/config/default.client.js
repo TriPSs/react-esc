@@ -6,6 +6,12 @@ import AppContainer from '../client/containers/AppContainer'
 // Default Configuration For Client
 // ========================================================
 const clientConfig = {
+
+  // ----------------------------------
+  // Store Configuration
+  // ----------------------------------
+  custom_enhancers: [],
+
   // ----------------------------------
   // Middleware Configuration
   // ----------------------------------
