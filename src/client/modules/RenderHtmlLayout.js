@@ -6,10 +6,10 @@ import server from 'react-dom/server'
  *
  * @param head
  * @param body & scripts
- * @param resolverPayload
+ * @param initialState
  * @returns {string}
  */
-export function renderHtmlLayout(head, body, resolverPayload = {}) {
+export function renderHtmlLayout(head, body, initialState = {}) {
   return '<!DOCTYPE html>' + (0, server.renderToStaticMarkup)(React.createElement(
       'html',
       head.htmlAttributes.toComponent(),
@@ -25,7 +25,7 @@ export function renderHtmlLayout(head, body, resolverPayload = {}) {
         React.createElement(
           'script',
           {
-            dangerouslySetInnerHTML: {__html: `__REACT_RESOLVER_PAYLOAD__=${JSON.stringify(resolverPayload)}`}
+            dangerouslySetInnerHTML: { __html: `___INITIAL_STATE__=${JSON.stringify(initialState)}` }
           }
         )
       ),

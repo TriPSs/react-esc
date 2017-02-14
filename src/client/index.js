@@ -5,7 +5,7 @@ import createBrowserHistory from 'history/lib/createBrowserHistory'
 import { useRouterHistory, match } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import createStore from './store/createStore'
-import { Resolver } from 'react-resolver'
+import { Resolver } from '../resolver'
 
 export default (givenConfig) => {
   const config = {...defaultConfig, ...givenConfig}
@@ -48,7 +48,7 @@ export default (givenConfig) => {
       }
 
       const layout = {...defaultLayout, ...(window.___LAYOUT__ || {})}
-      Resolver.render(
+      Resolver.renderClient(
         () => <AppContainer
           {...renderProps}
           store={store}

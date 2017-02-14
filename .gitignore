@@ -6,6 +6,7 @@ build
 client
 config
 server
+resolver
 
 !src/bin
 !src/build
@@ -13,3 +14,4 @@ server
 !src/config
 !src/server
 !src/storage
+!src/resolver

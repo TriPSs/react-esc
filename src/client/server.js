@@ -11,7 +11,7 @@ import * as Assetic from './modules/Assetic'
 
 import { renderHtmlLayout } from './modules/RenderHtmlLayout'
 import PrettyError from 'pretty-error'
-import { Resolver } from 'react-resolver'
+import { Resolver } from '../resolver'
 import CookieStorage from "../storage/CookieStorage"
 
 export default async(config) => {
@@ -81,7 +81,6 @@ export default async(config) => {
             ...layoutWithLinks,
             script: [
               ...defaultLayout.script,
-              { type: 'text/javascript', innerHTML: `___INITIAL_STATE__ = ${JSON.stringify(store.getState())}` },
               { type: 'text/javascript', innerHTML: `___LAYOUT__ = ${JSON.stringify(layoutWithLinks)}` }
             ]
           }
@@ -130,7 +129,7 @@ export default async(config) => {
                 layout
               }}
             />
-          )).then(({ Resolved, data }) => {
+          )).then(({ Resolved }) => {
             content = renderToString(
               <Resolved />
             )
@@ -138,7 +137,7 @@ export default async(config) => {
             head       = Helmet.rewind()
             let body   = <div key='body' {...config.app_mount_point} dangerouslySetInnerHTML={{ __html: content }} />
             ctx.status = 200
-            ctx.body   = renderHtmlLayout(head, [body, scripts], data)
+            ctx.body   = renderHtmlLayout(head, [body, scripts], store.getState())
 
             resolve()
 
