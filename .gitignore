@@ -1,5 +1,6 @@
 node_modules
 .idea
+Storage
 bin
 build
 client
@@ -11,3 +12,4 @@ server
 !src/client
 !src/config
 !src/server
+!src/Storage

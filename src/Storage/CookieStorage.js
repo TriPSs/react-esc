@@ -15,7 +15,6 @@ export class CookieStorage {
   }
 
   constructor(cookies, isString = false) {
-    console.log('Cookie Storage constructor')
     this.isString = isString
 
     if (!isString) {
