@@ -3,8 +3,8 @@
  */
 import CookieStorage from './CookieStorage'
 
-export const COOKIE = 'cookie'
-export const LOCAL = 'local'
+export const COOKIE  = 'cookie'
+export const LOCAL   = 'local'
 export const SESSION = 'session'
 
 export const check = () => {
