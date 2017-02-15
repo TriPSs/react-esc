@@ -35,11 +35,22 @@ export const set = (storageType, name, value, options = {}) => {
 
   if (storageType === COOKIE) {
     if (global.hasOwnProperty('cookie')) {
-      return global.cookie.set(name, stringValue, options)
+       global.cookie.set(name, stringValue, options)
     }
 
   } else if (supportsStorage() && window.hasOwnProperty(`${storageType}Storage`)) {
     window[`${storageType}Storage`][name] = stringValue
+  }
+}
+
+export const has = (storageType, name, options = {}) => {
+  if (storageType === COOKIE) {
+    if (global.hasOwnProperty('cookie')) {
+      return global.cookie.has(name, options)
+    }
+
+  } else if (supportsStorage() && window.hasOwnProperty(`${storageType}Storage`)) {
+    return window[`${storageType}Storage`].hasOwnProperty(name)
   }
 }
 

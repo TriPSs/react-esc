@@ -25,11 +25,12 @@ export class CookieStorage {
   }
 
   get = (name, options) => {
-    if (!this.isString) {
+    if (!this.isString)
       return this.cookies.get(name, options)
-    } else {
+
+    else
       return this.cookies[name]
-    }
+
   }
 
   set = (name, value, options = {}) => {
@@ -57,6 +58,10 @@ export class CookieStorage {
 
       document.cookie = cookie
     }
+  }
+
+  has = (name, options) => {
+    return typeof this.get(name, options) !== 'undefined'
   }
 
   parseCookieString = (cookieString) => {
