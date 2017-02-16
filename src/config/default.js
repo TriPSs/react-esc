@@ -6,7 +6,7 @@ import ip from 'ip'
 import clientConfig from './default.client'
 
 const localip = ip.address()
-const debug   = _debug('app:config')
+const debug   = _debug('app:esc:config')
 debug('Creating configuration for ESC.')
 
 // ========================================================

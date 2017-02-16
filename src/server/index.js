@@ -12,7 +12,7 @@ import webpackHMRMiddleware from './middleware/webpack-hmr'
 import fs from 'fs-extra'
 import _debug from 'debug'
 
-const debug = _debug('app:server')
+const debug = _debug('app:esc:server')
 
 export default async(givenConfig) => {
 

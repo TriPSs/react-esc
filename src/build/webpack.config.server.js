@@ -4,7 +4,7 @@ import _debug from 'debug'
 import fs from 'fs'
 
 export default (config) => {
-  const debug = _debug('app:webpack:config')
+  const debug = _debug('app:esc:webpack:config:server')
   const paths = config.utils_paths
 
   debug('Create server configuration.')

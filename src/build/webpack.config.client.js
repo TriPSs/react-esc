@@ -5,7 +5,7 @@ import clone from 'clone'
 import _debug from 'debug'
 
 export default (config) => {
-  const debug                         = _debug('app:webpack:config')
+  const debug                         = _debug('app:esc:webpack:config:client')
   const paths                         = config.utils_paths
   const {__DEV__, __PROD__, __TEST__} = config.globals
 

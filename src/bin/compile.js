@@ -5,7 +5,7 @@ import webpackConfigClient from '../build/webpack.config.client'
 import webpackConfigServer from '../build/webpack.config.server'
 import defaultConfig from '../config'
 
-const debug = _debug('app:bin:compile')
+const debug = _debug('app:esc:bin:compile')
 
 export default class {
 

@@ -4,7 +4,7 @@ import _debug from 'debug'
 
 export default class Universal {
   static middleware = async(config) => {
-    const debug = _debug('app:server:universal')
+    const debug = _debug('app:esc:server:universal')
 
     const {use_compiled_server} = config
     const output                = config.utils_paths.dist(config.universal.output)

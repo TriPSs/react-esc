@@ -4,7 +4,7 @@ import _debug from 'debug'
 
 export default (config) => {
 
-  const debug = _debug('app:webpack:config')
+  const debug = _debug('app:esc:webpack:config')
   const paths = config.utils_paths
 
   debug('Create generic configuration.')

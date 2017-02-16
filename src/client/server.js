@@ -15,7 +15,7 @@ import { Resolver } from '../resolver'
 import CookieStorage from "../storage/CookieStorage"
 
 export default async(config) => {
-  const debug = _debug('app:server:universal:render')
+  const debug = _debug('app:esc:server:universal:render')
 
   return getClientInfo => async(ctx, next) => {
     await new Promise((resolve) => {

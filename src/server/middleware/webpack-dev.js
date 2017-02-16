@@ -2,7 +2,7 @@ import WebpackDevMiddleware from 'webpack-dev-middleware'
 import applyExpressMiddleware from '../lib/apply-express-middleware'
 import _debug from 'debug'
 
-const debug = _debug('app:server:webpack-dev')
+const debug = _debug('app:esc:server:webpack-dev')
 
 export default function (compiler, publicPath, config) {
   const paths = config.utils_paths

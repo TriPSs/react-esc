@@ -2,7 +2,7 @@ import WebpackHotMiddleware from 'webpack-hot-middleware'
 import applyExpressMiddleware from '../lib/apply-express-middleware'
 import _debug from 'debug'
 
-const debug = _debug('app:server:webpack-hmr')
+const debug = _debug('app:esc:server:webpack-hmr')
 
 export default function (compiler, opts) {
   debug('Enable Webpack Hot Module Replacement (HMR).')
