@@ -35,7 +35,8 @@ export const set = (storageType, name, value, options = {}) => {
 
   if (storageType === COOKIE) {
     if (global.hasOwnProperty('cookie')) {
-       global.cookie.set(name, stringValue, options)
+      global.cookie.set(name, stringValue, options)
+      global.cookie.refreshCookies()
     }
 
   } else if (supportsStorage() && window.hasOwnProperty(`${storageType}Storage`)) {

@@ -64,6 +64,13 @@ export class CookieStorage {
     return typeof this.get(name, options) !== 'undefined'
   }
 
+  refreshCookies = () => {
+    // Only do this when whe are a string
+    if (this.isString && typeof document != 'undefined') {
+      this.cookies = this.parseCookieString(document.cookie)
+    }
+  }
+
   parseCookieString = (cookieString) => {
     const cookies = cookieString.split(';')
 

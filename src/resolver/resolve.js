@@ -20,8 +20,8 @@ export default function resolve(prop, promise) {
           <Resolver props={this.props} resolve={asyncProps}>
             {(resolved) => <Component {...this.props} {...resolved} />}
           </Resolver>
-        );
+        )
       }
-    };
-  };
+    }
+  }
 }
