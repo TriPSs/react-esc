@@ -17,7 +17,12 @@ const clientConfig = {
   // ----------------------------------
   middlewares: {
     byFolder: false,
-    collection: []
+    collection: [],
+
+    logger: {
+      enabled: false,
+      options: {}
+    }
   },
 
   defaultLayout,

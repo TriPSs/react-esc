@@ -18,7 +18,7 @@ export class CookieStorage {
     this.isString = isString
 
     if (!isString) {
-      this.cookies  = cookies
+      this.cookies = cookies
     } else {
       this.cookies = this.parseCookieString(cookies)
     }
@@ -78,9 +78,11 @@ export class CookieStorage {
 
     cookies.forEach(cookie => {
       const getNameValue = cookie.split('=')
-      const name         = getNameValue[0].trim()
 
-      cookieObject[name] = getNameValue[1].trim()
+      if (getNameValue.length > 1) {
+        const name         = getNameValue[0].trim()
+        cookieObject[name] = getNameValue[1].trim()
+      }
     })
 
     return cookieObject
