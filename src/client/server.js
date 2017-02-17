@@ -48,22 +48,27 @@ export default async(config) => {
             }))
 
           const handleError = ({ status, message, error = null, children = null }) => {
-            if (error) {
-              let pe = new PrettyError()
-              debug(pe.render(error))
-            }
+            if (error && error.hasOwnProperty('redirect'))
+              ctx.redirect(error.redirect)
 
-            let title  = `${status} - ${message}`
-            content    = renderToStaticMarkup(
-              <div>
-                <Helmet {...{ ...defaultLayout, title }} />
-                <h3>{title}</h3>
-                {children}
-              </div>
-            )
-            head       = Helmet.rewind()
-            ctx.status = 500
-            ctx.body   = renderHtmlLayout(head, <div dangerouslySetInnerHTML={{ __html: content }} />)
+            else {
+              if (error) {
+                let pe = new PrettyError()
+                debug(pe.render(error))
+              }
+
+              let title  = `${status} - ${message}`
+              content    = renderToStaticMarkup(
+                <div>
+                  <Helmet {...{ ...defaultLayout, title }} />
+                  <h3>{title}</h3>
+                  {children}
+                </div>
+              )
+              head       = Helmet.rewind()
+              ctx.status = 500
+              ctx.body   = renderHtmlLayout(head, <div dangerouslySetInnerHTML={{ __html: content }} />)
+            }
 
             resolve()
           }
