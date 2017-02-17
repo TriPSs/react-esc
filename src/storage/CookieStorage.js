@@ -3,6 +3,7 @@
  */
 export class CookieStorage {
 
+  cache    = {}
   cookies  = null
   isString = false
 
@@ -25,6 +26,9 @@ export class CookieStorage {
   }
 
   get = (name, options) => {
+    if (this.cache.hasOwnProperty(name))
+      return this.cache[name]
+
     if (!this.isString)
       return this.cookies.get(name, options)
 
@@ -58,17 +62,12 @@ export class CookieStorage {
 
       document.cookie = cookie
     }
+
+    this.cache[name] = value
   }
 
   has = (name, options) => {
-    return typeof this.get(name, options) !== 'undefined'
-  }
-
-  refreshCookies = () => {
-    // Only do this when whe are a string
-    if (this.isString && typeof document != 'undefined') {
-      this.cookies = this.parseCookieString(document.cookie)
-    }
+    return this.cache.hasOwnProperty(name) || typeof this.get(name, options) !== 'undefined'
   }
 
   parseCookieString = (cookieString) => {
