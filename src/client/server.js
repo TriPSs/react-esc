@@ -124,7 +124,7 @@ export default async(config) => {
             .getScripts(defaultLayout, [vendor, app])
             .map((asset, i) => <script key={i} type='text/javascript' src={`${asset}`} />)
 
-          Resolver.resolve(() => (
+          Resolver.renderServer(() => (
             <AppContainer
               {...{
                 history,
@@ -134,7 +134,7 @@ export default async(config) => {
                 layout
               }}
             />
-          )).then(({ Resolved }) => {
+          )).then((Resolved) => {
             content = renderToString(
               <Resolved />
             )

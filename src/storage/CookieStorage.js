@@ -25,34 +25,34 @@ export class CookieStorage {
     }
   }
 
-  get = (name, options) => {
+  get = (name, givenOptions = {}) => {
     if (this.cache.hasOwnProperty(name))
       return this.cache[name]
 
     if (!this.isString)
-      return this.cookies.get(name, options)
+      return this.cookies.get(name, givenOptions)
 
     else
       return this.cookies[name]
 
   }
 
-  set = (name, value, options = {}) => {
+  set = (name, value, givenOptions = {}) => {
     if (!this.isString) {
-      this.cookies.set(name, value, { ...this.defaultOptions, ...options })
+      this.cookies.set(name, value, { ...this.defaultOptions, ...givenOptions })
 
     } else if (typeof (document) !== 'undefined') {
-      const options = { ...this.defaultOptions, ...options }
+      const options = { ...this.defaultOptions, ...givenOptions }
       let cookie    = `${name}=${value}`
 
       if (options.path)
-        cookie += '; path=' + this.path
+        cookie += '; path=' + options.path
 
       if (options.expires)
-        cookie += '; expires=' + this.expires.toUTCString()
+        cookie += '; expires=' + options.expires.toUTCString()
 
       if (options.domain)
-        cookie += '; domain=' + this.domain
+        cookie += '; domain=' + options.domain
 
       if (options.secure)
         cookie += '; secure'
@@ -66,8 +66,8 @@ export class CookieStorage {
     this.cache[name] = value
   }
 
-  has = (name, options) => {
-    return this.cache.hasOwnProperty(name) || typeof this.get(name, options) !== 'undefined'
+  has = (name, givenOptions = {}) => {
+    return this.cache.hasOwnProperty(name) || typeof this.get(name, givenOptions) !== 'undefined'
   }
 
   parseCookieString = (cookieString) => {

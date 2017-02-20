@@ -38,24 +38,31 @@ export default class Resolver extends React.Component {
     ), node)
   }
 
-  static resolve = function (render, initialData = {}) {
+  static renderServer = function (render, initialData = {}) {
     const queue = []
 
     renderToStaticMarkup(
-      <Resolver onResolve={((promise) => {
+      <Resolver onResolve={(promise) => {
         queue.push(promise)
 
         return Promise.resolve(true)
-      })}>
+      }}>
         {render}
       </Resolver>
     )
 
     return Promise.all(queue).then((results) => {
-      const data = { ...initialData, ...results }
+      const formatResults = {}
+      results.forEach(item => {
+        return Object.keys(item).forEach(key => {
+          formatResults[key] = item[key]
+        })
+      })
+
+      const data = { ...initialData, ...formatResults }
 
       if (Object.keys(initialData).length < Object.keys(data).length)
-        return Resolver.resolve(render, data)
+        return Resolver.renderServer(render, data)
 
       class Resolved extends React.Component {
 
@@ -70,7 +77,7 @@ export default class Resolver extends React.Component {
         }
       }
 
-      return { Resolved }
+      return Resolved
     })
   }
 
@@ -201,23 +208,21 @@ export default class Resolver extends React.Component {
 
     const promises = pending.map(({ promise }) => promise)
 
-    let resolving = Promise.all(promises).then(values => {
-      const resolved = values.reduce((resolved, value, i) => {
+    let resolving = Promise.all(promises).then((values) => {
+      return values.reduce((resolved, value, i) => {
         const { name } = pending[i]
 
         resolved[name] = value
 
         return resolved
       }, {})
-
-      return { resolved }
     })
 
     // Resolve listeners get the current resolved
     resolving = this.onResolve(resolving)
 
     // Update current component (on client)
-    resolving.then(({ resolved }) => {
+    resolving.then((resolved) => {
       this[HAS_RESOLVED] = true
 
       if (!this[IS_CLIENT]) {
