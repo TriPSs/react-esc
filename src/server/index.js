@@ -19,12 +19,6 @@ export default async(givenConfig) => {
   const config              = defaultConfig(givenConfig)
   const webpackConfigClient = generateWebpackConfigClient(config)
 
-  // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
-  // user agent is not known.
-  // -----------------------------------------------------------------------------
-  global.navigator           = global.navigator || {};
-  global.navigator.userAgent = global.navigator.userAgent || 'all';
-
   const app = new Koa()
   let clientInfo
 

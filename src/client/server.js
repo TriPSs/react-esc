@@ -37,6 +37,12 @@ export default async(config) => {
           // Add Cookie to global so we can use it in the Storage module
           global.cookie = new CookieStorage(ctx.cookies)
 
+          // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
+          // user agent is not known.
+          // -----------------------------------------------------------------------------
+          global.navigator           = global.navigator || {}
+          global.navigator.userAgent = global.navigator.userAgent || ctx.req.headers['user-agent']
+
           let head, content
           let { app, vendor } = getClientInfo().assetsByChunkName
 
