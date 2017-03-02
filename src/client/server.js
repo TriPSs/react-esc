@@ -37,6 +37,10 @@ export default async(config) => {
           // Add Cookie to global so we can use it in the Storage module
           global.cookie = new CookieStorage(ctx.cookies)
 
+          // Set global that the server is rendering
+          global.isServer = true
+          global.isClient = false
+
           // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
           // user agent is not known.
           // -----------------------------------------------------------------------------

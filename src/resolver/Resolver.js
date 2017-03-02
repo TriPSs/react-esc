@@ -103,13 +103,15 @@ export default class Resolver extends React.Component {
   }
 
   cached(resolve) {
-    const { props } = this.props
+    const { props, cache } = this.props
 
-    if (props.hasOwnProperty(resolve))
-      return props[resolve]
+    if (cache || isServer) {
+      if (props.hasOwnProperty(resolve))
+        return props[resolve]
 
-    else if (this.context.resolver)
-      return this.context.resolver.cached(resolve)
+      else if (this.context.resolver)
+        return this.context.resolver.cached(resolve)
+    }
 
     return null
   }

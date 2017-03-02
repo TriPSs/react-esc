@@ -6,11 +6,12 @@ import { useRouterHistory, match } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import createStore from './store/createStore'
 import { Resolver } from '../resolver'
+import * as Storage from '../storage'
 
 export default (givenConfig) => {
-  const config = {...defaultConfig, ...givenConfig}
+  const config = { ...defaultConfig, ...givenConfig }
 
-  const {AppContainer, defaultLayout} = config
+  const { AppContainer, defaultLayout } = config
 
   // ========================================================
   // Browser History Setup
@@ -40,14 +41,21 @@ export default (givenConfig) => {
   let render = (routerKey = null) => {
     const routes = require('routes').default(store)
 
-    match({history, routes}, (error, redirectLocation, renderProps) => {
+    match({ history, routes }, (error, redirectLocation, renderProps) => {
       // TODO:: Error handling should be improved
       if (error) {
         console.log(error)
         return
       }
 
-      const layout = {...defaultLayout, ...(window.___LAYOUT__ || {})}
+      // Set global that the client is rendering
+      global.isServer = false
+      global.isClient = true
+
+      // Checks if the Cookie storage is available, if not it will create it
+      Storage.check()
+
+      const layout = { ...defaultLayout, ...(window.___LAYOUT__ || {}) }
       Resolver.renderClient(
         () => <AppContainer
           {...renderProps}
@@ -70,7 +78,7 @@ export default (givenConfig) => {
     const renderError = (error) => {
       const RedBox = require('redbox-react').default
 
-      ReactDOM.render(<RedBox error={error}/>, MOUNT_NODE)
+      ReactDOM.render(<RedBox error={error} />, MOUNT_NODE)
     }
 
     render = () => {
