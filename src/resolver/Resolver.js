@@ -197,8 +197,7 @@ export default class Resolver extends React.Component {
     // Both those props provided by parent & dynamically resolved
     return this.props.children({
       ...this.state.resolved,
-      ...this.props.props,
-      props: this.props.props
+      ...this.props.props
     })
   }
 
