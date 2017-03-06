@@ -11,7 +11,15 @@
     "name": "Tycho Bokdam",
     "email": "t.bokdam@seronaris.nl"
   },
-  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/TriPss/react-esc/issues"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/TriPSs/react-esc.git"
+  },
+  "homepage": "https://github.com/TriPSs/react-esc",
+  "license": "MIT",
   "dependencies": {
     "babel-cli": "^6.5.1",
     "babel-core": "^6.3.17",
