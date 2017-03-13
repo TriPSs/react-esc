@@ -185,7 +185,7 @@ export default (config) => {
       'simple-universal-style',
       BASE_CSS_LOADER,
       'postcss-loader',
-      'sass?sourceMap',
+      'sass-loader?sourceMap',
     ],
   })
 

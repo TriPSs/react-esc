@@ -1,5 +1,4 @@
 import { applyMiddleware, compose, createStore } from 'redux'
-import { routerMiddleware } from 'react-router-redux'
 import thunk from 'redux-thunk'
 
 export default (initialState = {}, history, config) => {
@@ -10,8 +9,7 @@ export default (initialState = {}, history, config) => {
   // Middleware Configuration
   // ======================================================
   const middleware = [
-    thunk,
-    routerMiddleware(history)
+    thunk
   ]
 
   // Check if the logger middleware is enabled in the config

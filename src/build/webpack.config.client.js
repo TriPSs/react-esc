@@ -16,14 +16,14 @@ export default (config) => {
 
   const APP_ENTRY_PATHS = [
     paths.src(config.entry_client),
-  ];
+  ]
 
   webpackConfigClient.entry = {
     app   : __DEV__
       ? APP_ENTRY_PATHS.concat(`webpack-hot-middleware/client?path=${config.compiler_public_path}__webpack_hmr`)
       : APP_ENTRY_PATHS,
     vendor: config.compiler_vendor,
-  };
+  }
 
 // ------------------------------------
 // Bundle Output
@@ -32,20 +32,19 @@ export default (config) => {
     filename  : `[name].[${config.compiler_hash_type}].js`,
     path      : paths.public(),
     publicPath: config.compiler_public_path,
-  };
+  }
 
   if (__DEV__) {
-    debug('Enable plugins for live development (HMR, NoErrors).');
+    debug('Enable plugins for live development (HMR, NoErrors).')
 
     webpackConfigClient.plugins.push(
       new webpack.HotModuleReplacementPlugin(),
       new webpack.NoEmitOnErrorsPlugin(),
-    );
+    )
   }
-  ;
 
   if (__PROD__) {
-    debug('Enable plugins for production');
+    debug('Enable plugins for production')
 
     webpackConfigClient.plugins.push(
       new webpack.LoaderOptionsPlugin({
@@ -72,9 +71,9 @@ export default (config) => {
         },
         comments: false,
       }),
-    );
+    )
   }
-  ;
+
 
 // Don't split bundles during testing, since we only want import one bundle
   if (!__TEST__) {
@@ -82,7 +81,7 @@ export default (config) => {
       new webpack.optimize.CommonsChunkPlugin({
         names: ['vendor'],
       })
-    );
+    )
   }
 
 // ------------------------------------
@@ -92,25 +91,25 @@ export default (config) => {
 // need to use the extractTextPlugin to fix this issue:
 // http://stackoverflow.com/questions/34133808/webpack-ots-parsing-error-loading-fonts/34133809#34133809
 
-  const CSS_LOADER_REGEX = /css/;
+  const CSS_LOADER_REGEX = /css/
 
   if (!__DEV__) {
-    debug('Apply ExtractTextPlugin to CSS loaders.');
+    debug('Apply ExtractTextPlugin to CSS loaders.')
 
     webpackConfigClient.module.rules.filter(loader => {
       return loader.use && Array.isArray(loader.use) && loader.use.find(name => {
-          const cssLoader = CSS_LOADER_REGEX.test(name.split('?')[0]);
-          return cssLoader;
-        });
+          const cssLoader = CSS_LOADER_REGEX.test(name.split('?')[0])
+          return cssLoader
+        })
     }).forEach(cssLoader => {
-      const [ first, ...rest ] = cssLoader.use;
+      const [ first, ...rest ] = cssLoader.use
 
       cssLoader.loader = ExtractTextPlugin.extract({
         fallbackLoader: first,
         loader        : rest.join('!'),
-      });
+      })
 
-      Reflect.deleteProperty(cssLoader, 'use');
+      Reflect.deleteProperty(cssLoader, 'use')
     })
 
     webpackConfigClient.plugins.push(
@@ -119,7 +118,7 @@ export default (config) => {
         allChunks: true,
         disable  : false,
       }),
-    );
+    )
   }
 
   return webpackConfigClient

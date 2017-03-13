@@ -1,24 +1,19 @@
 import React from 'react'
+import { BrowserRouter } from 'react-router-dom'
 import ReactDOM from 'react-dom'
 import defaultConfig from '../config/default.client'
-import createBrowserHistory from 'history/lib/createBrowserHistory'
 import { useRouterHistory, match } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
 import createStore from './store/createStore'
 import { Resolver } from '../resolver'
 import * as Storage from '../storage'
+import { Provider } from 'react-redux'
 
 export default (givenConfig) => {
   const config = { ...defaultConfig, ...givenConfig }
 
-  const { AppContainer, defaultLayout } = config
+  const { defaultLayout } = config
 
-  // ========================================================
-  // Browser History Setup
-  // ========================================================
-  const browserHistory = useRouterHistory(createBrowserHistory)({
-    basename: __BASENAME__
-  })
+  const AppContainer = require('containers/AppContainer').default
 
   // ========================================================
   // Store and History Instantiation
@@ -28,10 +23,7 @@ export default (givenConfig) => {
   // so we need to provide a custom `selectLocationState` to inform
   // react-router-redux of its location.
   const initialState = window.___INITIAL_STATE__
-  const store        = createStore(initialState, browserHistory, config)
-  const history      = syncHistoryWithStore(browserHistory, store, {
-    selectLocationState: (state) => state.router
-  })
+  const store        = createStore(initialState, {}, config)
 
   // ========================================================
   // Render Setup
@@ -39,36 +31,28 @@ export default (givenConfig) => {
   const MOUNT_NODE = document.getElementById('root')
 
   let render = (routerKey = null) => {
-    const routes = require('routes').default(store)
+    // Set global that the client is rendering
+    global.isServer = false
+    global.isClient = true
 
-    match({ history, routes }, (error, redirectLocation, renderProps) => {
-      // TODO:: Error handling should be improved
-      if (error) {
-        console.log(error)
-        return
-      }
+    // Checks if the Cookie storage is available, if not it will create it
+    Storage.check()
 
-      // Set global that the client is rendering
-      global.isServer = false
-      global.isClient = true
+    const createRouts = require('routes').default
 
-      // Checks if the Cookie storage is available, if not it will create it
-      Storage.check()
+    const layout = { ...defaultLayout, ...(window.___LAYOUT__ || {}) }
+    const routes            = require('routes').default(store, layout)
 
-      const layout = { ...defaultLayout, ...(window.___LAYOUT__ || {}) }
-      Resolver.renderClient(
-        () => <AppContainer
-          {...renderProps}
-          store={store}
-          history={history}
-          routes={routes}
-          routerKey={routerKey}
-          layout={layout}
-        />,
-        MOUNT_NODE
-      )
-
-    })
+    Resolver.renderClient(
+      () => (
+        <Provider store={store}>
+          <BrowserRouter>
+            <AppContainer store={store} />
+          </BrowserRouter>
+        </Provider>
+      ),
+      MOUNT_NODE
+    )
   }
 
   // Enable HMR and catch runtime errors in RedBox
