@@ -6,7 +6,7 @@ import { useRouterHistory, match } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import createStore from './store/createStore'
 import { Resolver } from '../resolver'
-import * as Storage from '../storage'
+import Storage from 'react-esc-storage'
 
 export default (givenConfig) => {
   const config = { ...defaultConfig, ...givenConfig }

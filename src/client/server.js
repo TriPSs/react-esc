@@ -12,7 +12,7 @@ import * as Assetic from './modules/Assetic'
 import { renderHtmlLayout } from './modules/RenderHtmlLayout'
 import PrettyError from 'pretty-error'
 import { Resolver } from '../resolver'
-import CookieStorage from "../storage/CookieStorage"
+import CookieStorage from 'react-esc-storage/CookieStorage'
 
 export default async(config) => {
   const debug = _debug('app:esc:server:universal:render')
