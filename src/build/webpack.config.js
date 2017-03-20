@@ -189,10 +189,6 @@ export default (config) => {
     {
       test: /\.eot(\?.*)?$/,
       loader: 'file?prefix=fonts/&name=[path][name].[ext]'
-    },
-    {
-      test: /\.svg(\?.*)?$/,
-      loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=image/svg+xml'
     })
   /* eslint-enable */
 
