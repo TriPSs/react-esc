@@ -10,7 +10,7 @@ import * as Assetic from './modules/Assetic'
 import { renderHtmlLayout } from './modules/RenderHtmlLayout'
 import PrettyError from 'pretty-error'
 import { Resolver } from '../resolver'
-import CookieStorage from "../storage/CookieStorage"
+import CookieStorage from 'react-esc-storage/CookieStorage'
 import { Provider } from 'react-redux'
 
 
@@ -120,8 +120,9 @@ export default async(config) => {
 
       )).then((Resolved) => {
         if (context.url) {
-          ctx.status = 302;
-          ctx.redirect(context.url);
+          ctx.status = 302
+          ctx.redirect(context.url)
+
         } else {
           content = renderToString(
             <Resolved />
@@ -134,7 +135,7 @@ export default async(config) => {
         }
 
         resolve()
-      }).catch(err => handleError({ status: 500, message: 'Internal Server Error', error: err }))
+      }).catch(error => handleError({ status: 500, message: 'Internal Server Error', error }))
     })
   }
 }

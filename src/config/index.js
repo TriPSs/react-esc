@@ -12,6 +12,7 @@ export default (givenConfig) => {
   config.utils_paths.src    = config.utils_paths.base.bind(null, config.dir_src)
   config.utils_paths.dist   = config.utils_paths.base.bind(null, config.dir_dist)
   config.utils_paths.public = config.utils_paths.base.bind(null, config.dir_public)
+  config.utils_paths.tests  = config.utils_paths.base.bind(null, config.dir_test)
 
   if (!givenConfig.hasOwn || !givenConfig.hasOwn.server) {
     const rootBase = (...args) => Reflect.apply(path.resolve, null, [path.resolve(__dirname, '..'), ...args])

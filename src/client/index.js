@@ -1,12 +1,11 @@
 import React from 'react'
-import Helmet from 'react-helmet'
 import { BrowserRouter } from 'react-router-dom'
 import ReactDOM from 'react-dom'
 import defaultConfig from '../config/default.client'
 import { useRouterHistory, match } from 'react-router'
 import createStore from './store/createStore'
 import { Resolver } from '../resolver'
-import * as Storage from '../storage'
+import Storage from 'react-esc-storage'
 import { Provider } from 'react-redux'
 
 export default (givenConfig) => {
@@ -39,7 +38,6 @@ export default (givenConfig) => {
     Storage.check()
 
     const layout = { ...defaultLayout, ...(window.___LAYOUT__ || {}) }
-
 
     Resolver.renderClient(
       () => (

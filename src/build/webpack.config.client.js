@@ -4,12 +4,13 @@ import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import _debug from 'debug'
 
 export default (config) => {
+
   const debug                           = _debug('app:esc:webpack:config:client')
   const paths                           = config.utils_paths
   const { __DEV__, __PROD__, __TEST__ } = config.globals
 
   debug('Create client configuration.')
-  const webpackConfigClient = {...webpackConfig(config)}
+  const webpackConfigClient = { ...webpackConfig(config) }
 
   webpackConfigClient.name   = 'client'
   webpackConfigClient.target = 'web'
@@ -25,9 +26,9 @@ export default (config) => {
     vendor: config.compiler_vendor,
   }
 
-// ------------------------------------
-// Bundle Output
-// ------------------------------------
+  // ------------------------------------
+  // Bundle Output
+  // ------------------------------------
   webpackConfigClient.output = {
     filename  : `[name].[${config.compiler_hash_type}].js`,
     path      : paths.public(),
@@ -74,8 +75,23 @@ export default (config) => {
     )
   }
 
+  if (__TEST__) {
+    webpackConfigClient.plugins.push(
+      new webpack.IgnorePlugin(/react\/addons/),
+      new webpack.IgnorePlugin(/react\/lib\/ReactContext/),
+      new webpack.IgnorePlugin(/react\/lib\/ExecutionEnvironment/)
+    )
 
-// Don't split bundles during testing, since we only want import one bundle
+    webpackConfigClient.module.noParse = [
+      /node_modules\/sinon\//
+    ]
+
+    webpackConfigClient.resolve.alias = {
+      'sinon': 'sinon/pkg/sinon'
+    }
+  }
+
+  // Don't split bundles during testing, since we only want import one bundle
   if (!__TEST__) {
     webpackConfigClient.plugins.push(
       new webpack.optimize.CommonsChunkPlugin({
@@ -84,12 +100,12 @@ export default (config) => {
     )
   }
 
-// ------------------------------------
-// Finalize Configuration
-// ------------------------------------
-// when we don't know the public path (we know it only when HMR is enabled [in development]) we
-// need to use the extractTextPlugin to fix this issue:
-// http://stackoverflow.com/questions/34133808/webpack-ots-parsing-error-loading-fonts/34133809#34133809
+  // ------------------------------------
+  // Finalize Configuration
+  // ------------------------------------
+  // when we don't know the public path (we know it only when HMR is enabled [in development]) we
+  // need to use the extractTextPlugin to fix this issue:
+  // http://stackoverflow.com/questions/34133808/webpack-ots-parsing-error-loading-fonts/34133809#34133809
 
   const CSS_LOADER_REGEX = /css/
 
@@ -98,15 +114,14 @@ export default (config) => {
 
     webpackConfigClient.module.rules.filter(loader => {
       return loader.use && Array.isArray(loader.use) && loader.use.find(name => {
-          const cssLoader = CSS_LOADER_REGEX.test(name.split('?')[0])
-          return cssLoader
+          return CSS_LOADER_REGEX.test(name.split('?')[0])
         })
     }).forEach(cssLoader => {
       const [ first, ...rest ] = cssLoader.use
 
       cssLoader.loader = ExtractTextPlugin.extract({
-        fallbackLoader: first,
-        loader        : rest.join('!'),
+        fallback: first,
+        use     : rest.join('!'),
       })
 
       Reflect.deleteProperty(cssLoader, 'use')

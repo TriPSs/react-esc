@@ -1,6 +1,6 @@
 {
   "name": "react-esc",
-  "version": "2.0.0-alpha.1",
+  "version": "2.0.0-alpha.2",
   "description": "Easy to use Client and Server",
   "main": "./lib/index.js",
   "scripts": {
@@ -60,6 +60,7 @@
     "react": "^15.0.0",
     "react-addons-test-utils": "^15.0.0",
     "react-dom": "^15.0.0",
+    "react-esc-storage": "^1.0.0",
     "react-helmet": "^4.0.0",
     "react-redux": "^5.0.0",
     "react-router": "^4.0.0",
