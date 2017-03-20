@@ -39,12 +39,13 @@ export default (givenConfig) => {
 
   if (config.globals.__COVERAGE__) {
     karmaConfig.reporters.push('coverage')
-    karmaConfig.webpack.module.rules.preLoaders = [{
-      test   : /\.(js|jsx)$/,
+    karmaConfig.webpack.module.rules.push({
+      enforce: 'pre',
+      test: /\.(js|jsx)$/,
       include: new RegExp(config.dir_src),
-      loader : 'isparta-loader',
+      loader: 'isparta-loader',
       exclude: /node_modules/
-    }]
+    })
   }
 
   return karmaConfig
