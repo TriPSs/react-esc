@@ -1,4 +1,4 @@
-# React-ESC ![https://img.shields.io/npm/v/react-esc.svg](https://img.shields.io/npm/v/react-esc.svg?style=flat-square) [![](https://img.shields.io/github/issues-raw/tripss/react-esc.svg?style=flat-square)](https://github.com/tripss/react-esc/issues) [![](https://img.shields.io/david/tripss/react-esc.svg?style=flat-square)](https://david-dm.org/tripss/react-esc#info=dependencies)
+# React-ESC ![https://img.shields.io/npm/v/react-esc.svg](https://img.shields.io/npm/v/react-esc.svg?style=flat-square) [![npm downloads](https://img.shields.io/npm/dt/react-esc.svg?maxAge=2592000)]() [![](https://img.shields.io/github/issues-raw/tripss/react-esc.svg?style=flat-square)](https://github.com/tripss/react-esc/issues) [![](https://img.shields.io/david/tripss/react-esc.svg?style=flat-square)](https://david-dm.org/tripss/react-esc#info=dependencies)
 
 > Easy to use Server and Client configuration
 
@@ -28,6 +28,9 @@ import Client from 'react-esc/client'
 import Client from '../../react-esc/src/client'
 ```
 
+Or use `npm link`, example
+- Go to `react-esc` directory and execute command `npm link`
+- Go to `react-esc-example` directory and execute command `npm link react-esc`
 
 ## [License](https://github.com/tripss/react-esc/blob/master/LICENSE)
 
