@@ -1,25 +1,25 @@
 {
   "name": "react-esc",
-  "version": "2.0.0-alpha.2",
+  "version": "2.0.0-alpha.5",
   "description": "Easy to use Client and Server",
-  "main": "./lib/index.js",
-  "scripts": {
-    "build": "babel src -d ./",
-    "prepublish": "npm run build"
+  "homepage": "https://github.com/TriPSs/react-esc",
+  "bugs": {
+    "url": "https://github.com/TriPss/react-esc/issues"
   },
+  "license": "MIT",
   "author": {
     "name": "Tycho Bokdam",
     "email": "t.bokdam@seronaris.nl"
   },
-  "bugs": {
-    "url": "https://github.com/TriPss/react-esc/issues"
-  },
+  "main": "./lib/index.js",
   "repository": {
     "type": "git",
     "url": "git://github.com/TriPSs/react-esc.git"
   },
-  "homepage": "https://github.com/TriPSs/react-esc",
-  "license": "MIT",
+  "scripts": {
+    "build": "babel src -d ./",
+    "prepublish": "npm run build"
+  },
   "dependencies": {
     "babel-cli": "^6.23.0",
     "babel-core": "^6.23.1",
@@ -33,9 +33,15 @@
     "babel-preset-stage-0": "^6.22.0",
     "babel-register": "^6.23.0",
     "babel-runtime": "^6.23.0",
+    "chai": "^3.4.1",
+    "chai-as-promised": "^6.0.0",
+    "chai-enzyme": "^0.6.0",
+    "cheerio": "^0.22.0",
+    "codecov": "^2.1.0",
     "css-loader": "^0.27.1",
     "cssnano": "^3.7.3",
     "debug": "^2.2.0",
+    "enzyme": "^2.0.0",
     "extract-text-webpack-plugin": "^2.1.0",
     "file-loader": "^0.10.0",
     "fs-extra": "^2.0.0",
@@ -48,13 +54,21 @@
     "isomorphic-fetch": "^2.2.1",
     "isparta-loader": "^2.0.0",
     "json-loader": "^0.5.4",
+    "karma": "^1.0.0",
+    "karma-coverage": "^1.0.0",
+    "karma-mocha": "^1.0.1",
+    "karma-mocha-reporter": "^2.0.0",
+    "karma-phantomjs-launcher": "^1.0.0",
+    "karma-webpack-with-fast-source-maps": "^1.9.2",
     "koa": "^2.0.0-alpha.3",
     "koa-convert": "^1.2.0",
     "koa-static": "^3.0.0",
     "koa-webpack": "^0.1.10",
     "koa-webpack-middleware": "^1.0.3",
+    "mocha": "^3.0.1",
     "node-sass": "^4.5.0",
     "normalize.css": "^5.0.0",
+    "phantomjs-prebuilt": "^2.1.3",
     "postcss-loader": "^1.3.3",
     "pretty-error": "^2.0.0",
     "react": "^15.0.0",
@@ -73,6 +87,8 @@
     "redux-thunk": "^2.1.0",
     "sass-loader": "^6.0.0",
     "simple-universal-style-loader": "^0.14.3",
+    "sinon": "^1.17.3",
+    "sinon-chai": "^2.8.0",
     "url-loader": "^0.5.7",
     "webpack": "^2.2.1",
     "webpack-dev-middleware": "^1.6.1",
