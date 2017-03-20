@@ -4,6 +4,7 @@ import { renderToString, renderToStaticMarkup } from 'react-dom/server'
 import { getStyles } from 'simple-universal-style-loader'
 import Helmet from 'react-helmet'
 import _debug from 'debug'
+import { Resolver } from 'react-esc-resolver'
 import CookieStorage from 'react-esc-storage/CookieStorage'
 import { Provider } from 'react-redux'
 
@@ -11,8 +12,6 @@ import createStore from './store/createStore'
 import * as Assetic from './modules/Assetic'
 import { renderHtmlLayout } from './modules/RenderHtmlLayout'
 import handleError from './modules/HandleError'
-
-import { Resolver } from '../resolver'
 
 export default async(config) => {
   const debug = _debug('app:esc:server:universal:render')

@@ -3,7 +3,7 @@ import { BrowserRouter as Router } from 'react-router-dom'
 import ReactDOM from 'react-dom'
 import defaultConfig from '../config/default.client'
 import createStore from './store/createStore'
-import { Resolver } from '../resolver'
+import { Resolver } from 'react-esc-resolver'
 import Storage from 'react-esc-storage'
 import { Provider } from 'react-redux'
 
