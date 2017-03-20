@@ -1,6 +1,6 @@
 {
   "name": "react-esc",
-  "version": "1.4.21",
+  "version": "1.5.0",
   "description": "Easy to use Client and Server",
   "main": "./lib/index.js",
   "scripts": {
