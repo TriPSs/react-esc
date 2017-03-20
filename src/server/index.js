@@ -56,6 +56,7 @@ export default async(givenConfig) => {
         debug('Failed to read client_data!')
         return
       }
+
       clientInfo = data
     })
 

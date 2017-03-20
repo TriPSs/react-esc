@@ -1,8 +1,7 @@
 import React from 'react'
-import { BrowserRouter } from 'react-router-dom'
+import { BrowserRouter as Router } from 'react-router-dom'
 import ReactDOM from 'react-dom'
 import defaultConfig from '../config/default.client'
-import { useRouterHistory, match } from 'react-router'
 import createStore from './store/createStore'
 import { Resolver } from '../resolver'
 import Storage from 'react-esc-storage'
@@ -12,24 +11,15 @@ export default (givenConfig) => {
   const config = { ...defaultConfig, ...givenConfig }
 
   const { defaultLayout } = config
-
-  const AppContainer = require('containers/AppContainer').default
-
-  // ========================================================
-  // Store and History Instantiation
-  // ========================================================
-  // Create redux store and sync with react-router-redux. We have installed the
-  // react-router-redux reducer under the routerKey "router" in src/routes/index.js,
-  // so we need to provide a custom `selectLocationState` to inform
-  // react-router-redux of its location.
-  const store = createStore(config)
+  const AppContainer      = require('containers/AppContainer').default
+  const store             = createStore(config)
 
   // ========================================================
   // Render Setup
   // ========================================================
   const MOUNT_NODE = document.getElementById('root')
 
-  let render = (routerKey = null) => {
+  let render = () => {
     // Set global that the client is rendering
     global.isServer = false
     global.isClient = true
@@ -41,14 +31,14 @@ export default (givenConfig) => {
 
     Resolver.renderClient(
       () => (
-        <Provider store={store}>
-          <BrowserRouter>
+        <Provider {...{ store }}>
+          <Router>
             <AppContainer
               {...{
                 store,
                 layout
               }} />
-          </BrowserRouter>
+          </Router>
         </Provider>
       ),
       MOUNT_NODE
@@ -67,7 +57,7 @@ export default (givenConfig) => {
 
     render = () => {
       try {
-        renderApp(Math.random())
+        renderApp()
       } catch (error) {
         renderError(error)
       }

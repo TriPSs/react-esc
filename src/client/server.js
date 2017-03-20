@@ -3,16 +3,16 @@ import { StaticRouter } from 'react-router'
 import { renderToString, renderToStaticMarkup } from 'react-dom/server'
 import { getStyles } from 'simple-universal-style-loader'
 import Helmet from 'react-helmet'
-import createStore from './store/createStore'
 import _debug from 'debug'
-import * as Assetic from './modules/Assetic'
-
-import { renderHtmlLayout } from './modules/RenderHtmlLayout'
-import PrettyError from 'pretty-error'
-import { Resolver } from '../resolver'
 import CookieStorage from 'react-esc-storage/CookieStorage'
 import { Provider } from 'react-redux'
 
+import createStore from './store/createStore'
+import * as Assetic from './modules/Assetic'
+import { renderHtmlLayout } from './modules/RenderHtmlLayout'
+import handleError from './modules/HandleError'
+
+import { Resolver } from '../resolver'
 
 export default async(config) => {
   const debug = _debug('app:esc:server:universal:render')
@@ -47,32 +47,6 @@ export default async(config) => {
           rel : 'stylesheet',
           href: `${asset}`
         }))
-
-      const handleError = ({ status, message, error = null, children = null }) => {
-        if (error && error.hasOwnProperty('redirect')) {
-          ctx.redirect(error.redirect)
-
-        } else {
-          if (error) {
-            let pe = new PrettyError()
-            debug(pe.render(error))
-          }
-
-          let title  = `${status} - ${message}`
-          content    = renderToStaticMarkup(
-            <div>
-              <Helmet {...{ ...defaultLayout, title }} />
-              <h3>{title}</h3>
-              {children}
-            </div>
-          )
-          head       = Helmet.rewind()
-          ctx.status = 500
-          ctx.body   = renderHtmlLayout(head, <div dangerouslySetInnerHTML={{ __html: content }} />)
-        }
-
-        resolve()
-      }
 
       // This will be transferred to the client side in __LAYOUT__ variable
       // when universal is enabled we need to make sure the client to know about the chunk styles
@@ -135,7 +109,13 @@ export default async(config) => {
         }
 
         resolve()
-      }).catch(error => handleError({ status: 500, message: 'Internal Server Error', error }))
+      }).catch(error => handleError(
+        error,
+        resolve,
+        ctx,
+        defaultLayout
+        )
+      )
     })
   }
 }
