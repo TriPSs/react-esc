@@ -1,7 +1,3 @@
-import defaultLayout from './layout'
-import reducers from '../client/store/reducers'
-import AppContainer from '../client/containers/AppContainer'
-
 // ========================================================
 // Default Configuration For Client
 // ========================================================
@@ -16,7 +12,7 @@ const clientConfig = {
   // Middleware Configuration
   // ----------------------------------
   middlewares: {
-    byFolder: false,
+    byFolder  : false,
     collection: [],
 
     logger: {
@@ -25,9 +21,8 @@ const clientConfig = {
     }
   },
 
-  defaultLayout,
-  reducers,
-  AppContainer
+  defaultLayout: 'config/layout',
+  reducers     : 'store/reducers'
 }
 
 export default clientConfig

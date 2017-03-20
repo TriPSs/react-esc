@@ -6,8 +6,8 @@ export default class Universal {
   static middleware = async(config) => {
     const debug = _debug('app:esc:server:universal')
 
-    const {use_compiled_server} = config
-    const output                = config.utils_paths.dist(config.universal.output)
+    const { use_compiled_server } = config
+    const output                  = config.utils_paths.dist(config.universal.output)
 
     if (!use_compiled_server) {
       try {

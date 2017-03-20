@@ -1,4 +1,5 @@
 import React from 'react'
+import Helmet from 'react-helmet'
 import { BrowserRouter } from 'react-router-dom'
 import ReactDOM from 'react-dom'
 import defaultConfig from '../config/default.client'
@@ -22,8 +23,7 @@ export default (givenConfig) => {
   // react-router-redux reducer under the routerKey "router" in src/routes/index.js,
   // so we need to provide a custom `selectLocationState` to inform
   // react-router-redux of its location.
-  const initialState = window.___INITIAL_STATE__
-  const store        = createStore(initialState, {}, config)
+  const store = createStore(config)
 
   // ========================================================
   // Render Setup
@@ -38,16 +38,18 @@ export default (givenConfig) => {
     // Checks if the Cookie storage is available, if not it will create it
     Storage.check()
 
-    const createRouts = require('routes').default
-
     const layout = { ...defaultLayout, ...(window.___LAYOUT__ || {}) }
-    const routes            = require('routes').default(store, layout)
+
 
     Resolver.renderClient(
       () => (
         <Provider store={store}>
           <BrowserRouter>
-            <AppContainer store={store} />
+            <AppContainer
+              {...{
+                store,
+                layout
+              }} />
           </BrowserRouter>
         </Provider>
       ),
