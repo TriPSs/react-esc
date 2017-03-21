@@ -41,7 +41,7 @@ const config = {
   // ----------------------------------
   app_mount_point: {
     id   : 'root',
-    style: {height: '100%'}
+    style: { height: '100%' }
   },
 
   // ----------------------------------
@@ -55,7 +55,7 @@ const config = {
     client_info: 'client_info.json',
   },
 
-  use_compiled_server      : false,
+  use_compiled_server: false,
 
   // ----------------------------------
   // Compiler Configuration
@@ -86,8 +86,8 @@ const config = {
   // Test Configuration
   // ----------------------------------
   coverage_reporters: [
-    {type: 'text-summary'},
-    {type: 'lcov', dir: 'coverage'}
+    { type: 'text-summary' },
+    { type: 'lcov', dir: 'coverage' }
   ],
 
   // ----------------------------------

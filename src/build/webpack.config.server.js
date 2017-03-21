@@ -1,5 +1,4 @@
 import webpackConfig from './webpack.config'
-import clone from 'clone'
 import _debug from 'debug'
 import fs from 'fs'
 
@@ -8,7 +7,7 @@ export default (config) => {
   const paths = config.utils_paths
 
   debug('Create server configuration.')
-  const webpackConfigServer = clone(webpackConfig(config))
+  const webpackConfigServer = {...webpackConfig(config)}
 
   webpackConfigServer.name      = 'server'
   webpackConfigServer.target    = 'node'

@@ -1,17 +1,15 @@
 import { applyMiddleware, compose, createStore } from 'redux'
-import { routerMiddleware } from 'react-router-redux'
 import thunk from 'redux-thunk'
 
-export default (initialState = {}, history, config) => {
+export default (config) => {
 
-  const { reducers, middlewares, custom_enhancers } = config
+  const { middlewares, custom_enhancers } = config
 
   // ======================================================
   // Middleware Configuration
   // ======================================================
   const middleware = [
-    thunk,
-    routerMiddleware(history)
+    thunk
   ]
 
   // Check if the logger middleware is enabled in the config
@@ -63,9 +61,10 @@ export default (initialState = {}, history, config) => {
   // ======================================================
   // Store Instantiation and HMR Setup
   // ======================================================
-  const store = createStore(
+  const reducers = require('store/reducers').default
+  const store    = createStore(
     reducers(),
-    initialState,
+    (typeof window !== 'undefined' ? window.___INITIAL_STATE__ : {}),
     compose(
       applyMiddleware(...middleware),
       ...enhancers
@@ -73,7 +72,6 @@ export default (initialState = {}, history, config) => {
   )
 
   store.asyncReducers = {}
-
   if (module.hot) {
     module.hot.accept('store/reducers', () => {
       const reducers = require('store/reducers').default
