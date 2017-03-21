@@ -19,10 +19,8 @@ const clientConfig = {
       enabled: false,
       options: {}
     }
-  },
+  }
 
-  defaultLayout: 'config/layout',
-  reducers     : 'store/reducers'
 }
 
 export default clientConfig
