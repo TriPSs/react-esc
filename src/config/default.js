@@ -74,11 +74,9 @@ const config = {
   },
   compiler_vendor         : [
     'babel-polyfill',
-    'history',
     'react',
     'react-redux',
     'react-router',
-    'react-router-redux',
     'redux'
   ],
 
