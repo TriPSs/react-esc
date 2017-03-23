@@ -89,6 +89,11 @@ const config = {
   ],
 
   // ----------------------------------
+  // Server Middleware Configuration
+  // ----------------------------------
+  server_middlewares: [],
+
+  // ----------------------------------
   // Merge Client Configuration
   // ----------------------------------
   ...clientConfig,

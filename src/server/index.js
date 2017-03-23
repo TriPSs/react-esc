@@ -22,11 +22,16 @@ export default async(givenConfig) => {
   const app = new Koa()
   let clientInfo
 
+  // Add the custom middlewares
+  if (config.server_middlewares.length > 0) {
+    config.server_middlewares.forEach(middleware => app.use(middleware()))
+  }
+
   if (config.env === 'development') {
     const compiler = webpack(webpackConfigClient)
 
     // Enable webpack-dev and webpack-hot middleware
-    const {publicPath} = webpackConfigClient.output
+    const { publicPath } = webpackConfigClient.output
 
     // Catch the hash of the build in order to use it in the universal middleware
     compiler.plugin('done', stats => {
