@@ -24,7 +24,7 @@ export default async(givenConfig) => {
 
   // Add the custom middlewares
   if (config.server_middlewares.length > 0) {
-    config.server_middlewares.forEach(middleware => app.use(middleware()))
+    config.server_middlewares.forEach(middleware => app.use(middleware))
   }
 
   if (config.env === 'development') {
