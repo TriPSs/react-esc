@@ -3,9 +3,12 @@ import path from 'path'
 import _debug from 'debug'
 import { argv } from 'yargs'
 import ip from 'ip'
+import clientConfig from './default.client'
 
 const localip = ip.address()
 const debug   = _debug('app:esc:config')
+const NODE_ENV = process.env.NODE_ENV || 'development'
+
 debug('Creating configuration for ESC.')
 
 // ========================================================
@@ -17,7 +20,7 @@ const config = {
     nginx : false
   },
 
-  env: process.env.NODE_ENV || 'development',
+  env: NODE_ENV,
 
   // ----------------------------------
   // Project Structure
@@ -93,27 +96,30 @@ const config = {
   server_middlewares: [],
 
   // ----------------------------------
-  // Store Configuration
+  // Merge Client Configuration
   // ----------------------------------
-  custom_enhancers: [],
-
-  // ----------------------------------
-  // Middleware Configuration
-  // ----------------------------------
-  middlewares: {
-    byFolder  : false,
-    collection: [],
-
-    logger: {
-      enabled: false,
-      options: {}
-    }
-  },
+  ...clientConfig,
 
   // ----------------------------------
   // Option for the user to add custom GLOBALS
   // ----------------------------------
   custom_globals: {}
+}
+
+// ========================================================
+// Environment Configuration
+// ========================================================
+debug(`Looking for environment overrides for NODE_ENV "${NODE_ENV}".`)
+
+const environments = require('./environments').default
+const overrides    = environments[NODE_ENV]
+
+if (overrides) {
+  debug('Found overrides, applying to default configuration.')
+  Object.assign(config, overrides(config))
+
+} else {
+  debug('No environment overrides found, defaults will be used.')
 }
 
 // ------------------------------------

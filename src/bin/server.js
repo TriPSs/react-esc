@@ -7,7 +7,7 @@ import _debug from 'debug'
   const port  = config.server_port
   const host  = config.server_host
 
-  let app = await Server(config())
+  let app = await Server(config)
 
   app.listen(port)
 

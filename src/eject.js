@@ -102,7 +102,7 @@ prompt(
   });
 
   files.forEach(file => {
-    if (file.indexOf('.eject'))
+    if (file.indexOf('.eject') > -1)
       return
 
     let content = fs.readFileSync(file, 'utf8');
@@ -132,11 +132,8 @@ prompt(
     console.log(`  Adding ${cyan(file.replace(ownPath, ''))} to the project`);
 
     let fileLoc = file.replace(ownPath, appPath)
-    if (fileLoc.indexOf('/client') > -1) {
-      console.log(cyan('contains `/client`'));
+    if (fileLoc.indexOf('/client/') > -1) {
       fileLoc = fileLoc.replace('/client', '/src')
-
-      console.log(fileLoc);
     }
 
 
