@@ -1,3 +1,4 @@
+// @remove-file-on-eject
 /**
  * Created by tycho on 19/12/2016.
  */

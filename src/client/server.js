@@ -13,10 +13,10 @@ import * as Assetic from './modules/Assetic'
 import { renderHtmlLayout } from './modules/RenderHtmlLayout'
 import handleError from './modules/HandleError'
 
-export default async(config) => {
+export default async (config) => {
   const debug = _debug('app:esc:server:universal:render')
 
-  return getClientInfo => async(ctx, next) => {
+  return getClientInfo => async (ctx, next) => {
     await new Promise((resolve) => {
       debug('Handle route', ctx.req.url)
 

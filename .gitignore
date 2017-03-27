@@ -7,6 +7,7 @@ client
 config
 server
 resolver
+eject.js
 
 !src/bin
 !src/build
@@ -15,3 +16,4 @@ resolver
 !src/server
 !src/storage
 !src/resolver
+!src/eject.js
