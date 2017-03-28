@@ -1,6 +1,6 @@
 {
   "name": "react-esc",
-  "version": "2.1.2",
+  "version": "2.2.0",
   "description": "Easy to use Client and Server",
   "homepage": "https://github.com/TriPSs/react-esc",
   "bugs": {
@@ -73,6 +73,7 @@
     "pretty-error": "^2.0.0",
     "react": "^15.0.0",
     "react-addons-test-utils": "^15.0.0",
+    "react-dev-utils": "^0.5.2",
     "react-dom": "^15.0.0",
     "react-esc-resolver": "^1.0.0",
     "react-esc-storage": "^1.0.0",
