@@ -15,6 +15,20 @@ const spawnSync = require('cross-spawn').sync;
 
 const green = chalk.green;
 const cyan  = chalk.cyan;
+const red   = chalk.red;
+
+console.log(red('The following files will be overwritten'));
+console.log(red('  bin/server.js'));
+console.log(red('  bin/test.js'));
+console.log(red('  bin/compile.js'));
+console.log(red('  src/client.js'));
+console.log(red('  src/server.js'));
+console.log(red('  config/index.js'));
+console.log()
+console.log('Other files will throw a error!');
+console.log()
+console.log(cyan(`It's recommended to run this on a clean project!`));
+console.log();
 
 prompt(
   'Are you sure you want to eject? This action is permanent.',

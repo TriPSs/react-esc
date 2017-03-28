@@ -1,12 +1,9 @@
-// @remove-file-on-eject
 import { argv } from 'yargs'
 import createWebpackConfig from './webpack.config.client'
-import createConfig from '../config'
 import _debug from 'debug'
 
-export default (givenConfig) => {
+export default (config) => {
   const debug         = _debug('app:esc:karma')
-  const config        = createConfig(givenConfig)
   const webpackConfig = createWebpackConfig(config)
 
   debug('Create configuration.')
