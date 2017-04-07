@@ -1,4 +1,6 @@
-# React-ESC ![https://img.shields.io/npm/v/react-esc.svg](https://img.shields.io/npm/v/react-esc.svg?style=flat-square) [![npm downloads](https://img.shields.io/npm/dt/react-esc.svg?maxAge=2592000&style=flat-square)](https://npm-stat.com/charts.html?package=react-esc) [![](https://img.shields.io/github/issues-raw/tripss/react-esc.svg?style=flat-square)](https://github.com/tripss/react-esc/issues) [![](https://img.shields.io/david/tripss/react-esc.svg?style=flat-square)](https://david-dm.org/tripss/react-esc#info=dependencies)
+# React-ESC 
+![https://img.shields.io/npm/v/react-esc.svg](https://img.shields.io/npm/v/react-esc.svg?style=flat-square) [![npm downloads](https://img.shields.io/npm/dt/react-esc.svg?maxAge=2592000&style=flat-square)](https://npm-stat.com/charts.html?package=react-esc) [![](https://img.shields.io/github/issues-raw/tripss/react-esc.svg?style=flat-square)](https://github.com/tripss/react-esc/issues) [![](https://img.shields.io/david/tripss/react-esc.svg?style=flat-square)](https://david-dm.org/tripss/react-esc#info=dependencies)
+[![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/tripss/react-esc.svg)](http://isitmaintained.com/project/tripss/react-esc "Average time to resolve an issue") [![Percentage of issues still open](http://isitmaintained.com/badge/open/tripss/react-esc.svg)](http://isitmaintained.com/project/tripss/react-esc "Percentage of issues still open")
 
 > Easy to use Server and Client configuration
 
