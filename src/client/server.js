@@ -1,6 +1,6 @@
 import React from 'react'
 import { StaticRouter } from 'react-router'
-import { renderToString, renderToStaticMarkup } from 'react-dom/server'
+import { renderToString } from 'react-dom/server'
 import { getStyles } from 'simple-universal-style-loader'
 import Helmet from 'react-helmet'
 import _debug from 'debug'
@@ -113,8 +113,7 @@ export default async (config) => {
         resolve,
         ctx,
         defaultLayout
-        )
-      )
+      ))
     })
   }
 }
