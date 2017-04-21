@@ -1,24 +1,35 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import defaultConfig from '../config/default.client'
-import createBrowserHistory from 'history/lib/createBrowserHistory'
-import { useRouterHistory, match } from 'react-router'
+import createBrowserHistory from 'react-router/lib/browserHistory'
+import { browserHistory, match } from 'react-router'
 import { syncHistoryWithStore } from 'react-router-redux'
 import createStore from './store/createStore'
-import { Resolver } from '../resolver'
+import { Resolver } from 'react-esc-resolver'
 import Storage from 'react-esc-storage'
 
 export default (givenConfig) => {
   const config = { ...defaultConfig, ...givenConfig }
 
-  const { AppContainer, defaultLayout } = config
+  const { defaultLayout } = config
+
+  let { AppContainer, loadFile, fallback }    = config
+
+  if (!AppContainer) {
+    if (loadFile.AppContainer) {
+      AppContainer = require('containers/AppContainer').default
+
+    } else {
+      AppContainer = fallback.AppContainer
+    }
+  }
 
   // ========================================================
   // Browser History Setup
   // ========================================================
-  const browserHistory = useRouterHistory(createBrowserHistory)({
+  /*const browserHistory = useRouterHistory(createBrowserHistory)({
     basename: __BASENAME__
-  })
+  })*/
 
   // ========================================================
   // Store and History Instantiation
@@ -29,9 +40,9 @@ export default (givenConfig) => {
   // react-router-redux of its location.
   const initialState = window.___INITIAL_STATE__
   const store        = createStore(initialState, browserHistory, config)
-  const history      = syncHistoryWithStore(browserHistory, store, {
+  /*const history      = syncHistoryWithStore(browserHistory, store, {
     selectLocationState: (state) => state.router
-  })
+  })*/
 
   // ========================================================
   // Render Setup
@@ -41,7 +52,7 @@ export default (givenConfig) => {
   let render = (routerKey = null) => {
     const routes = require('routes').default(store)
 
-    match({ history, routes }, (error, redirectLocation, renderProps) => {
+    match({ history: browserHistory, routes }, (error, redirectLocation, renderProps) => {
       // TODO:: Error handling should be improved
       if (error) {
         console.log(error)
@@ -60,7 +71,7 @@ export default (givenConfig) => {
         () => <AppContainer
           {...renderProps}
           store={store}
-          history={history}
+          history={browserHistory}
           routes={routes}
           routerKey={routerKey}
           layout={layout}

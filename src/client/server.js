@@ -2,7 +2,7 @@ import React from 'react'
 import { match } from 'react-router'
 import { renderToString, renderToStaticMarkup } from 'react-dom/server'
 import { syncHistoryWithStore } from 'react-router-redux'
-import createMemoryHistory from 'react-router/lib/createMemoryHistory'
+import { createMemoryHistory } from 'react-router'
 import { getStyles } from 'simple-universal-style-loader'
 import Helmet from 'react-helmet'
 import createStore from './store/createStore'
@@ -11,27 +11,38 @@ import * as Assetic from './modules/Assetic'
 
 import { renderHtmlLayout } from './modules/RenderHtmlLayout'
 import PrettyError from 'pretty-error'
-import { Resolver } from '../resolver'
+import { Resolver } from 'react-esc-resolver'
 import CookieStorage from 'react-esc-storage/CookieStorage'
 
-export default async(config) => {
+export default async (config) => {
   const debug = _debug('app:esc:server:universal:render')
 
-  return getClientInfo => async(ctx, next) => {
+  return getClientInfo => async (ctx, next) => {
     await new Promise((resolve) => {
 
       try {
-        const { AppContainer, defaultLayout } = config
-        const initialState                    = {}
-        const memoryHistory                   = createMemoryHistory(ctx.req.url)
-        const store                           = createStore(initialState, memoryHistory, config)
-        const routes                          = require('routes').default(store)
+        const { defaultLayout } = config
+        const initialState      = {}
+        const history           = createMemoryHistory(ctx.req.url)
+        const store             = createStore(initialState, history, config)
+        const routes            = require('routes').default(store)
 
-        const history = syncHistoryWithStore(memoryHistory, store, {
-          selectLocationState: (state) => state.router
-        })
+        let { AppContainer, loadFile, fallback } = config
 
-        match({ history, routes, location: ctx.req.url }, async(err, redirect, props) => {
+        if (!AppContainer) {
+          if (loadFile.AppContainer) {
+            AppContainer = require('containers/AppContainer').default
+
+          } else {
+            AppContainer = fallback.AppContainer
+          }
+        }
+
+        /*  const history = syncHistoryWithStore(memoryHistory, store, {
+         selectLocationState: (state) => state.router
+         })*/
+
+        match({ history, routes, location: ctx.req.url }, async (err, redirect, props) => {
           debug('Handle route', ctx.req.url)
 
           // Add Cookie to global so we can use it in the Storage module

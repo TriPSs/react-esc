@@ -16,7 +16,7 @@ const clientConfig = {
   // Middleware Configuration
   // ----------------------------------
   middlewares: {
-    byFolder: false,
+    byFolder  : false,
     collection: [],
 
     logger: {
@@ -26,8 +26,18 @@ const clientConfig = {
   },
 
   defaultLayout,
-  reducers,
-  AppContainer
+  reducers    : false,
+  AppContainer: false,
+
+  loadFile: {
+    reducers    : false,
+    AppContainer: false
+  },
+
+  fallBack: {
+    reducers,
+    AppContainer
+  }
 }
 
 export default clientConfig

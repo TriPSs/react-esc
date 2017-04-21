@@ -4,7 +4,17 @@ import thunk from 'redux-thunk'
 
 export default (initialState = {}, history, config) => {
 
-  const { reducers, middlewares, custom_enhancers } = config
+  const { middlewares, custom_enhancers } = config
+  let { reducers, loadFile, fallback }    = config
+
+  if (!reducers) {
+    if (loadFile.reducers) {
+      reducers = require('store/reducers').default
+
+    } else {
+      reducers = fallback.reducers
+    }
+  }
 
   // ======================================================
   // Middleware Configuration
