@@ -1,9 +1,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import defaultConfig from '../config/default.client'
-import createBrowserHistory from 'react-router/lib/browserHistory'
 import { browserHistory, match } from 'react-router'
-import { syncHistoryWithStore } from 'react-router-redux'
 import createStore from './store/createStore'
 import { Resolver } from 'react-esc-resolver'
 import Storage from 'react-esc-storage'
@@ -25,13 +23,6 @@ export default (givenConfig) => {
   }
 
   // ========================================================
-  // Browser History Setup
-  // ========================================================
-  /*const browserHistory = useRouterHistory(createBrowserHistory)({
-    basename: __BASENAME__
-  })*/
-
-  // ========================================================
   // Store and History Instantiation
   // ========================================================
   // Create redux store and sync with react-router-redux. We have installed the
@@ -40,9 +31,6 @@ export default (givenConfig) => {
   // react-router-redux of its location.
   const initialState = window.___INITIAL_STATE__
   const store        = createStore(initialState, browserHistory, config)
-  /*const history      = syncHistoryWithStore(browserHistory, store, {
-    selectLocationState: (state) => state.router
-  })*/
 
   // ========================================================
   // Render Setup

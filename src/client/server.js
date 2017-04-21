@@ -1,7 +1,6 @@
 import React from 'react'
 import { match } from 'react-router'
 import { renderToString, renderToStaticMarkup } from 'react-dom/server'
-import { syncHistoryWithStore } from 'react-router-redux'
 import { createMemoryHistory } from 'react-router'
 import { getStyles } from 'simple-universal-style-loader'
 import Helmet from 'react-helmet'
@@ -37,10 +36,6 @@ export default async (config) => {
             AppContainer = fallback.AppContainer
           }
         }
-
-        /*  const history = syncHistoryWithStore(memoryHistory, store, {
-         selectLocationState: (state) => state.router
-         })*/
 
         match({ history, routes, location: ctx.req.url }, async (err, redirect, props) => {
           debug('Handle route', ctx.req.url)
