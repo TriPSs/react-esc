@@ -2,11 +2,61 @@ import webpack from 'webpack'
 import cssnano from 'cssnano'
 import _debug from 'debug'
 
+export const sassLoaderConfig = (include) => ({
+  loader : 'sass-loader',
+  options: {
+    sourceMap   : true,
+    outputStyle : 'expanded',
+    includePaths: include
+  }
+})
+
+export const cssLoaderConfig = {
+  loader : 'css-loader',
+  options: {
+    sourceMap     : true,
+    minimize      : true,
+    modules       : true,
+    importLoaders : true,
+    localIdentName: '[name]__[local]___[hash:base64:5]'
+  }
+}
+
+export const postCssLoaderConfig = {
+  loader : 'postcss-loader',
+  options: {
+    plugins: () => {
+      return [
+        cssnano({
+          autoprefixer: {
+            browsers: [
+              'safari 9',
+              'ie 10-11',
+              'last 2 Chrome versions',
+              'last 2 Firefox versions',
+              'edge 13',
+              'ios_saf 9.0-9.2',
+              'ie_mob 11',
+              'Android >= 4'
+            ],
+            cascade : false,
+            add     : true,
+            remove  : true
+          },
+          safe        : true
+        })
+      ]
+    }
+  }
+}
+
+
 export default (config) => {
   const debug = _debug('app:esc:webpack:config')
   const paths = config.utils_paths
 
   debug('Create generic configuration.')
+
   const webpackConfig = {
     devtool: config.compiler_devtool,
     resolve: {
@@ -21,183 +71,101 @@ export default (config) => {
       ],
     },
     module : {
-      rules: [],
-    },
-  }
-
-  webpackConfig.plugins = [
-    new webpack.DefinePlugin({ ...config.globals, ...config.custom_globals }),
-    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
-    new webpack.LoaderOptionsPlugin({
-      options: {
-        context   : __dirname,
-        postcss   : [
-          cssnano({
-            autoprefixer   : {
-              add     : true,
-              remove  : true,
-              browsers: ['last 2 versions'],
+      rules: [{
+        test   : /\.(js|jsx)$/,
+        exclude: /node_modules/,
+        loader : 'babel-loader',
+        options: {
+          cacheDirectory: true,
+          env           : {
+            development: {
+              plugins: [
+                'transform-runtime',
+                'transform-decorators-legacy',
+                'add-react-displayname',
+              ],
+              presets: [
+                [
+                  'es2015',
+                  {
+                    modules: false,
+                  },
+                ],
+                'react',
+                'stage-0',
+              ],
             },
-            discardComments: {
-              removeAll: true,
+            production : {
+              plugins: [
+                'transform-runtime',
+                'transform-decorators-legacy',
+                'add-react-displayname',
+              ],
+              presets: [
+                [
+                  'es2015',
+                  {
+                    modules: false,
+                  },
+                ],
+                'react',
+                'stage-0',
+                'react-optimize',
+              ],
             },
-            discardUnused  : false,
-            mergeIdents    : false,
-            reduceIdents   : false,
-            safe           : true,
-            sourcemap      : true,
-          }),
-        ],
-        sassLoader: {
-          includePaths: paths.src('styles'),
-        },
-      }
-    }),
-  ]
-
-  webpackConfig.module.rules = [{
-    test   : /\.(js|jsx)$/,
-    exclude: /node_modules/,
-    loader : 'babel-loader',
-    options: {
-      cacheDirectory: true,
-      env           : {
-        development: {
-          plugins: [
-            'transform-runtime',
-            'transform-decorators-legacy',
-            'add-react-displayname',
-          ],
-          presets: [
-            [
-              'es2015',
-              {
-                modules: false,
-              },
-            ],
-            'react',
-            'stage-0',
-          ],
-        },
-        production : {
-          plugins: [
-            'transform-runtime',
-            'transform-decorators-legacy',
-            'add-react-displayname',
-          ],
-          presets: [
-            [
-              'es2015',
-              {
-                modules: false,
-              },
-            ],
-            'react',
-            'stage-0',
-            'react-optimize',
-          ],
-        },
-      },
-    },
-  }, {
-    test   : /\.(gif|png|jpe?g|svg)$/i,
-    loaders: [
-      'file-loader?hash=sha512&digest=hex&name=img/img-[name]-[hash:6].[ext]',
-      {
-        loader : 'image-webpack-loader',
-        query  : {
-          progressive  : true,
-          pngquant     : {
-            optimizationLevel: 7,
-            quality          : '65-90',
-            speed            : 4
           },
-          bypassOnDebug: true,
-          optipng      : {
-            optimizationLevel: 7
-          },
-          gifsicle     : {
-            interlaced: false
+        },
+      }, {
+        test   : /\.(gif|png|jpe?g|svg)$/i,
+        loaders: [
+          'file-loader?hash=sha512&digest=hex&name=img/img-[name]-[hash:6].[ext]',
+          {
+            loader: 'image-webpack-loader',
+            query : {
+              progressive  : true,
+              pngquant     : {
+                optimizationLevel: 7,
+                quality          : '65-90',
+                speed            : 4
+              },
+              bypassOnDebug: true,
+              optipng      : {
+                optimizationLevel: 7
+              },
+              gifsicle     : {
+                interlaced: false
+              }
+            }
           }
+        ]
+      }],
+    },
+    plugins: [
+      new webpack.DefinePlugin({ ...config.globals, ...config.custom_globals }),
+      new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
+      new webpack.LoaderOptionsPlugin({
+        options: {
+          context: __dirname,
+          postcss: [
+            cssnano({
+              autoprefixer   : {
+                add     : true,
+                remove  : true,
+                browsers: ['last 2 versions'],
+              },
+              discardComments: {
+                removeAll: true,
+              },
+              discardUnused  : false,
+              mergeIdents    : false,
+              reduceIdents   : false,
+              safe           : true,
+              sourcemap      : true,
+            }),
+          ],
         }
-      }
-    ]
-  }]
-
-  // We use cssnano with the postcss loader, so we tell
-  // css-loader not to duplicate minimization.
-  const BASE_CSS_LOADER = 'css-loader?sourceMap&-minimize'
-
-  // Add any packge names here whose styles need to be treated as CSS modules.
-  // These paths will be combined into a single regex.
-  const PATHS_TO_TREAT_AS_CSS_MODULES = [
-    // 'react-toolbox', (example)
-  ]
-
-  // If config has CSS modules enabled, treat this project's styles as CSS modules.
-  if (config.compiler_css_modules) {
-    PATHS_TO_TREAT_AS_CSS_MODULES.push(
-      paths.src().replace(/[\^\$\.\*\+\-\?\=\!\:\|\\\/\(\)\[\]\{\}\,]/g, '\\$&') // eslint-disable-line
-    )
+      })]
   }
-
-  const isUsingCSSModules = !!PATHS_TO_TREAT_AS_CSS_MODULES.length
-  const cssModulesRegex   = new RegExp(`(${PATHS_TO_TREAT_AS_CSS_MODULES.join('|')})`)
-
-  // Loaders for styles that need to be treated as CSS modules.
-  if (isUsingCSSModules) {
-    const cssModulesLoader = [
-      BASE_CSS_LOADER,
-      'modules',
-      'importLoaders=1',
-      'localIdentName=[name]__[local]___[hash:base64:5]',
-    ].join('&')
-
-    webpackConfig.module.rules.push({
-      test   : /\.scss$/,
-      include: cssModulesRegex,
-      use    : [
-        'simple-universal-style-loader',
-        cssModulesLoader,
-        'postcss-loader',
-        'sass-loader?sourceMap',
-      ],
-    })
-
-    webpackConfig.module.rules.push({
-      test   : /\.css$/,
-      include: cssModulesRegex,
-      use    : [
-        'simple-universal-style-loader',
-        cssModulesLoader,
-        'postcss-loader',
-      ],
-    })
-  }
-
-  // Loaders for files that should not be treated as CSS modules.
-  const excludeCSSModules = isUsingCSSModules ? cssModulesRegex : false
-
-  webpackConfig.module.rules.push({
-    test   : /\.scss$/,
-    exclude: excludeCSSModules,
-    use    : [
-      'simple-universal-style',
-      BASE_CSS_LOADER,
-      'postcss-loader',
-      'sass-loader?sourceMap',
-    ],
-  })
-
-  webpackConfig.module.rules.push({
-    test   : /\.css$/,
-    exclude: excludeCSSModules,
-    use    : [
-      'simple-universal-style',
-      BASE_CSS_LOADER,
-      'postcss-loader',
-    ],
-  })
 
   /* eslint-disable */
   webpackConfig.module.rules.push(
