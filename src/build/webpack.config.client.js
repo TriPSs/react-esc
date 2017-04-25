@@ -17,7 +17,7 @@ export default (config) => {
 
       entry: {
         app   : __DEV__
-          ? `webpack-hot-middleware/client?path=${config.compiler_public_path}__webpack_hmr`
+          ? [`webpack-hot-middleware/client?path=${config.compiler_public_path}__webpack_hmr`, paths.src(config.entry_client)]
           : paths.src(config.entry_client),
         vendor: config.compiler_vendor
       },
@@ -63,7 +63,6 @@ export default (config) => {
     }
   )
 
-  console.log(webpackConfigClient)
   if (__DEV__) {
     debug('Enable plugins for live development (HMR, NoErrors).')
 
