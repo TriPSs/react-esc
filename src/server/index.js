@@ -27,7 +27,7 @@ export default async(givenConfig) => {
     config.server_middlewares.forEach(middleware => app.use(middleware))
   }
 
-  if (config.env === 'development') {
+  if (config.env === 'development' && !config.use_compiled_server) {
     const compiler = webpack(webpackConfigClient)
 
     // Enable webpack-dev and webpack-hot middleware
