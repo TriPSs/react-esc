@@ -1,6 +1,6 @@
 {
   "name": "react-esc",
-  "version": "2.4.2",
+  "version": "2.4.5",
   "description": "Easy to use Client and Server",
   "homepage": "https://github.com/TriPSs/react-esc",
   "bugs": {
@@ -58,7 +58,7 @@
     "karma-mocha-reporter": "^2.0.0",
     "karma-phantomjs-launcher": "^1.0.0",
     "karma-webpack-with-fast-source-maps": "^1.9.2",
-    "koa": "^2.0.0-alpha.3",
+    "koa": "^2.0.0",
     "koa-convert": "^1.2.0",
     "koa-static": "^3.0.0",
     "koa-webpack": "^0.3.1",

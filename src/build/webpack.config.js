@@ -57,7 +57,7 @@ export default (config) => {
 
   debug('Create generic configuration.')
 
-  const webpackConfig = {
+  return {
     devtool: config.compiler_devtool,
     resolve: {
       modules   : [
@@ -138,6 +138,9 @@ export default (config) => {
             }
           }
         ]
+      }, {
+        test: /\.(woff|woff2|otf|eot|ttf)$/i,
+        loaders: ['file-loader?hash=sha512&digest=hex&name=fonts/font-[name]-[hash:6].[ext]']
       }],
     },
     plugins: [
@@ -166,28 +169,4 @@ export default (config) => {
         }
       })]
   }
-
-  /* eslint-disable */
-  webpackConfig.module.rules.push(
-    {
-      test: /\.woff(\?.*)?$/,
-      use : 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff'
-    },
-    {
-      test: /\.woff2(\?.*)?$/,
-      use : 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2'
-    },
-    {
-      test: /\.otf(\?.*)?$/,
-      use : 'file-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype'
-    },
-    {
-      test: /\.ttf(\?.*)?$/,
-      use : 'url-loader?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream'
-    },
-    { test: /\.eot(\?.*)?$/, use: 'file-loader?prefix=fonts/&name=[path][name].[ext]' },
-  )
-  /* eslint-enable */
-
-  return webpackConfig
 }

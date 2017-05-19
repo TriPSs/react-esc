@@ -47,8 +47,15 @@ export default class {
       fs.copySync(paths.src('static'), paths.public())
 
       debug('Copy images to public img folder.')
-      fs.copySync(paths.dist('img'), paths.public('img'))
-      fs.removeSync(paths.dist('img'))
+      if (fs.existsSync(paths.dist('img'))) {
+        fs.copySync(paths.dist('img'), paths.public('img'))
+        fs.removeSync(paths.dist('img'))
+      }
+
+      if (fs.existsSync(paths.dist('img'))) {
+        fs.copySync(paths.dist('fonts'), paths.public('fonts'))
+        fs.removeSync(paths.dist('fonts'))
+      }
     } catch (e) {
       debug('Compiler encountered an error.', e)
       process.exit(1)
