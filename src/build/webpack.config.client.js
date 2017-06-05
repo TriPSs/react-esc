@@ -1,6 +1,7 @@
 import webpack from 'webpack'
 import webpackConfig from './webpack.config'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
+import UglifyJSPlugin from 'uglifyjs-webpack-plugin'
 import clone from 'clone'
 import _debug from 'debug'
 
@@ -52,7 +53,7 @@ export default (config) => {
     webpackConfigClient.plugins.push(
       new webpack.optimize.OccurrenceOrderPlugin(),
       new webpack.optimize.DedupePlugin(),
-      new webpack.optimize.UglifyJsPlugin({
+      new UglifyJSPlugin({
         compress: {
           unused   : true,
           dead_code: true,
