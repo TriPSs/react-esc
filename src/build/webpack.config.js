@@ -16,6 +16,9 @@ export default (config) => {
     },
     module : {
       loaders: []
+    },
+    node   : {
+      fs: "empty"
     }
   }
 
@@ -48,7 +51,7 @@ export default (config) => {
       test  : /\.json$/,
       loader: 'json'
     }, {
-      test: /\.(jpe?g|png|gif|svg)$/i,
+      test   : /\.(jpe?g|png|gif|svg)$/i,
       loaders: [
         'file?hash=sha512&digest=hex&name=img/img-[name]-[hash:6].[ext]',
         'image-webpack-loader'
@@ -59,10 +62,10 @@ export default (config) => {
   // Config images loader
   webpackConfig.imageWebpackLoader = {
     bypassOnDebug: true,
-    optipng: {
+    optipng      : {
       optimizationLevel: 7
     },
-    gifsicle: {
+    gifsicle     : {
       interlaced: false
     }
   }
@@ -179,7 +182,7 @@ export default (config) => {
       loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/font-woff2'
     },
     {
-      test: /\.otf(\?.*)?$/,
+      test  : /\.otf(\?.*)?$/,
       loader: 'file?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=font/opentype'
     },
     {
@@ -187,7 +190,7 @@ export default (config) => {
       loader: 'url?prefix=fonts/&name=[path][name].[ext]&limit=10000&mimetype=application/octet-stream'
     },
     {
-      test: /\.eot(\?.*)?$/,
+      test  : /\.eot(\?.*)?$/,
       loader: 'file?prefix=fonts/&name=[path][name].[ext]'
     })
   /* eslint-enable */
