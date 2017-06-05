@@ -5,9 +5,9 @@ import clone from 'clone'
 import _debug from 'debug'
 
 export default (config) => {
-  const debug                         = _debug('app:esc:webpack:config:client')
-  const paths                         = config.utils_paths
-  const {__DEV__, __PROD__, __TEST__} = config.globals
+  const debug                           = _debug('app:esc:webpack:config:client')
+  const paths                           = config.utils_paths
+  const { __DEV__, __PROD__, __TEST__ } = config.globals
 
   debug('Create client configuration.')
   const webpackConfigClient = clone(webpackConfig(config))
@@ -57,7 +57,10 @@ export default (config) => {
           unused   : true,
           dead_code: true,
           warnings : false
-        }
+        },
+        output  : {
+          comments: false
+        },
       })
     )
   }
