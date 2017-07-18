@@ -25,28 +25,34 @@ export const cssLoaderConfig = {
 export const postCssLoaderConfig = {
   loader : 'postcss-loader',
   options: {
-    plugins: () => {
-      return [
-        cssnano({
-          autoprefixer: {
-            browsers: [
-              'safari 9',
-              'ie 10-11',
-              'last 2 Chrome versions',
-              'last 2 Firefox versions',
-              'edge 13',
-              'ios_saf 9.0-9.2',
-              'ie_mob 11',
-              'Android >= 4'
-            ],
-            cascade : false,
-            add     : true,
-            remove  : true
-          },
-          safe        : true
-        })
-      ]
-    }
+    sourceMap: true,
+    plugins  : () => [
+      cssnano({
+        discardComments: {
+          removeAll: true,
+        },
+        discardUnused  : false,
+        mergeIdents    : false,
+        reduceIdents   : false,
+        sourceMap      : true,
+        safe           : true,
+        autoprefixer   : {
+          browsers: [
+            'safari 9',
+            'ie 10-11',
+            'last 2 Chrome versions',
+            'last 2 Firefox versions',
+            'edge 13',
+            'ios_saf 9.0-9.2',
+            'ie_mob 11',
+            'Android >= 4'
+          ],
+          cascade : false,
+          add     : true,
+          remove  : true
+        },
+      })
+    ]
   }
 }
 
@@ -139,34 +145,13 @@ export default (config) => {
           }
         ]
       }, {
-        test: /\.(woff|woff2|otf|eot|ttf)$/i,
+        test   : /\.(woff|woff2|otf|eot|ttf)$/i,
         loaders: ['file-loader?hash=sha512&digest=hex&name=fonts/font-[name]-[hash:6].[ext]']
       }],
     },
     plugins: [
       new webpack.DefinePlugin({ ...config.globals, ...config.custom_globals }),
       new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
-      new webpack.LoaderOptionsPlugin({
-        options: {
-          context: __dirname,
-          postcss: [
-            cssnano({
-              autoprefixer   : {
-                add     : true,
-                remove  : true,
-                browsers: ['last 2 versions'],
-              },
-              discardComments: {
-                removeAll: true,
-              },
-              discardUnused  : false,
-              mergeIdents    : false,
-              reduceIdents   : false,
-              safe           : true,
-              sourcemap      : true,
-            }),
-          ],
-        }
-      })]
+    ]
   }
 }

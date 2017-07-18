@@ -2,17 +2,19 @@
 import React from 'react'
 import { BrowserRouter as Router } from 'react-router-dom'
 import ReactDOM from 'react-dom'
-import defaultConfig from '../config/default.client'
+import { AppContainer } from 'react-hot-loader';
+
 import createStore from './store/createStore'
 import { Resolver } from 'react-esc-resolver'
 import Storage from 'react-esc-storage'
 import { Provider } from 'react-redux'
+import defaultConfig from '../config/default.client'
 
 export default (givenConfig) => {
   const config = { ...defaultConfig, ...givenConfig }
 
   const { defaultLayout } = config
-  const AppContainer      = require('containers/AppContainer').default
+  const Root              = require('containers/AppContainer').default
   const store             = createStore(config)
 
   // ========================================================
@@ -20,7 +22,7 @@ export default (givenConfig) => {
   // ========================================================
   const MOUNT_NODE = document.getElementById('root')
 
-  let render = () => {
+  let render = (Component) => {
     // Set global that the client is rendering
     global.isServer = false
     global.isClient = true
@@ -34,11 +36,12 @@ export default (givenConfig) => {
       () => (
         <Provider {...{ store }}>
           <Router>
-            <AppContainer
-              {...{
+            <AppContainer>
+              <Component {...{
                 store,
                 layout
               }} />
+            </AppContainer>
           </Router>
         </Provider>
       ),
@@ -56,16 +59,20 @@ export default (givenConfig) => {
       ReactDOM.render(<RedBox error={error} />, MOUNT_NODE)
     }
 
-    render = () => {
+    render = (Root) => {
       try {
-        renderApp()
+        renderApp(Root)
       } catch (error) {
         renderError(error)
       }
     }
 
-    module.hot.accept(['routes'], () => render())
+    module.hot.accept('containers/AppContainer', () => {
+      const NextRoot = require('containers/AppContainer').default;
+
+      render(NextRoot)
+    })
   }
 
-  render()
+  render(Root)
 }

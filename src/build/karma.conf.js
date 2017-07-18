@@ -12,8 +12,9 @@ export default (givenConfig) => {
   debug('Create configuration.')
 
   const karmaConfig = {
-    basePath         : config.utils_paths.src(), // project root in relation to bin/karma.js
-    files            : [
+    basePath: config.utils_paths.src(), // project root in relation to bin/karma.js
+
+    files: [
       {
         pattern : config.utils_paths.tests('test-bundle.js'),
         watched : false,
@@ -21,6 +22,7 @@ export default (givenConfig) => {
         included: true
       }
     ],
+
     singleRun        : !argv.watch,
     frameworks       : ['mocha'],
     reporters        : ['mocha'],
@@ -42,9 +44,9 @@ export default (givenConfig) => {
     karmaConfig.reporters.push('coverage')
     karmaConfig.webpack.module.rules.push({
       enforce: 'pre',
-      test: /\.(js|jsx)$/,
+      test   : /\.(js|jsx)$/,
       include: new RegExp(config.dir_src),
-      loader: 'isparta-loader',
+      loader : 'isparta-loader',
       exclude: /node_modules/
     })
   }

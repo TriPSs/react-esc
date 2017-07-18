@@ -12,13 +12,17 @@ export default (config) => {
 
   debug('Create client configuration.')
   const webpackConfigClient = webpackMerge(webpackConfig(config), {
+
       name  : 'client',
       target: 'web',
 
       entry: {
         app   : __DEV__
-          ? [`webpack-hot-middleware/client?path=${config.compiler_public_path}__webpack_hmr`, paths.src(config.entry_client)]
-          : paths.src(config.entry_client),
+          ? [
+            'react-hot-loader/patch',
+            `webpack-hot-middleware/client?path=${config.compiler_public_path}__webpack_hmr`,
+            paths.src(config.entry_client)
+          ] : paths.src(config.entry_client),
         vendor: config.compiler_vendor
       },
 
@@ -59,7 +63,7 @@ export default (config) => {
           allChunks: true,
           disable  : !__PROD__,
         }),
-      ]
+      ],
     }
   )
 
@@ -80,6 +84,7 @@ export default (config) => {
         minimize: true,
         debug   : false,
       }),
+
       new webpack.optimize.UglifyJsPlugin({
         beautify: false,
         mangle  : {
