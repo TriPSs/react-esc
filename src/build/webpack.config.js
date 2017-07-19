@@ -65,6 +65,9 @@ export default (config) => {
 
   return {
     devtool: config.compiler_devtool,
+    node   : {
+      fs: "empty"
+    },
     resolve: {
       modules   : [
         paths.src(),
