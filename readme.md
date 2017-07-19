@@ -7,6 +7,11 @@
 React ESC is a easy to use client and server configuration.
 See [this repo](https://github.com/TriPSs/react-esc-example) on how to use React-ESC.
 
+### Installation
+```shell
+$ npm install --save react-esc
+```
+
 ## Development
 
 If you'd like to contribute to this project, you need to do is clone

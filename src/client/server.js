@@ -66,9 +66,13 @@ export default async (config) => {
 
       // Only inline all css when in dev mode
       if (config.compiler_css_inline) {
-        layout.style = getStyles().map(style => ({
-          cssText: style.parts.map(part => `${part.css}\n`).join('\n')
-        }))
+        const styles = getStyles()
+
+        if (styles) {
+          layout.style = getStyles().map(style => ({
+            cssText: style.parts.map(part => `${part.css}\n`).join('\n')
+          }))
+        }
       }
 
       // ----------------------------------
