@@ -1,6 +1,3 @@
-/**
- * Created by tycho on 20/03/2017.
- */
 import React from 'react'
 import Helmet from 'react-helmet'
 import PrettyError from 'pretty-error'

@@ -4,6 +4,11 @@
 const clientConfig = {
 
   // ----------------------------------
+  // Compiler Configuration
+  // ----------------------------------
+  compiler_render: 'normal',
+
+  // ----------------------------------
   // Store Configuration
   // ----------------------------------
   custom_enhancers: [],

@@ -1,0 +1,28 @@
+sudo: false
+language: node_js
+node_js:
+  - "6"
+  - "8"
+
+branches:
+  only:
+  - master
+
+install:
+  - npm install
+
+cache:
+  directories:
+    - node_modules
+
+script:
+  - npm run build
+
+deploy:
+  provider: npm
+  email: t.bokdam@seronaris.nl
+  api_key:
+    secure: s7QM5xccpobNpwI/U2sADNZByITQO2NcOxgLYxLSh6Oot61m9HxKvFBmrI925HapbwuHzCzQh6lj1GohvvM1fg2cVwiXnZi1Ls7uc/0X4LC2AZn/+qhG42v+jAjgglKhxUqLDqN1CcKrppuYk021NlGx+Vb7OSLrdpNirKk6oC2K8ObePT4BgUPcbCws0rBvQV4TDG3ygB3NEHWbebEbugAcjLoivbgq5kWMyYrOhqE/N+RBCuBIixCYr4MyWbfiwqI15HyCaEq+cnFvaYk1rY5yyGCAi/vLmiN1z6XOK9yVGJ63ZS1CPt/y3qP40LuN3yU0W9VNoey/qxvzOVf4Ogm7XhlkRftZ/M3yagHwBo0bURMi/jBoh/Y9pL+9dkoKt3fxzvs8zHKVw+OokdH7PIm1PuZBp3tQATMjf/BAH4tsv0Q0NUKgpsLSyCKrAkloFSw6tX6FRwRh9pqpRqtQ2bNks6Nxw8yxr3wWUuR7TWRwSxizvK3FWJGu/gMko7AoRIZWpJGCDSdAcn68HSQ8rQWzO09kIa9S9ti+En5GG54CbTBNX4a17NHzhKBKkhVJf1F1f/kmb6DzB+lgwybMvD1o5pqRYw0lC0Hw1K4RhpuuM7unXwy/ZnAkIMQBd3JxUxFuLFr4+XXH8UNH4+Z7KVNnWgM8lALDwG4V036RsLk=
+  on:
+    tags: true
+    repo: TriPSs/react-esc

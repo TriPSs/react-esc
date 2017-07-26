@@ -1,13 +1,11 @@
 // @remove-file-on-eject
 import React from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
 import ReactDOM from 'react-dom'
-import { AppContainer } from 'react-hot-loader';
-
-import createStore from './store/createStore'
 import { Resolver } from 'react-esc-resolver'
+
+import renderMethods from './modules/ClientRenders'
+import createStore from './store/createStore'
 import Storage from 'react-esc-storage'
-import { Provider } from 'react-redux'
 import defaultConfig from '../config/default.client'
 
 export default (givenConfig) => {
@@ -20,7 +18,8 @@ export default (givenConfig) => {
   // ========================================================
   // Render Setup
   // ========================================================
-  const MOUNT_NODE = document.getElementById('root')
+  const MOUNT_NODE   = document.getElementById('root')
+  const renderMethod = config.compiler_render
 
   let render = (Component) => {
     // Set global that the client is rendering
@@ -31,20 +30,9 @@ export default (givenConfig) => {
     Storage.check()
 
     const layout = { ...defaultLayout, ...(window.___LAYOUT__ || {}) }
-
+    
     Resolver.renderClient(
-      () => (
-        <Provider {...{ store }}>
-          <Router>
-            <AppContainer>
-              <Component {...{
-                store,
-                layout
-              }} />
-            </AppContainer>
-          </Router>
-        </Provider>
-      ),
+      renderMethods[renderMethod]({ Component, store, layout }),
       MOUNT_NODE
     )
   }

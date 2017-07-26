@@ -1,13 +1,12 @@
 import React from 'react'
-import { BrowserRouter as Router } from 'react-router-dom'
 import ReactDOM from 'react-dom'
 import config from '../config/default.client'
 import defaultLayout from '../config/layout'
-import AppContainer from './containers/AppContainer'
+import Root from './containers/AppContainer'
+import renderMethods from './modules/ClientRenders'
 import createStore from './store/createStore'
 import { Resolver } from 'react-esc-resolver'
 import Storage from 'react-esc-storage'
-import { Provider } from 'react-redux'
 
 const store = createStore(config)
 
@@ -15,8 +14,9 @@ const store = createStore(config)
 // Render Setup
 // ========================================================
 const MOUNT_NODE = document.getElementById('root')
+const renderMethod = config.compiler_render
 
-let render = () => {
+let render = (Component) => {
   // Set global that the client is rendering
   global.isServer = false
   global.isClient = true
@@ -27,17 +27,7 @@ let render = () => {
   const layout = { ...defaultLayout, ...(window.___LAYOUT__ || {}) }
 
   Resolver.renderClient(
-    () => (
-      <Provider {...{ store }}>
-        <Router>
-          <AppContainer
-            {...{
-              store,
-              layout
-            }} />
-        </Router>
-      </Provider>
-    ),
+    renderMethods[renderMethod]({ Component, store, layout }),
     MOUNT_NODE
   )
 }
@@ -52,16 +42,20 @@ if (__DEV__ && module.hot) {
     ReactDOM.render(<RedBox error={error} />, MOUNT_NODE)
   }
 
-  render = () => {
+  render = (Root) => {
     try {
-      renderApp()
+      renderApp(Root)
     } catch (error) {
       renderError(error)
     }
   }
 
-  module.hot.accept(['routes'], () => render())
+  module.hot.accept('containers/AppContainer', () => {
+    const NextRoot = require('containers/AppContainer').default;
+
+    render(NextRoot)
+  })
 }
 
-render()
+render(Root)
 
