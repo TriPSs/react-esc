@@ -2,7 +2,7 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import PrettyError from 'pretty-error'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { renderHtmlLayout } from './RenderHtmlLayout'
+import { renderHtmlLayout } from './ServerRenders/RenderHtmlLayout'
 import _debug from 'debug'
 
 export default (error, resolve, ctx, defaultLayout) => {

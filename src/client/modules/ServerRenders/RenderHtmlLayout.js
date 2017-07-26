@@ -1,14 +1,6 @@
 import React from 'react'
 import server from 'react-dom/server'
 
-/**
- * Render the HTML layout
- *
- * @param head
- * @param body & scripts
- * @param initialState
- * @returns {string}
- */
 export function renderHtmlLayout(head, body, initialState = {}) {
   return '<!DOCTYPE html>' + (0, server.renderToStaticMarkup)(React.createElement(
       'html',
