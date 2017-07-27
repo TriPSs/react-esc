@@ -78,6 +78,7 @@ export default (config) => {
         '.jsx',
         '.json',
       ],
+      symlinks  : false,
     },
     module : {
       rules: [{
