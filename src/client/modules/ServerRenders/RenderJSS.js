@@ -5,6 +5,7 @@ import { Provider } from 'react-redux'
 import { Resolver } from 'react-esc-resolver'
 import Helmet from 'react-helmet'
 
+import { minify } from 'html-minifier'
 import { JssProvider, SheetsRegistry } from 'react-jss'
 import { create } from 'jss'
 import preset from 'jss-preset-default'
@@ -37,7 +38,7 @@ export const renderJSS = ({ AppContainer, store, location, context, layout, conf
       redirectIfNecessary(context)
 
       // Grab the CSS from our sheetsRegistry.
-      const css = sheetsRegistry.toString()
+      const css = minify(sheetsRegistry.toString(), { collapseWhitespace: true })
 
       const content = renderToString(
         <Resolved />
