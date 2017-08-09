@@ -5,10 +5,10 @@ import { Provider } from 'react-redux'
 import { Resolver } from 'react-esc-resolver'
 import Helmet from 'react-helmet'
 
-import { minify } from 'html-minifier'
+import preset from 'jss-preset-default'
 import { JssProvider, SheetsRegistry } from 'react-jss'
 import { create } from 'jss'
-import preset from 'jss-preset-default'
+import { minify } from 'html-minifier'
 import { renderJSSHtmlLayout } from './RenderJSSHtmlLayout'
 
 export const renderJSS = ({ AppContainer, store, location, context, layout, config, scripts, redirectIfNecessary }) =>
@@ -17,7 +17,7 @@ export const renderJSS = ({ AppContainer, store, location, context, layout, conf
     const sheetsRegistry = new SheetsRegistry()
 
     // Configure JSS
-    const jss = create(preset);
+    const jss = create(preset());
 
     if (config.jss.options) {
       jss.options = {
