@@ -1,6 +1,3 @@
-/**
- * Created by tycho on 19/12/2016.
- */
 import Koa from 'koa'
 import serve from 'koa-static'
 import webpack from 'webpack'
@@ -13,7 +10,7 @@ import _debug from 'debug'
 
 const debug = _debug('app:esc:server')
 
-export default async (config) => {
+export default async(config) => {
   const webpackConfigClient = generateWebpackConfigClient(config)
 
   const app = new Koa()

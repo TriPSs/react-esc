@@ -1,7 +1,7 @@
 import webpackConfig, { cssLoaderConfig, postCssLoaderConfig, sassLoaderConfig } from './webpack.config'
 import webpackMerge from 'webpack-merge'
-import _debug from 'debug'
 import externals from 'webpack-node-externals';
+import _debug from 'debug'
 
 export default (config) => {
 
