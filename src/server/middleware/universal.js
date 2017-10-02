@@ -35,4 +35,3 @@ export default class Universal {
     return Promise.resolve(require(output).default(config))
   }
 }
-

@@ -91,8 +91,8 @@ export default (config) => {
             development: {
               plugins: [
                 'transform-runtime',
-                'transform-decorators-legacy',
                 'add-react-displayname',
+                'transform-decorators-legacy',
               ],
               presets: [
                 [
@@ -108,8 +108,8 @@ export default (config) => {
             production : {
               plugins: [
                 'transform-runtime',
-                'transform-decorators-legacy',
                 'add-react-displayname',
+                'transform-decorators-legacy',
               ],
               presets: [
                 [
