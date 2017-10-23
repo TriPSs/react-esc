@@ -17,10 +17,13 @@
     "url": "git://github.com/TriPSs/react-esc.git"
   },
   "scripts": {
-    "cleanup": "rimraf ./bin ./build ./client ./config ./server ./eject.js",
     "build": "npm run cleanup && babel src -d ./",
     "build:watch": "babel src --watch -d ./",
-    "prepublish": "npm run build"
+    "cleanup": "rimraf ./bin ./build ./client ./config ./server ./eject.js",
+    "prepublish": "npm run build",
+    "preversion": "npm run test",
+    "version": "npm run prepublish",
+    "postversion": "git push && git push --tags"
   },
   "dependencies": {
     "babel-cli": "^6.23.0",

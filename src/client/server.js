@@ -44,7 +44,10 @@ export default async (config) => {
     // when universal is enabled we need to make sure the client to know about the chunk styles
     let layoutWithLinks = {
       ...defaultLayout,
-      link: links
+      link: [
+        ...defaultLayout.link,
+        ...links
+      ]
     }
 
     // React-helmet will overwrite the layout once the client start running so that
