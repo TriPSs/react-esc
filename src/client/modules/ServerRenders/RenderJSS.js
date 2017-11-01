@@ -17,7 +17,7 @@ export const renderJSS = ({ AppContainer, store, location, context, layout, conf
     const sheetsRegistry = new SheetsRegistry()
 
     // Configure JSS
-    const jss = create(preset());
+    const jss = create(preset())
 
     if (config.jss.options) {
       jss.options = {
@@ -41,7 +41,7 @@ export const renderJSS = ({ AppContainer, store, location, context, layout, conf
       const css = minify(sheetsRegistry.toString(), { collapseWhitespace: true })
 
       const content = renderToString(
-        <Resolved />
+        <Resolved />,
       )
 
       const head = Helmet.rewind()

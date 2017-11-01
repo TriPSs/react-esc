@@ -6,7 +6,19 @@
   ],
   "plugins": [
     "transform-runtime",
-    "transform-decorators-legacy",
-    "add-react-displayname"
-  ]
+    "add-react-displayname",
+    "transform-decorators-legacy"
+  ],
+  "env": {
+    "development": {
+      "presets": [
+        "react-hmre"
+      ]
+    },
+    "production": {
+      "presets": [
+        "react-optimize"
+      ]
+    }
+  }
 }

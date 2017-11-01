@@ -7,8 +7,8 @@ import _debug from 'debug'
 
 export default (config) => {
 
-  const debug                           = _debug('app:esc:webpack:config:client')
-  const paths                           = config.utils_paths
+  const debug = _debug('app:esc:webpack:config:client')
+  const paths = config.utils_paths
   const { __DEV__, __PROD__, __TEST__ } = config.globals
 
   debug('Create client configuration.')
@@ -81,6 +81,8 @@ export default (config) => {
     debug('Enable plugins for production')
 
     webpackConfigClient.plugins.push(
+      new webpack.optimize.OccurrenceOrderPlugin(),
+
       new webpack.LoaderOptionsPlugin({
         minimize: true,
         debug   : false,

@@ -12,13 +12,13 @@ export default (givenConfig) => {
   const config = { ...defaultConfig, ...givenConfig }
 
   const { defaultLayout } = config
-  const Root              = require('containers/AppContainer').default
-  const store             = createStore(config)
+  const Root = require('containers/AppContainer').default
+  const store = createStore(config)
 
   // ========================================================
   // Render Setup
   // ========================================================
-  const MOUNT_NODE   = document.getElementById('root')
+  const MOUNT_NODE = document.getElementById('root')
   const renderMethod = config.compiler_render
 
   let render = (Component) => {
@@ -30,17 +30,17 @@ export default (givenConfig) => {
     Storage.check()
 
     const layout = { ...defaultLayout, ...(window.___LAYOUT__ || {}) }
-    
+
     Resolver.renderClient(
       renderMethods[renderMethod]({ Component, store, layout }),
-      MOUNT_NODE
+      MOUNT_NODE,
     )
   }
 
   // Enable HMR and catch runtime errors in RedBox
   // This code is excluded from production bundle
   if (__DEV__ && module.hot) {
-    const renderApp   = render
+    const renderApp = render
     const renderError = (error) => {
       const RedBox = require('redbox-react').default
 
@@ -56,7 +56,7 @@ export default (givenConfig) => {
     }
 
     module.hot.accept('containers/AppContainer', () => {
-      const NextRoot = require('containers/AppContainer').default;
+      const NextRoot = require('containers/AppContainer').default
 
       render(NextRoot)
     })
