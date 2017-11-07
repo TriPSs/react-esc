@@ -132,13 +132,15 @@ export default (config) => {
           {
             loader: 'image-webpack-loader',
             query : {
-              progressive  : true,
               pngquant     : {
                 optimizationLevel: 7,
                 quality          : '65-90',
                 speed            : 4
               },
               bypassOnDebug: true,
+              mozjpeg: {
+                progressive: true,
+              },
               optipng      : {
                 optimizationLevel: 7
               },
