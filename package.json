@@ -23,7 +23,7 @@
     "prepublish": "npm run build",
     "preversion": "npm run test",
     "version": "npm run prepublish",
-    "postversion": "git push && git push --tags"
+    "postversion": "git push && git push --tags && npm publish"
   },
   "dependencies": {
     "babel-cli": "^6.23.0",
