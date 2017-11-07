@@ -35,7 +35,7 @@ export const renderJSS = ({ AppContainer, store, location, context, layout, conf
         </StaticRouter>
       </Provider>
     )).then((Resolved) => {
-      redirectIfNecessary(context)
+      redirectIfNecessary(context, reject)
 
       // Grab the CSS from our sheetsRegistry.
       const css = minify(sheetsRegistry.toString(), { collapseWhitespace: true })

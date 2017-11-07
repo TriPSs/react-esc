@@ -1,12 +1,12 @@
 import React from 'react'
+import Helmet from 'react-helmet'
 import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router'
 import { Provider } from 'react-redux'
 import { Resolver } from 'react-esc-resolver'
 import { renderHtmlLayout } from './RenderHtmlLayout'
-import Helmet from 'react-helmet'
 
-export const renderNormal = ({ AppContainer, store, location, context, layout, config, scripts, redirectIfNecessary }) =>
+export default ({ AppContainer, store, location, context, layout, config, scripts, redirectIfNecessary }) =>
   new Promise((resolve, reject) => {
     Resolver.renderServer(() => (
       <Provider {...{ store }}>
@@ -17,9 +17,9 @@ export const renderNormal = ({ AppContainer, store, location, context, layout, c
     )).then((Resolved) => {
       let head, content, body
 
-      redirectIfNecessary(context)
+      redirectIfNecessary(context, reject)
       content = renderToString(
-        <Resolved />
+        <Resolved />,
       )
 
       head = Helmet.rewind()
@@ -28,5 +28,3 @@ export const renderNormal = ({ AppContainer, store, location, context, layout, c
       resolve(renderHtmlLayout(head, [body, scripts], store.getState()))
     }).catch(reject)
   })
-
-export default renderNormal

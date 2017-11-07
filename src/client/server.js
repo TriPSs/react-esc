@@ -2,6 +2,7 @@ import React from 'react'
 import { getStyles } from 'simple-universal-style-loader'
 import _debug from 'debug'
 import CookieStorage from 'react-esc-storage/CookieStorage'
+import hasOwnProperty from 'has-own-property'
 
 import createStore from './store/createStore'
 import * as Assetic from './modules/Assetic'
@@ -14,9 +15,9 @@ export default async (config) => {
   return getClientInfo => async (ctx) => await new Promise((resolve) => {
     debug('Handle route', ctx.req.url)
 
-    const store         = createStore(config)
+    const store = createStore(config)
     const defaultLayout = require('modules/layout').default
-    const AppContainer  = require('containers/AppContainer').default
+    const AppContainer = require('containers/AppContainer').default
 
     // Add Cookie to global so we can use it in the Storage module
     global.cookie = new CookieStorage(ctx.cookies)
@@ -28,17 +29,17 @@ export default async (config) => {
     // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
     // user agent is not known.
     // -----------------------------------------------------------------------------
-    global.navigator           = global.navigator || {}
+    global.navigator = global.navigator || {}
     global.navigator.userAgent = global.navigator.userAgent || ctx.req.headers['user-agent']
 
     let { app, vendor } = getClientInfo().assetsByChunkName
 
     let links = Assetic
-      .getStyles(defaultLayout, ([vendor, app]))
-      .map(asset => ({
-        rel : 'stylesheet',
-        href: `${asset}`
-      }))
+    .getStyles(defaultLayout, ([vendor, app]))
+    .map(asset => ({
+      rel : 'stylesheet',
+      href: `${asset}`,
+    }))
 
     // This will be transferred to the client side in __LAYOUT__ variable
     // when universal is enabled we need to make sure the client to know about the chunk styles
@@ -47,7 +48,7 @@ export default async (config) => {
       link: [
         ...defaultLayout.link,
         ...links
-      ]
+      ],
     }
 
     // React-helmet will overwrite the layout once the client start running so that
@@ -56,8 +57,8 @@ export default async (config) => {
       ...layoutWithLinks,
       script: [
         ...defaultLayout.script,
-        { type: 'text/javascript', innerHTML: `___LAYOUT__ = ${JSON.stringify(layoutWithLinks)}` }
-      ]
+        { type: 'text/javascript', innerHTML: `___LAYOUT__ = ${JSON.stringify(layoutWithLinks)}` },
+      ],
     }
 
     // Only inline all css when in dev mode
@@ -66,7 +67,7 @@ export default async (config) => {
 
       if (styles) {
         layout.style = getStyles().map(style => ({
-          cssText: style.parts.map(part => `${part.css}\n`).join('\n')
+          cssText: style.parts.map(part => `${part.css}\n`).join('\n'),
         }))
       }
     }
@@ -75,13 +76,15 @@ export default async (config) => {
     // Everything went fine so far
     // ----------------------------------
     let scripts = Assetic
-      .getScripts(defaultLayout, [vendor, app])
-      .map((asset, i) => <script key={i} type='text/javascript' src={`${asset}`} />)
+    .getScripts(defaultLayout, [vendor, app])
+    .map((asset, i) => <script key={i} type='text/javascript' src={`${asset}`} />)
 
-    const redirectIfNecessary = (context) => {
-      if (context.url) {
-        ctx.status = 302
-        ctx.redirect(context.url)
+    const redirectIfNecessary = (context, reject) => {
+      if (hasOwnProperty(context, 'url')) {
+        reject({
+          redirect: context.url,
+          status  : context.status || 302,
+        })
       }
     }
 
@@ -96,15 +99,21 @@ export default async (config) => {
       redirectIfNecessary,
       location: ctx.req.url,
     }).then((body) => {
-      ctx.status = 200
-      ctx.body   = body
+      if (hasOwnProperty(context, 'status')) {
+        ctx.status = context.status
+
+      } else {
+        ctx.status = 200
+      }
+
+      ctx.body = body
 
       resolve()
     }).catch(error => handleError(
       error,
       resolve,
       ctx,
-      defaultLayout
+      defaultLayout,
     ))
   })
 }

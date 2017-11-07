@@ -9,8 +9,8 @@ export default (error, resolve, ctx, defaultLayout) => {
   const debug = _debug('app:esc:server:universal:server:error')
 
   if (error && error.hasOwnProperty('redirect')) {
-    if (error.hasOwnProperty('statusCode')) {
-      ctx.status = error.statusCode
+    if (error.hasOwnProperty('status')) {
+      ctx.status = error.status
     }
 
     ctx.redirect(error.redirect)
