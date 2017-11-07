@@ -1,6 +1,6 @@
 {
   "name": "react-esc",
-  "version": "4.0.0-alpha.2",
+  "version": "4.0.0-alpha.5",
   "description": "Easy to use Client and Server",
   "homepage": "https://github.com/TriPSs/react-esc",
   "bugs": {
@@ -55,11 +55,10 @@
     "node-sass": "^4.5.3",
     "postcss-loader": "^2.0.8",
     "pretty-error": "^2.1.1",
-    "prop-types": "^15.6.0",
-    "react": "^16.0.0",
+    "react": "^15.5.4",
     "react-addons-test-utils": "^15.6.2",
     "react-dev-utils": "^4.2.1",
-    "react-dom": "^16.0.0",
+    "react-dom": "^15.6.1",
     "react-esc-resolver": "^1.2.0",
     "react-esc-storage": "^1.1.0",
     "react-helmet": "^5.2.0",
