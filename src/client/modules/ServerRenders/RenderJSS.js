@@ -5,9 +5,7 @@ import { Provider } from 'react-redux'
 import { Resolver } from 'react-esc-resolver'
 import Helmet from 'react-helmet'
 
-import preset from 'jss-preset-default'
-import { JssProvider, SheetsRegistry } from 'react-jss'
-import { create } from 'jss'
+import { JssProvider, SheetsRegistry, jss } from 'react-jss'
 import { minify } from 'html-minifier'
 
 import createGenerateClassName from '../JSS/createGenerateClassName'
@@ -17,9 +15,6 @@ export default ({ AppContainer, store, location, context, layout, config, script
   new Promise((resolve, reject) => {
     // Create a sheetsRegistry instance.
     const sheetsRegistry = new SheetsRegistry()
-
-    // Configure JSS
-    const jss = create(preset())
 
     let options = {
       createGenerateClassName,
