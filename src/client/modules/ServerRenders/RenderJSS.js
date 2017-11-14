@@ -9,9 +9,11 @@ import preset from 'jss-preset-default'
 import { JssProvider, SheetsRegistry } from 'react-jss'
 import { create } from 'jss'
 import { minify } from 'html-minifier'
+
+import createGenerateClassName from '../JSS/createGenerateClassName'
 import { renderJSSHtmlLayout } from './RenderJSSHtmlLayout'
 
-export const renderJSS = ({ AppContainer, store, location, context, layout, config, scripts, redirectIfNecessary }) =>
+export default ({ AppContainer, store, location, context, layout, config, scripts, redirectIfNecessary }) =>
   new Promise((resolve, reject) => {
     // Create a sheetsRegistry instance.
     const sheetsRegistry = new SheetsRegistry()
@@ -19,12 +21,18 @@ export const renderJSS = ({ AppContainer, store, location, context, layout, conf
     // Configure JSS
     const jss = create(preset())
 
-    if (config.jss.options) {
-      jss.options = {
-        ...jss.options,
-        ...config.jss.options,
+    let options = {
+      createGenerateClassName,
+    }
+
+    if (config.jss && config.jss.options) {
+      options = {
+        ...options,
+        ...config.jss.options
       }
     }
+
+    jss.setup(options)
 
     Resolver.renderServer(() => (
       <Provider {...{ store }}>
@@ -51,5 +59,3 @@ export const renderJSS = ({ AppContainer, store, location, context, layout, conf
 
     }).catch(reject)
   })
-
-export default renderJSS

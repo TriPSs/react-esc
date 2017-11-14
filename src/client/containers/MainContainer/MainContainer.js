@@ -1,8 +1,6 @@
 import React from 'react'
 
-export class MainContainer extends React.Component {
-
-  static displayName = 'MainContainer'
+export default class extends React.Component {
 
   // Remove the server-side injected CSS.
   componentDidMount() {
@@ -18,5 +16,3 @@ export class MainContainer extends React.Component {
   }
 
 }
-
-export default MainContainer

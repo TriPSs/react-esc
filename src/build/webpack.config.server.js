@@ -11,6 +11,7 @@ export default (config) => {
   debug('Create server configuration.')
 
   return webpackMerge(webpackConfig(config), {
+
     name  : 'server',
     target: 'node',
 
@@ -18,7 +19,7 @@ export default (config) => {
 
     entry: [
       'babel-polyfill',
-      paths.clientDir(config.entry_server)
+      paths.clientDir(config.entry_server),
     ],
 
     module: {
@@ -28,16 +29,16 @@ export default (config) => {
           'simple-universal-style-loader',
           cssLoaderConfig,
           postCssLoaderConfig,
-          sassLoaderConfig([paths.src('styles')])
-        ]
+          sassLoaderConfig([paths.src('styles')]),
+        ],
       }, {
         test  : /\.css/,
         loader: [
           'simple-universal-style-loader',
           cssLoaderConfig,
           postCssLoaderConfig,
-        ]
-      }]
+        ],
+      }],
     },
 
     output: {
@@ -46,8 +47,7 @@ export default (config) => {
       library       : 'server',
       libraryTarget : 'umd',
       umdNamedDefine: true,
-      publicPath    : config.compiler_public_path
-    }
+      publicPath    : config.compiler_public_path,
+    },
   })
 }
-

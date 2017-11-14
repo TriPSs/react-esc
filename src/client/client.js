@@ -32,7 +32,7 @@ export default (givenConfig) => {
     const layout = { ...defaultLayout, ...(window.___LAYOUT__ || {}) }
 
     Resolver.renderClient(
-      renderMethods[renderMethod]({ Component, store, layout }),
+      renderMethods[renderMethod]({ Component, store, layout, config }),
       MOUNT_NODE,
     )
   }
@@ -44,7 +44,7 @@ export default (givenConfig) => {
     const renderError = (error) => {
       const RedBox = require('redbox-react').default
 
-      ReactDOM.render(<RedBox error={error} />, MOUNT_NODE)
+      ReactDOM.hydrate(<RedBox error={error} />, MOUNT_NODE)
     }
 
     render = (Root) => {
