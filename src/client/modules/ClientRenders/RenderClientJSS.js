@@ -2,7 +2,7 @@ import React from 'react'
 import { AppContainer } from 'react-hot-loader'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
-import { jss } from 'react-jss'
+import { jss, JssProvider } from 'react-jss'
 
 import createGenerateClassName from '../JSS/createGenerateClassName'
 import MainContainer from '../../containers/MainContainer'
@@ -26,10 +26,12 @@ export default ({ Component, store, layout, config }) => () => {
       <Provider {...{ store }}>
         <Router>
           <MainContainer>
-            <Component {...{
-              store,
-              layout,
-            }} />
+            <JssProvider jss={jss}>
+              <Component {...{
+                store,
+                layout,
+              }} />
+            </JssProvider>
           </MainContainer>
         </Router>
       </Provider>
