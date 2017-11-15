@@ -92,14 +92,14 @@ export default (config) => {
         parallel: true,
 
         uglifyOptions: {
-          ecma: 5,
+          ecma: 8,
 
           mangle: {
             keep_fnames: true,
           },
 
           output: {
-            comments: true,
+            comments: false,
             beautify: false,
           },
 
@@ -114,6 +114,8 @@ export default (config) => {
             if_return   : true,
             join_vars   : true,
           },
+
+          ...config.compiler_uglify_options,
         },
       }),
     )

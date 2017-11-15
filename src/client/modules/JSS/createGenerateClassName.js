@@ -5,13 +5,14 @@ export default () => {
     ruleCounter += 1
 
     if (process.env.NODE_ENV === 'production') {
-      return `c${ruleCounter}`
+      const firstChar = rule.key.charAt(0).toLowerCase()
+
+      return `c${firstChar}${ruleCounter}`
     }
 
     if (sheet && sheet.options.name) {
       let name = sheet.options.name
-      // Sanitize the string as will be used in development to prefix the generated
-      // class name.
+      // Sanitize the string as will be used in development to prefix the generated class name.
       name = name.replace(new RegExp(/[!"#$%&'()*+,./:; <=>?@[\\\]^`{|}~]/g), '-')
 
       return `${name}-${rule.key}-${ruleCounter}`

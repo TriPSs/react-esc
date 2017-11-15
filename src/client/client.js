@@ -1,6 +1,6 @@
 // @remove-file-on-eject
 import React from 'react'
-import ReactDOM from 'react-dom'
+import { hydrate } from 'react-dom'
 import { Resolver } from 'react-esc-resolver'
 
 import renderMethods from './modules/ClientRenders'
@@ -44,18 +44,20 @@ export default (givenConfig) => {
     const renderError = (error) => {
       const RedBox = require('redbox-react').default
 
-      ReactDOM.hydrate(<RedBox error={error} />, MOUNT_NODE)
+      hydrate(<RedBox error={error} />, MOUNT_NODE)
     }
 
     render = (Root) => {
       try {
         renderApp(Root)
+
       } catch (error) {
         renderError(error)
       }
     }
 
     module.hot.accept('containers/AppContainer', () => {
+      console.log('GOTTTT')
       const NextRoot = require('containers/AppContainer').default
 
       render(NextRoot)

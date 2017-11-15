@@ -7,7 +7,7 @@ import ip from 'ip'
 import clientConfig from './default.client'
 
 const localip = ip.address()
-const debug   = _debug('app:esc:config')
+const debug = _debug('app:esc:config')
 debug('Creating configuration for ESC.')
 
 // ========================================================
@@ -16,7 +16,7 @@ debug('Creating configuration for ESC.')
 const config = {
   hasOwn: {
     server: false,
-    nginx : false
+    nginx : false,
   },
 
   env: process.env.NODE_ENV || 'development',
@@ -42,7 +42,7 @@ const config = {
   // ----------------------------------
   app_mount_point: {
     id   : 'root',
-    style: { height: '100%' }
+    style: { height: '100%' },
   },
 
   // ----------------------------------
@@ -70,15 +70,18 @@ const config = {
   compiler_stats          : {
     chunks      : false,
     chunkModules: false,
-    colors      : true
+    colors      : true,
   },
-  compiler_vendor         : [
+
+  compiler_vendor: [
     'babel-polyfill',
     'react',
     'react-redux',
     'react-router',
-    'redux'
+    'redux',
   ],
+
+  compiler_uglify_options: {},
 
   // ----------------------------------
   // JSS
@@ -92,7 +95,7 @@ const config = {
   // ----------------------------------
   coverage_reporters: [
     { type: 'text-summary' },
-    { type: 'lcov', dir: 'coverage' }
+    { type: 'lcov', dir: 'coverage' },
   ],
 
   // ----------------------------------
@@ -108,7 +111,7 @@ const config = {
   // ----------------------------------
   // Option for the user to add custom GLOBALS
   // ----------------------------------
-  custom_globals: {}
+  custom_globals: {},
 }
 
 // ------------------------------------
@@ -117,7 +120,7 @@ const config = {
 // N.B.: globals added here must _also_ be added to .eslintrc
 config.globals = {
   'process.env' : {
-    'NODE_ENV': JSON.stringify(config.env)
+    'NODE_ENV': JSON.stringify(config.env),
   },
   'NODE_ENV'    : config.env,
   '__DEV__'     : config.env === 'development',
@@ -125,7 +128,7 @@ config.globals = {
   '__TEST__'    : config.env === 'test',
   '__DEBUG__'   : config.env === 'development' && !argv.no_debug,
   '__COVERAGE__': !argv.watch && config.env === 'test',
-  '__BASENAME__': JSON.stringify(process.env.BASENAME || '')
+  '__BASENAME__': JSON.stringify(process.env.BASENAME || ''),
 }
 
 export default config
