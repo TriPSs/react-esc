@@ -1,10 +1,12 @@
+const isProduction = process.env.NODE_ENV === 'production'
+
 export default () => {
   let ruleCounter = 0
 
   return (rule, sheet) => {
     ruleCounter += 1
 
-    if (process.env.NODE_ENV === 'production') {
+    if (isProduction) {
       const firstChar = rule.key.charAt(0).toLowerCase()
 
       return `c${firstChar}${ruleCounter}`

@@ -3,7 +3,7 @@ import { AppContainer } from 'react-hot-loader'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
 
-export const renderNormal = ({ Component, store, layout }) => () => (
+export default ({ Component, store, layout }) => () => (
   <Provider {...{ store }}>
     <Router>
       <AppContainer>
@@ -15,5 +15,3 @@ export const renderNormal = ({ Component, store, layout }) => () => (
     </Router>
   </Provider>
 )
-
-export default renderNormal
