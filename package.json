@@ -1,6 +1,6 @@
 {
   "name": "react-esc",
-  "version": "4.0.0-beta.7",
+  "version": "4.0.0-beta.8",
   "description": "Easy to use Client and Server",
   "homepage": "https://github.com/TriPSs/react-esc",
   "bugs": {
@@ -58,8 +58,8 @@
     "react-esc-resolver": "^1.4.0",
     "react-esc-storage": "^1.2.0",
     "react-helmet": "^5.2.0",
-    "react-jss": "^8.1.0",
     "react-hot-loader": "^3.1.3",
+    "react-jss": "^8.1.0",
     "react-redux": "^5.0.6",
     "react-router": "^4.2.0",
     "react-router-dom": "^4.2.2",
@@ -72,7 +72,6 @@
     "simple-universal-style-loader": "^0.14.4",
     "uglifyjs-webpack-plugin": "1.0.1",
     "webpack": "^3.8.1",
-    "webpack-hot-middleware": "^2.20.0",
     "webpack-merge": "^4.1.1",
     "webpack-node-externals": "^1.6.0",
     "yargs": "^10.0.3"

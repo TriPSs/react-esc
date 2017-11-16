@@ -81,14 +81,12 @@ export default (config) => {
     debug('Enable plugins for production')
 
     webpackConfigClient.plugins.push(
-      new webpack.optimize.OccurrenceOrderPlugin(),
-
       new webpack.LoaderOptionsPlugin({
         minimize: true,
         debug   : false,
       }),
 
-      /*new UglifyJSPlugin({
+      new UglifyJSPlugin({
         parallel: true,
 
         uglifyOptions: {
@@ -117,7 +115,7 @@ export default (config) => {
 
           ...config.compiler_uglify_options,
         },
-      }),*/
+      }),
     )
   }
 

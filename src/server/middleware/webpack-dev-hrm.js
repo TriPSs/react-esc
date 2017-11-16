@@ -10,7 +10,10 @@ export default function (compiler, publicPath, config) {
 
   return middleware({
     compiler: compiler,
-    dev     : {
+
+    hot: {},
+
+    dev: {
       publicPath,
       contentBase: paths.src(),
       hot        : true,
