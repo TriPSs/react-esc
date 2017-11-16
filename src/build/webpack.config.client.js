@@ -88,7 +88,7 @@ export default (config) => {
         debug   : false,
       }),
 
-      new UglifyJSPlugin({
+      /*new UglifyJSPlugin({
         parallel: true,
 
         uglifyOptions: {
@@ -117,7 +117,7 @@ export default (config) => {
 
           ...config.compiler_uglify_options,
         },
-      }),
+      }),*/
     )
   }
 

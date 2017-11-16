@@ -57,7 +57,6 @@ export default (givenConfig) => {
     }
 
     module.hot.accept('containers/AppContainer', () => {
-      console.log('GOTTTT')
       const NextRoot = require('containers/AppContainer').default
 
       render(NextRoot)
