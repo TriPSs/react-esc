@@ -2,10 +2,10 @@ import config from '../config'
 import Server from '../server'
 import _debug from 'debug'
 
-(async() => {
+(async () => {
   const debug = _debug('app:bin:server')
-  const port  = config.server_port
-  const host  = config.server_host
+  const port = config.server_port
+  const host = config.server_host
 
   let app = await Server(config)
 
