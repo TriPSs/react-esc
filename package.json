@@ -6,6 +6,15 @@
   "bugs": {
     "url": "https://github.com/TriPss/react-esc/issues"
   },
+  "keywords": [
+    "react",
+    "starter pack",
+    "redux",
+    "react-router",
+    "server side rendering",
+    "universal",
+    "async-rendering"
+  ],
   "license": "MIT",
   "author": {
     "name": "Tycho Bokdam",
