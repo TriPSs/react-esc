@@ -32,7 +32,7 @@ export default (givenConfig) => {
     const layout = { ...defaultLayout, ...(window.___LAYOUT__ || {}) }
     
     Resolver.renderClient(
-      renderMethods[renderMethod]({ Component, store, layout }),
+      renderMethods[renderMethod]({ Component, store, layout, config }),
       MOUNT_NODE
     )
   }

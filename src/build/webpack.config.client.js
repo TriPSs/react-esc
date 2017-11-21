@@ -87,25 +87,34 @@ export default (config) => {
       }),
 
       new UglifyJSPlugin({
-        beautify: false,
-        mangle  : {
-          screw_ie8  : true,
-          keep_fnames: true,
+        parallel: true,
+
+        uglifyOptions: {
+          ecma: 8,
+
+          mangle: {
+            keep_fnames: true,
+          },
+
+          output: {
+            comments: false,
+            beautify: false,
+          },
+
+          compress: {
+            warnings    : false,
+            conditionals: true,
+            unused      : true,
+            comparisons : true,
+            sequences   : true,
+            dead_code   : true,
+            evaluate    : true,
+            if_return   : true,
+            join_vars   : true,
+          },
         },
-        compress: {
-          warnings    : false,
-          screw_ie8   : true,
-          conditionals: true,
-          unused      : true,
-          comparisons : true,
-          sequences   : true,
-          dead_code   : true,
-          evaluate    : true,
-          if_return   : true,
-          join_vars   : true,
-        },
-        comments: false,
       }),
+
     )
   }
 
