@@ -22,12 +22,12 @@ export const getAssets = (layout, localAssets = []) => (
   Array.concat(
     layout.script.map(item => item.src),
     layout.link.map(item => item.href),
-    normalizeAssets(localAssets.map(asset => fixLocalAsset(asset)))
+    normalizeAssets(localAssets.map(asset => fixLocalAsset(asset))),
   )
 )
 
 export const getAssetsByExtension = (layout, extension, localAssets = []) => (
-  getAssets(layout,localAssets).filter(asset => new RegExp('.(' + extension + ')$').test(asset))
+  getAssets(layout, localAssets).filter(asset => new RegExp('.(' + extension + ')$').test(asset))
 )
 
 export const getScripts = (layout, localAssets = []) => (

@@ -9,10 +9,10 @@ import * as Assetic from './modules/Assetic'
 import handleError from './modules/HandleError'
 import renderMethods from './modules/ServerRenders'
 
-export default async (config) => {
+export default async(config) => {
   const debug = _debug('app:esc:server:universal:render')
 
-  return getClientInfo => async (ctx) => await new Promise((resolve) => {
+  return getClientInfo => async(ctx) => await new Promise((resolve) => {
     debug('Handle route', ctx.req.url)
 
     const store = createStore(config)
@@ -72,12 +72,19 @@ export default async (config) => {
       }
     }
 
+    let compilerPath = config.compiler_public_path
+
+    // Remove the `/` if the compiler path has it, as the assets already has one
+    if (compilerPath.substr(compilerPath.length - 1) === '/') {
+      compilerPath = compilerPath.slice(0, -1)
+    }
+
     // ----------------------------------
     // Everything went fine so far
     // ----------------------------------
     let scripts = Assetic
     .getScripts(defaultLayout, [vendor, app])
-    .map((asset, i) => <script key={i} type='text/javascript' src={`${asset}`} />)
+    .map((asset, i) => <script key={i} type='text/javascript' src={`${compilerPath}${asset}`} />)
 
     const redirectIfNecessary = (context, reject) => {
       if (hasOwnProperty(context, 'url')) {
