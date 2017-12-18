@@ -1,6 +1,6 @@
 import React from 'react'
 
-export class MainContainer extends React.Component {
+export default class MainContainer extends React.Component {
 
   static displayName = 'MainContainer'
 
@@ -18,5 +18,3 @@ export class MainContainer extends React.Component {
   }
 
 }
-
-export default MainContainer

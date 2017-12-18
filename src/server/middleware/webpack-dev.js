@@ -13,11 +13,10 @@ export default function (compiler, publicPath, config) {
     publicPath,
     contentBase: paths.src(),
     hot        : true,
-    quiet      : config.compiler_quiet,
-    noInfo     : config.compiler_quiet,
+    logLevel   : config.compiler_quiet ? 'silent' : 'info',
     lazy       : false,
     stats      : config.compiler_stats,
-    headers    : { 'Access-Control-Allow-Origin': '*' }
+    headers    : { 'Access-Control-Allow-Origin': '*' },
   })
 
   return async function koaWebpackDevMiddleware(ctx, next) {
@@ -25,7 +24,7 @@ export default function (compiler, publicPath, config) {
       end      : (content) => (ctx.body = content),
       setHeader: function () {
         ctx.set.apply(ctx, arguments)
-      }
+      },
     })
 
     if (hasNext) {
