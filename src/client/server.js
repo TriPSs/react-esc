@@ -32,13 +32,20 @@ export default async(config) => {
     global.navigator = global.navigator || {}
     global.navigator.userAgent = global.navigator.userAgent || ctx.req.headers['user-agent']
 
+    let compilerPath = config.compiler_public_path
+
+    // Remove the `/` if the compiler path has it, as the assets already has one
+    if (compilerPath.substr(compilerPath.length - 1) === '/') {
+      compilerPath = compilerPath.slice(0, -1)
+    }
+
     let { app, vendor } = getClientInfo().assetsByChunkName
 
     let links = Assetic
     .getStyles(defaultLayout, ([vendor, app]))
     .map(asset => ({
       rel : 'stylesheet',
-      href: `${asset}`,
+      href: `${compilerPath}${asset}`,
     }))
 
     // This will be transferred to the client side in __LAYOUT__ variable
@@ -47,7 +54,7 @@ export default async(config) => {
       ...defaultLayout,
       link: [
         ...defaultLayout.link,
-        ...links
+        ...links,
       ],
     }
 
@@ -70,13 +77,6 @@ export default async(config) => {
           cssText: style.parts.map(part => `${part.css}\n`).join('\n'),
         }))
       }
-    }
-
-    let compilerPath = config.compiler_public_path
-
-    // Remove the `/` if the compiler path has it, as the assets already has one
-    if (compilerPath.substr(compilerPath.length - 1) === '/') {
-      compilerPath = compilerPath.slice(0, -1)
     }
 
     // ----------------------------------
