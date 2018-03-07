@@ -7,8 +7,8 @@ import _debug from 'debug'
 
 export default (config) => {
 
-  const debug                           = _debug('app:esc:webpack:config:client')
-  const paths                           = config.utils_paths
+  const debug = _debug('app:esc:webpack:config:client')
+  const paths = config.utils_paths
   const { __DEV__, __PROD__, __TEST__ } = config.globals
 
   debug('Create client configuration.')
@@ -22,9 +22,9 @@ export default (config) => {
           ? [
             'react-hot-loader/patch',
             `webpack-hot-middleware/client?path=${config.compiler_public_path}__webpack_hmr`,
-            paths.src(config.entry_client)
+            paths.src(config.entry_client),
           ] : paths.src(config.entry_client),
-        vendor: config.compiler_vendor
+        vendor: config.compiler_vendor,
       },
 
       output: {
@@ -42,9 +42,9 @@ export default (config) => {
               use     : [
                 cssLoaderConfig,
                 postCssLoaderConfig,
-                sassLoaderConfig([paths.src('styles')])
-              ]
-            })
+                sassLoaderConfig([paths.src('styles')]),
+              ],
+            }),
           }, {
             test  : /\.css/,
             loader: ExtractTextPlugin.extract({
@@ -52,10 +52,10 @@ export default (config) => {
               use     : [
                 cssLoaderConfig,
                 postCssLoaderConfig,
-              ]
-            })
-          }
-        ]
+              ],
+            }),
+          },
+        ],
       },
 
       plugins: [
@@ -65,7 +65,7 @@ export default (config) => {
           disable  : !__PROD__,
         }),
       ],
-    }
+    },
   )
 
   if (__DEV__) {
@@ -114,32 +114,6 @@ export default (config) => {
           },
         },
       }),
-
-    )
-  }
-
-  if (__TEST__) {
-    webpackConfigClient.plugins.push(
-      new webpack.IgnorePlugin(/react\/addons/),
-      new webpack.IgnorePlugin(/react\/lib\/ReactContext/),
-      new webpack.IgnorePlugin(/react\/lib\/ExecutionEnvironment/)
-    )
-
-    webpackConfigClient.module.noParse = [
-      /node_modules\/sinon\//
-    ]
-
-    webpackConfigClient.resolve.alias = {
-      'sinon': 'sinon/pkg/sinon'
-    }
-  }
-
-  // Don't split bundles during testing, since we only want import one bundle
-  if (!__TEST__) {
-    webpackConfigClient.plugins.push(
-      new webpack.optimize.CommonsChunkPlugin({
-        names: ['vendor'],
-      })
     )
   }
 

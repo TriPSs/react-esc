@@ -1,7 +1,4 @@
 // @remove-file-on-eject
-/**
- * Created by tycho on 19/12/2016.
- */
 import path from 'path'
 import defaultConfig from './default'
 

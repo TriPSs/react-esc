@@ -7,8 +7,8 @@ export const sassLoaderConfig = (include) => ({
   options: {
     sourceMap   : true,
     outputStyle : 'expanded',
-    includePaths: include
-  }
+    includePaths: include,
+  },
 })
 
 export const cssLoaderConfig = {
@@ -18,8 +18,8 @@ export const cssLoaderConfig = {
     minimize      : true,
     modules       : true,
     importLoaders : true,
-    localIdentName: '[name]__[local]___[hash:base64:5]'
-  }
+    localIdentName: '[name]__[local]___[hash:base64:5]',
+  },
 }
 
 export const postCssLoaderConfig = {
@@ -45,15 +45,15 @@ export const postCssLoaderConfig = {
             'edge 13',
             'ios_saf 9.0-9.2',
             'ie_mob 11',
-            'Android >= 4'
+            'Android >= 4',
           ],
           cascade : false,
           add     : true,
-          remove  : true
+          remove  : true,
         },
-      })
-    ]
-  }
+      }),
+    ],
+  },
 }
 
 
@@ -65,9 +65,12 @@ export default (config) => {
 
   return {
     devtool: config.compiler_devtool,
-    node   : {
-      fs: "empty"
+
+    mode: config.env,
+    node: {
+      fs: 'empty',
     },
+
     resolve: {
       modules   : [
         paths.src(),
@@ -80,84 +83,86 @@ export default (config) => {
       ],
       symlinks  : false,
     },
+
     module : {
-      rules: [{
-        test   : /\.(js|jsx)$/,
-        exclude: /node_modules/,
-        loader : 'babel-loader',
-        options: {
-          cacheDirectory: true,
-          env           : {
-            development: {
-              plugins: [
-                'transform-runtime',
-                'transform-decorators-legacy',
-                'add-react-displayname',
-              ],
-              presets: [
-                [
-                  'es2015',
-                  {
-                    modules: false,
-                  },
+      rules: [
+        {
+          test   : /\.(js|jsx)$/,
+          exclude: /node_modules/,
+          loader : 'babel-loader',
+          options: {
+            cacheDirectory: true,
+            env           : {
+              development: {
+                plugins: [
+                  'transform-runtime',
+                  'transform-decorators-legacy',
+                  'add-react-displayname',
                 ],
-                'react',
-                'stage-0',
-              ],
-            },
-            production : {
-              plugins: [
-                'transform-runtime',
-                'transform-decorators-legacy',
-                'add-react-displayname',
-              ],
-              presets: [
-                [
-                  'es2015',
-                  {
-                    modules: false,
-                  },
+                presets: [
+                  [
+                    'es2015',
+                    {
+                      modules: false,
+                    },
+                  ],
+                  'react',
+                  'stage-0',
                 ],
-                'react',
-                'stage-0',
-                'react-optimize',
-              ],
+              },
+              production : {
+                plugins: [
+                  'transform-runtime',
+                  'transform-decorators-legacy',
+                  'add-react-displayname',
+                ],
+                presets: [
+                  [
+                    'es2015',
+                    {
+                      modules: false,
+                    },
+                  ],
+                  'react',
+                  'stage-0',
+                  'react-optimize',
+                ],
+              },
             },
           },
-        },
-      }, {
-        test   : /\.(gif|png|jpe?g|svg)$/i,
-        loaders: [
-          'file-loader?hash=sha512&digest=hex&name=img/img-[name]-[hash:6].[ext]',
-          {
-            loader: 'image-webpack-loader',
-            query : {
-              pngquant     : {
-                optimizationLevel: 7,
-                quality          : '65-90',
-                speed            : 4
+        }, {
+          test   : /\.(gif|png|jpe?g|svg)$/i,
+          loaders: [
+            'file-loader?hash=sha512&digest=hex&name=img/img-[name]-[hash:6].[ext]',
+            {
+              loader: 'image-webpack-loader',
+              query : {
+                pngquant     : {
+                  optimizationLevel: 7,
+                  quality          : '65-90',
+                  speed            : 4,
+                },
+                bypassOnDebug: true,
+                mozjpeg      : {
+                  progressive: true,
+                },
+                optipng      : {
+                  optimizationLevel: 7,
+                },
+                gifsicle     : {
+                  interlaced: false,
+                },
               },
-              bypassOnDebug: true,
-              mozjpeg: {
-                progressive: true,
-              },
-              optipng      : {
-                optimizationLevel: 7
-              },
-              gifsicle     : {
-                interlaced: false
-              }
-            }
-          }
-        ]
-      }, {
-        test   : /\.(woff|woff2|otf|eot|ttf)$/i,
-        loaders: ['file-loader?hash=sha512&digest=hex&name=fonts/font-[name]-[hash:6].[ext]']
-      }],
+            },
+          ],
+        }, {
+          test   : /\.(woff|woff2|otf|eot|ttf)$/i,
+          loaders: ['file-loader?hash=sha512&digest=hex&name=fonts/font-[name]-[hash:6].[ext]'],
+        }],
     },
     plugins: [
       new webpack.DefinePlugin({ ...config.globals, ...config.custom_globals }),
       new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
-    ]
+    ],
   }
 }
