@@ -66,7 +66,8 @@ export default (config) => {
   return {
     devtool: config.compiler_devtool,
 
-    mode: config.env,
+    mode: config.compiler_mode,
+
     node: {
       fs: 'empty',
     },
