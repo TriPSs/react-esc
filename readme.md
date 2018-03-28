@@ -15,27 +15,7 @@ $ npm install --save react-esc
 ## Development
 
 If you'd like to contribute to this project, you need to do is clone
-[this repo](https://github.com/TriPSs/react-esc-example) and this project in the same directory and change following files:
-
-**bin/server.js**
-```js
-import Server from 'react-esc/server'
-
-// TO
-
-import Server from '../../react-esc/src/server'
-```
-
-**src/client.js**
-```js
-import Client from 'react-esc/client'
-
-// TO
-
-import Client from '../../react-esc/src/client'
-```
-
-Or use `npm link`, example
+[this repo](https://github.com/TriPSs/react-esc-example) and use `npm link` to link to your local esc, example
 - Go to `react-esc` directory and execute command `npm link`
 - Go to `react-esc-example` directory and execute command `npm link react-esc`
 
