@@ -1,0 +1,11 @@
+*
+
+!.gitignore
+!.npmignore
+!LICENSE
+!package.json
+!package-lock.json
+!yarn.lock
+!readme.md
+!src/**/**
+!src/**/*
