@@ -40,8 +40,7 @@ const plugins = [
     babelrc: false,
   }),
   replace({
-    'process.env.NODE_ENV': JSON.stringify(NODE_ENV),
-    __DEV__               : NODE_ENV === 'production' ? 'false' : 'true',
+    __DEV__: NODE_ENV === 'production' ? 'false' : 'true',
   }),
   commonjs(),
 ]

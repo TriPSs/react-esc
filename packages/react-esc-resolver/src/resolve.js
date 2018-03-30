@@ -1,6 +1,6 @@
 import React from 'react'
 import Resolver from './Resolver'
-import { capitalize } from './utils'
+import { capitalize } from '../../shared'
 
 export default (prop, promise, cache = true) => {
 

@@ -2,7 +2,7 @@ import React from 'react'
 import PropTypes from 'prop-types'
 import ReactDOM from 'react-dom'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { hasOwnProperty } from './utils'
+import { hasOwnProperty, canUseDom } from '../../shared'
 
 const HAS_RESOLVED = 'ReactResolver.HAS_RESOLVED'
 const IS_CLIENT = 'ReactResolver.IS_CLIENT'
@@ -108,7 +108,7 @@ export default class Resolver extends React.Component {
   cached(resolve) {
     const { props, cache } = this.props
 
-    if (cache || isServer) {
+    if (cache || !canUseDom()) {
       if (hasOwnProperty(props, resolve)) {
         return props[resolve]
 

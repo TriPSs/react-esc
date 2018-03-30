@@ -59,15 +59,19 @@ export default (prop, Loader, promise = null) => {
       }
 
       return (
-        <div>
+        <React.Fragment>
+
           <Loader />
 
-          <div style={{ display: 'none' }}>
-            <Resolver onResolve={this.enqueue}>
-              {(resolved) => <Component {...this.props} {...resolved} />}
-            </Resolver>
-          </div>
-        </div>
+          {!promise && (
+            <div style={{ display: 'none' }}>
+              <Resolver onResolve={this.enqueue}>
+                {(resolved) => <Component {...this.props} {...resolved} />}
+              </Resolver>
+            </div>
+          )}
+
+        </React.Fragment>
       )
     }
   }
