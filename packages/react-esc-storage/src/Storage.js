@@ -1,6 +1,8 @@
 // @flow
-import { hasOwnProperty } from '../../shared'
+import { hasOwnProperty, canUseDom } from '../../shared'
 import CookieStorage from './storages/CookieStorage'
+import SessionStorage from './storages/SessionStorage'
+import LocalStorage from './storages/LocalStorage'
 import EmptyStorage from './storages/EmptyStorage'
 
 export default new (class Storage {
@@ -9,86 +11,48 @@ export default new (class Storage {
   LOCAL = 'local'
   SESSION = 'session'
 
-  check = () => {
-    if (!hasOwnProperty(global, 'cookie')) {
-      global.cookie = new CookieStorage(document.cookie, true)
-
-      return true
-    }
-
-    return false
-  }
-
   getStorage = (storageType) => {
-    if (storageType === this.cookie && hasOwnProperty(global, 'cookie')) {
-      return global.cookie
-    }
+    switch (storageType) {
 
-    return new EmptyStorage(storageType)
+      case this.COOKIE:
+        if (hasOwnProperty(global, 'cookie')) {
+          return new CookieStorage(global.cookie)
+
+        } else if (canUseDom()) {
+          return new CookieStorage(document.cookie, true)
+        }
+
+      case this.SESSION:
+        return new SessionStorage()
+
+      case this.LOCAL:
+        return new LocalStorage()
+
+      default:
+        return new EmptyStorage(storageType)
+    }
   }
 
   get = (storageType, name, options = {}) => {
-    let get = null
+    const storage = this.getStorage(storageType)
+    const value = storage.get(name, options)
 
-    if (storageType === this.COOKIE) {
-      if (hasOwnProperty(global, 'cookie')) {
-        get = global.cookie.get(name, options)
-      }
-
-    } else if (this.supportsStorage() && window.hasOwnProperty(`${storageType}Storage`)) {
-      get = window[`${storageType}Storage`].getItem(name)
-    }
-
-    if (get) {
-      try {
-        return JSON.parse(get)
-      } catch (e) {
-        return get
-      }
-    }
-
-    return get
-  }
-
-  set = (storageType, name, value, options = {}) => {
-    let stringValue = JSON.stringify(value)
-
-    if (storageType === this.COOKIE) {
-      if (global.hasOwnProperty('cookie')) {
-        global.cookie.set(name, stringValue, options)
-      }
-
-    } else if (this.supportsStorage() && global.hasOwnProperty(`${storageType}Storage`)) {
-      window[`${storageType}Storage`].setItem(name, stringValue)
+    try {
+      return JSON.parse(value)
+    } catch (e) {
+      return value
     }
   }
 
-  remove = (storageType, name, options = {}) => {
-    if (storageType === this.COOKIE) {
-      if (global.hasOwnProperty('cookie')) {
-        return global.cookie.remove(name, options)
-      }
+  set = (storageType, name, givenValue, options = {}) => {
+    const storage = this.getStorage(storageType)
+    const value = JSON.stringify(givenValue)
 
-    } else if (this.supportsStorage() && global.hasOwnProperty(`${storageType}Storage`)) {
-      window[`${storageType}Storage`].removeItem(name)
-    }
+    storage.set(name, value, options)
   }
 
-  has = (storageType, name, options = {}) => {
-    if (storageType === this.COOKIE) {
-      if (global.hasOwnProperty('cookie')) {
-        return global.cookie.has(name, options)
-      }
+  remove = (storageType, name, options = {}) => this.getStorage(storageType).remove(name, options)
 
-    } else if (this.supportsStorage() && window.hasOwnProperty(`${storageType}Storage`)) {
-      return window[`${storageType}Storage`].hasOwnProperty(name)
-    }
-
-    return false
-  }
-
-  supportsStorage = () => {
-    return typeof localStorage !== 'undefined' && typeof sessionStorage !== 'undefined'
-  }
+  has = (storageType, name, options = {}) => this.getStorage(storageType).has(name, options)
 
 })()

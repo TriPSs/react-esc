@@ -1,7 +1,6 @@
 // @flow
 export default class CookieStorage {
 
-  cache = {}
   cookies = null
   isString = false
 
@@ -25,10 +24,6 @@ export default class CookieStorage {
   }
 
   get = (name, givenOptions = {}) => {
-    if (this.cache.hasOwnProperty(name) && !!this.cache[name]) {
-      return this.cache[name]
-    }
-
     if (!this.isString) {
       return this.cookies.get(name, givenOptions)
 
@@ -67,8 +62,6 @@ export default class CookieStorage {
 
       document.cookie = cookie
     }
-
-    this.cache[name] = value
   }
 
   remove = (name, givenOptions = {}) => {
@@ -76,19 +69,12 @@ export default class CookieStorage {
 
     this.set(name, null, options)
 
-    if (this.cache.hasOwnProperty(name)) {
-      delete this.cache[name]
-    }
-
     if (this.cookies[name]) {
       delete this.cookies[name]
     }
   }
 
-  has = (name, givenOptions = {}) => (
-    (this.cache.hasOwnProperty(name) && !!this.cache[name])
-    || typeof this.get(name, givenOptions) !== 'undefined'
-  )
+  has = (name, givenOptions = {}) => typeof this.get(name, givenOptions) !== 'undefined'
 
   parseCookieString = (cookieString) => {
     const cookies = cookieString.split(';')

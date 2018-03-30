@@ -7,6 +7,10 @@ export default class EmptyStorage {
     this.storageType = storageType
   }
 
+  error = () => {
+    warning(`"${this.storageType}" is not an valid storage provider! Or provider is not found`)
+  }
+
   get = this.error
 
   set = this.error
@@ -14,9 +18,5 @@ export default class EmptyStorage {
   remove = this.error
 
   has = this.error
-
-  error = () => {
-    warning(`"${this.storageType}" is not an valid storage provider! Or provider is not found`)
-  }
 
 }
