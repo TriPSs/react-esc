@@ -1,6 +1,3 @@
-/**
- * Created by tycho on 19/12/2016.
- */
 import Koa from 'koa'
 import serve from 'koa-static'
 import webpack from 'webpack'

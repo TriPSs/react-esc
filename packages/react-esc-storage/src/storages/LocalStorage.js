@@ -1,4 +1,3 @@
-// @flow
 import warning from 'warning'
 import { canUseDom, hasOwnProperty } from '../../../shared'
 

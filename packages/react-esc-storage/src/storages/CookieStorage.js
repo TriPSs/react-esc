@@ -1,4 +1,3 @@
-// @flow
 export default class CookieStorage {
 
   cookies = null

@@ -7,11 +7,12 @@
     "local storage",
     "react",
     "server side rendering",
-    "session storage"
+    "session storage",
+    "koa"
   ],
-  "homepage": "https://github.com/TriPSs/react-esc-storage",
+  "homepage": "https://github.com/TriPSs/react-esc/tree/master/packages/react-esc-storage",
   "bugs": {
-    "url": "https://github.com/TriPss/react-esc-storage/issues"
+    "url": "https://github.com/TriPss/react-esc/issues"
   },
   "license": "MIT",
   "author": {
@@ -21,7 +22,7 @@
   "main": "./index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/TriPSs/react-esc-storage.git"
+    "url": "git://github.com/TriPSs/react-esc.git"
   },
   "scripts": {
     "build": "rollup -c=../../rollup.config.js",
@@ -29,12 +30,5 @@
     "flow": "flow",
     "flow:copy": "./node_modules/flow-copy-source/bin/flow-copy-source.js src ./ --ignore __tests__/*",
     "postversion": "git push && git push --tags && npm publish"
-  },
-  "devDependencies": {
-    "babel-cli": "^6.26.0",
-    "babel-preset-es2015": "^6.24.1",
-    "babel-preset-stage-0": "^6.24.1",
-    "flow-bin": "^0.56.0",
-    "flow-copy-source": "^1.2.1"
   }
 }

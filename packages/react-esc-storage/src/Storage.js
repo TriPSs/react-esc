@@ -1,4 +1,3 @@
-// @flow
 import { hasOwnProperty, canUseDom } from '../../shared'
 import CookieStorage from './storages/CookieStorage'
 import SessionStorage from './storages/SessionStorage'

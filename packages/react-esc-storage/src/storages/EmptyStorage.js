@@ -1,4 +1,3 @@
-// @flow
 import warning from 'warning'
 
 export default class EmptyStorage {
