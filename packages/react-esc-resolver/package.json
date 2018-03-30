@@ -1,6 +1,6 @@
 {
   "name": "react-esc-resolver",
-  "version": "2.0.2",
+  "version": "3.0.0",
   "description": "Easy to use Client and Server Resolver",
   "keywords": [
     "async-rendering",
@@ -28,12 +28,10 @@
     "url": "git://github.com/TriPSs/react-esc-resolver.git"
   },
   "scripts": {
-    "build": "NODE_ENV=production babel src -d ./ --copy-files --ignore __tests__",
+    "build": "rollup -c=../../rollup.config.js",
+    "build:old": "NODE_ENV=production babel src -d ./ --copy-files --ignore __tests__",
     "build:watch": "npm run build -- --watch",
-    "cleanup": "rimraf ./Resolver.js ./resolve.js ./index.js ./client.js",
-    "prepublish": "npm run cleanup && npm run build",
-    "version": "npm run prepublish",
-    "postversion": "git push && git push --tags && npm publish"
+    "cleanup": "rimraf cjs"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

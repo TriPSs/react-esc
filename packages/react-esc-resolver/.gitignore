@@ -9,3 +9,5 @@
 !readme.md
 !src/**/**
 !src/**/*
+!src
+!index.js

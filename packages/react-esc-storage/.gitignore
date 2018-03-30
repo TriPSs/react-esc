@@ -10,3 +10,4 @@
 !src/**/**
 !src/**/*
 !src
+!npm/index.js

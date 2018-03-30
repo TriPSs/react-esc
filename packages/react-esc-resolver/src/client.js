@@ -1,10 +1,10 @@
 import React from 'react'
 import PropTypes from 'prop-types'
-import { capitalize, hasOwnProperty } from './utils'
+import { capitalize, hasOwnProperty, canUseDom } from '../../shared'
 
 import Resolver from './Resolver'
 
-export default (prop, Loader) => {
+export default (prop, Loader, promise = null) => {
 
   const loadProps = (typeof prop === 'string') ? [prop] : prop
   const names = loadProps.map(capitalize).join('')
@@ -12,10 +12,6 @@ export default (prop, Loader) => {
   return Component => class extends React.Component {
 
     static displayName = `${names}ClientResolver`
-
-    static childContextTypes = {
-      resolver: PropTypes.instanceOf(Resolver),
-    }
 
     static contextTypes = {
       resolver: PropTypes.instanceOf(Resolver),
@@ -26,13 +22,15 @@ export default (prop, Loader) => {
 
       this.queue = []
       this.state = {
-        bypass: isServer || process.env.NODE_ENV === 'test',
+        bypass: (!canUseDom() && !promise) || process.env.NODE_ENV === 'test',
         loaded: this.isLoaded(props),
       }
     }
 
     componentDidMount() {
-      this.setState({ server: false })
+      if (promise) {
+        promise(this.props)
+      }
     }
 
     enqueue = (promise) => {

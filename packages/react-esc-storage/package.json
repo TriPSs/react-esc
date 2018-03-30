@@ -24,7 +24,8 @@
     "url": "git://github.com/TriPSs/react-esc-storage.git"
   },
   "scripts": {
-    "build": "babel src -d ./",
+    "build": "echo 'test'",
+    "build:a": "rollup -c=../../rollup.config.js",
     "build:watch": "npm run build -- --watch",
     "flow": "flow",
     "flow:copy": "./node_modules/flow-copy-source/bin/flow-copy-source.js src ./ --ignore __tests__/*",

@@ -25,4 +25,4 @@ React ESC is [MIT licensed](./LICENSE).
 
 ## Collaboration
 
-If you have questions or issues, please [open an issue](https://github.com/TriPSs/react-esc/issues)!
+If you have questions or [issues](https://github.com/TriPSs/react-esc/issues), please [open an issue](https://github.com/TriPSs/react-esc/issues/new?title=[ESC])!

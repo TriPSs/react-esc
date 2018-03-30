@@ -17,7 +17,8 @@
     "url": "git://github.com/TriPSs/react-esc.git"
   },
   "scripts": {
-    "build": "npm run cleanup && babel src -d ./",
+    "build": "echo 'test'",
+    "build:old": "npm run cleanup && babel src -d ./",
     "build:watch": "babel src --watch -d ./",
     "cleanup": "rimraf ./bin ./build ./client ./config ./server ./eject.js",
     "prepublish": "npm run build",
