@@ -7,11 +7,11 @@ import defaultConfig from '../config'
 
 const debug = _debug('app:esc:bin:compile')
 
-export default async (givenConfig) => {
+export default async(givenConfig) => {
   try {
-    const config       = defaultConfig(givenConfig)
-    const paths        = config.utils_paths
-    const clientInfo   = paths.dist(config.universal.client_info)
+    const config = defaultConfig(givenConfig)
+    const paths = config.utils_paths
+    const clientInfo = paths.dist(config.universal.client_info)
     const clientConfig = webpackConfigClient(config)
     let stats
 
@@ -35,7 +35,7 @@ export default async (givenConfig) => {
 
     debug('Run compiler for server')
     const serverConfig = webpackConfigServer(config)
-    stats              = await webpackCompiler(serverConfig)
+    stats = await webpackCompiler(serverConfig)
     if (stats.warnings.length && config.compiler_fail_on_warning) {
       debug('Config set to fail on warning, exiting with status code "1".')
       process.exit(1)

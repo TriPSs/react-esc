@@ -9,7 +9,7 @@ export default (config) => {
 
   const debug = _debug('app:esc:webpack:config:client')
   const paths = config.utils_paths
-  const { __DEV__, __PROD__, __TEST__ } = config.globals
+  const { __DEV__, __PROD__ } = config.globals
 
   debug('Create client configuration.')
   const webpackConfigClient = webpackMerge(webpackConfig(config), {

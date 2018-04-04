@@ -1,7 +1,7 @@
 import React from 'react'
 import { getStyles } from 'simple-universal-style-loader'
 import _debug from 'debug'
-import CookieStorage from 'react-esc-storage/CookieStorage'
+import { CookieStorage } from 'react-esc-storage'
 import hasOwnProperty from 'has-own-property'
 
 import createStore from './store/createStore'
@@ -12,7 +12,7 @@ import renderMethods from './modules/ServerRenders'
 export default async(config) => {
   const debug = _debug('app:esc:server:universal:render')
 
-  return getClientInfo => async(ctx) => await new Promise((resolve) => {
+  return getClientInfo => async(ctx) => new Promise((resolve) => {
     debug('Handle route', ctx.req.url)
 
     const store = createStore(config)
@@ -21,10 +21,6 @@ export default async(config) => {
 
     // Add Cookie to global so we can use it in the Storage module
     global.cookie = new CookieStorage(ctx.cookies)
-
-    // Set global that the server is rendering
-    global.isServer = true
-    global.isClient = false
 
     // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
     // user agent is not known.

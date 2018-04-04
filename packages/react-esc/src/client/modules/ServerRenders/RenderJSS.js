@@ -11,46 +11,54 @@ import { minify } from 'html-minifier'
 import createGenerateClassName from '../JSS/createGenerateClassName'
 import { renderJSSHtmlLayout } from './RenderJSSHtmlLayout'
 
-export default ({ AppContainer, store, location, context, layout, config, scripts, redirectIfNecessary }) =>
-  new Promise((resolve, reject) => {
-    // Create a sheetsRegistry instance.
-    const sheetsRegistry = new SheetsRegistry()
+export default ({
+  AppContainer,
+  store,
+  location,
+  context,
+  layout,
+  config,
+  scripts,
+  redirectIfNecessary,
+}) => new Promise((resolve, reject) => {
+  // Create a sheetsRegistry instance.
+  const sheetsRegistry = new SheetsRegistry()
 
-    let options = {
-      createGenerateClassName,
+  let options = {
+    createGenerateClassName,
+  }
+
+  if (config.jss && config.jss.options) {
+    options = {
+      ...options,
+      ...config.jss.options,
     }
+  }
 
-    if (config.jss && config.jss.options) {
-      options = {
-        ...options,
-        ...config.jss.options
-      }
-    }
+  jss.setup(options)
 
-    jss.setup(options)
+  Resolver.renderServer(() => (
+    <Provider {...{ store }}>
+      <StaticRouter {...{ location, context }}>
+        <JssProvider registry={sheetsRegistry} jss={jss}>
+          <AppContainer {...{ store, layout }} />
+        </JssProvider>
+      </StaticRouter>
+    </Provider>
+  )).then((Resolved) => {
+    redirectIfNecessary(context, reject)
 
-    Resolver.renderServer(() => (
-      <Provider {...{ store }}>
-        <StaticRouter {...{ location, context }}>
-          <JssProvider registry={sheetsRegistry} jss={jss}>
-            <AppContainer {...{ store, layout }} />
-          </JssProvider>
-        </StaticRouter>
-      </Provider>
-    )).then((Resolved) => {
-      redirectIfNecessary(context, reject)
+    // Grab the CSS from our sheetsRegistry.
+    const css = minify(sheetsRegistry.toString(), { collapseWhitespace: true })
 
-      // Grab the CSS from our sheetsRegistry.
-      const css = minify(sheetsRegistry.toString(), { collapseWhitespace: true })
+    const content = renderToString(
+      <Resolved />,
+    )
 
-      const content = renderToString(
-        <Resolved />,
-      )
+    const head = Helmet.rewind()
+    const body = <div key='body' {...config.app_mount_point} dangerouslySetInnerHTML={{ __html: content }} />
 
-      const head = Helmet.rewind()
-      const body = <div key='body' {...config.app_mount_point} dangerouslySetInnerHTML={{ __html: content }} />
+    resolve(renderJSSHtmlLayout(head, [body, scripts], css, store.getState()))
 
-      resolve(renderJSSHtmlLayout(head, [body, scripts], css, store.getState()))
-
-    }).catch(reject)
-  })
+  }).catch(reject)
+})

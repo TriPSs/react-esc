@@ -7,7 +7,7 @@ export default class Universal {
     const debug = _debug('app:esc:server:universal')
 
     const { use_compiled_server } = config
-    const output                  = config.utils_paths.dist(config.universal.output)
+    const output = config.utils_paths.dist(config.universal.output)
 
     if (!use_compiled_server) {
       try {
@@ -35,4 +35,3 @@ export default class Universal {
     return Promise.resolve(require(output).default(config))
   }
 }
-

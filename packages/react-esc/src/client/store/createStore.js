@@ -1,22 +1,20 @@
 import { applyMiddleware, compose, createStore } from 'redux'
 import thunk from 'redux-thunk'
 
-export default (config) => {
-
-  const { middlewares, custom_enhancers } = config
+export default ({ middlewares, custom_enhancers }) => {
 
   // ======================================================
   // Middleware Configuration
   // ======================================================
   const middleware = [
-    thunk
+    thunk,
   ]
 
   // Check if the logger middleware is enabled in the config
   if (middlewares.logger && middlewares.logger.enabled) {
     const loggerOptions = middlewares.logger.options || {}
-    const createLogger  = require('redux-logger').createLogger
-    const logger        = createLogger(loggerOptions)
+    const createLogger = require('redux-logger').createLogger
+    const logger = createLogger(loggerOptions)
 
     middleware.push(logger)
   }
@@ -62,13 +60,13 @@ export default (config) => {
   // Store Instantiation and HMR Setup
   // ======================================================
   const reducers = require('store/reducers').default
-  const store    = createStore(
+  const store = createStore(
     reducers(),
     (typeof window !== 'undefined' ? window.___INITIAL_STATE__ : {}),
     compose(
       applyMiddleware(...middleware),
-      ...enhancers
-    )
+      ...enhancers,
+    ),
   )
 
   store.asyncReducers = {}

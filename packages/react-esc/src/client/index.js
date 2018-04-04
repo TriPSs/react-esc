@@ -1,3 +1,1 @@
-import Client from './client'
-
-export default Client
+export { default } from './client'

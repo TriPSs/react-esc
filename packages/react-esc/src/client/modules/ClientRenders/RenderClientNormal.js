@@ -4,16 +4,16 @@ import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
 
 export const renderNormal = ({ Component, store, layout }) => () => (
-  <Provider {...{ store }}>
-    <Router>
-      <AppContainer>
+  <AppContainer>
+    <Provider {...{ store }}>
+      <Router>
         <Component {...{
           store,
-          layout
+          layout,
         }} />
-      </AppContainer>
-    </Router>
-  </Provider>
+      </Router>
+    </Provider>
+  </AppContainer>
 )
 
 export default renderNormal
