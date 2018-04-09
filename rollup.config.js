@@ -19,7 +19,7 @@ const plugins = [
   babel({
     plugins: [
       'transform-class-properties',
-      require(`${PACKAGE_ROOT_PATH}/scripts/rollup/plugins/wrapWarningWithEnvCheck`),
+      require(`${LERNA_ROOT_PATH || (PACKAGE_ROOT_PATH + '/../..')}/scripts/rollup/plugins/wrapWarningWithEnvCheck`),
     ],
     presets: [
       ['env', { modules: false }],

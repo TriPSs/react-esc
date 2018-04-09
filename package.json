@@ -2,11 +2,13 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "build": "lerna exec -- npm run build",
+    "lerna:parrallel": "lerna run --parallel",
+    "build": "yarn run lerna:parrallel build",
     "build:dev": "NODE_ENV=development npm run build",
     "build:prod": "NODE_ENV=production npm run build",
     "build:watch": "lerna run --parallel build",
-    "ci:build": "npm run build:dev && npm run build:prod"
+    "ci:build": "npm run build:dev && npm run build:prod",
+    "ci:publish": "yarn run lerna:parrallel prepublish && lerna publish"
   },
   "devDependencies": {
     "babel-plugin-external-helpers": "^6.22.0",
