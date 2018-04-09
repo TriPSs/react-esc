@@ -1,6 +1,6 @@
 {
   "name": "react-esc",
-  "version": "4.0.0-beta.13",
+  "version": "4.0.0-beta.14",
   "description": "Easy to use Client and Server",
   "homepage": "https://github.com/TriPSs/react-esc",
   "bugs": {
@@ -20,7 +20,8 @@
     "build:old": "echo 'test'",
     "build": "npm run cleanup && babel src -d ./",
     "build:watch": "babel src --watch -d ./",
-    "cleanup": "rimraf ./bin ./build ./client ./config ./server ./eject.js"
+    "cleanup": "rimraf ./bin ./build ./client ./config ./server ./eject.js",
+    "prepublish": "yarn run cleanup && yarn run build"
   },
   "dependencies": {
     "babel-cli": "^6.26.0",
@@ -66,7 +67,7 @@
     "react-addons-test-utils": "^15.6.2",
     "react-dev-utils": "^5.0.1",
     "react-dom": "^16.3.1",
-    "react-esc-resolver": "^4.0.0-beta.13",
+    "react-esc-resolver": "^4.0.0-beta.14",
     "react-esc-storage": "^1.2.0",
     "react-helmet": "^5.2.0",
     "react-hot-loader": "^4.0.1",

@@ -1,6 +1,6 @@
 {
   "name": "react-esc-resolver",
-  "version": "4.0.0-beta.13",
+  "version": "4.0.0-beta.14",
   "description": "Easy to use Client and Server Resolver",
   "keywords": [
     "async-rendering",
@@ -31,7 +31,8 @@
     "build": "rollup -c=../../rollup.config.js",
     "build:old": "NODE_ENV=production babel src -d ./ --copy-files --ignore __tests__",
     "build:watch": "npm run build -- --watch",
-    "cleanup": "rimraf cjs"
+    "cleanup": "rimraf cjs",
+    "prepublish": "yarn run cleanup && yarn run build"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",
