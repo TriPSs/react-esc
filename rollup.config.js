@@ -8,6 +8,7 @@ import path from 'path'
 
 const { LERNA_PACKAGE_NAME, LERNA_ROOT_PATH, NODE_ENV } = process.env
 const PACKAGE_ROOT_PATH = process.cwd()
+const PKG_JSON = require(path.join(PACKAGE_ROOT_PATH, 'package.json'))
 
 const formats = ['cjs']
 
@@ -49,7 +50,7 @@ export default formats.map(format => ({
     name     : LERNA_PACKAGE_NAME,
     file     : path.join(
       path.join(PACKAGE_ROOT_PATH, format),
-      `${LERNA_PACKAGE_NAME}.${NODE_ENV}.js`,
+      `${PKG_JSON.name}.${NODE_ENV}.js`,
     ),
     format,
   },

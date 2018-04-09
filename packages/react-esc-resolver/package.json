@@ -31,8 +31,7 @@
     "build": "rollup -c=../../rollup.config.js",
     "build:old": "NODE_ENV=production babel src -d ./ --copy-files --ignore __tests__",
     "build:watch": "npm run build -- --watch",
-    "cleanup": "rimraf cjs",
-    "prepublish": "yarn run cleanup && yarn run build"
+    "cleanup": "rimraf cjs"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

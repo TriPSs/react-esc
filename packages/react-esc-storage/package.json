@@ -29,7 +29,6 @@
     "build:watch": "npm run build -- --watch",
     "flow": "flow",
     "flow:copy": "./node_modules/flow-copy-source/bin/flow-copy-source.js src ./ --ignore __tests__/*",
-    "cleanup": "rimraf cjs",
-    "prepublish": "yarn run cleanup && yarn run build"
+    "cleanup": "rimraf cjs"
   }
 }

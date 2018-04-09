@@ -8,7 +8,7 @@
     "build:prod": "NODE_ENV=production npm run build",
     "build:watch": "lerna run --parallel build",
     "ci:build": "npm run build:dev && npm run build:prod",
-    "ci:publish": "yarn run lerna:parrallel prepublish && lerna publish"
+    "ci:publish": "yarn run build:prod && yarn run build:dev && lerna publish"
   },
   "devDependencies": {
     "babel-plugin-external-helpers": "^6.22.0",
