@@ -60,7 +60,7 @@ export default (config) => {
 
       plugins: [
         new ExtractTextPlugin({
-          filename : '[name].[contenthash].css',
+          filename : '[name].css',
           allChunks: true,
           disable  : !__PROD__,
         }),

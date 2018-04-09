@@ -17,7 +17,6 @@ export default (config) => {
     externals: externals(),
 
     entry: [
-      'babel-polyfill',
       paths.clientDir(config.entry_server),
     ],
 
