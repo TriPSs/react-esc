@@ -4,7 +4,7 @@ import { canUseDom, hasOwnProperty } from '../../../shared'
 export default class SessionStorage {
 
   error = () => {
-    warning(`"sessionStorage" is not available on a server!`)
+    warning(true, `"sessionStorage" is not available on a server!`)
   }
 
   get = (name, options = {}) => {

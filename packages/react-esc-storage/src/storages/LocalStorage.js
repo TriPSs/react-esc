@@ -4,7 +4,7 @@ import { canUseDom, hasOwnProperty } from '../../../shared'
 export default class LocalStorage {
 
   error = () => {
-    warning(`"localStorage" is not available on a server!`)
+    warning(true,`"localStorage" is not available on a server!`)
   }
 
   get = (name, options = {}) => {
