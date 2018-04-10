@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="4.0.0-beta.19"></a>
+# [4.0.0-beta.19](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.18...v4.0.0-beta.19) (2018-04-10)
+
+
+### Bug Fixes
+
+* **esc-storage:** Fixed warning crashing ([15cef27](https://github.com/TriPSs/react-esc/commit/15cef27))
+
+
+
+
 <a name="4.0.0-beta.18"></a>
 # [4.0.0-beta.18](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.17...v4.0.0-beta.18) (2018-04-09)
 
