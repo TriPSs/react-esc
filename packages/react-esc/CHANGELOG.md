@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="4.0.0-beta.20"></a>
+# [4.0.0-beta.20](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.19...v4.0.0-beta.20) (2018-04-10)
+
+
+
+
+**Note:** Version bump only for package react-esc
+
 <a name="4.0.0-beta.19"></a>
 # [4.0.0-beta.19](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.18...v4.0.0-beta.19) (2018-04-10)
 
