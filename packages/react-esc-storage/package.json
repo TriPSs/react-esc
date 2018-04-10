@@ -1,6 +1,6 @@
 {
   "name": "react-esc-storage",
-  "version": "4.0.0-beta.20",
+  "version": "4.0.0-beta.21",
   "description": "Easy to use Client and Server Storage",
   "keywords": [
     "cookies",
@@ -30,8 +30,5 @@
     "cleanup": "rimraf cjs",
     "flow": "flow",
     "flow:copy": "./node_modules/flow-copy-source/bin/flow-copy-source.js src ./ --ignore __tests__/*"
-  },
-  "dependencies": {
-    "warning": "^3.0.0"
   }
 }
