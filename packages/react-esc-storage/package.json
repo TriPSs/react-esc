@@ -4,11 +4,11 @@
   "description": "Easy to use Client and Server Storage",
   "keywords": [
     "cookies",
+    "koa",
     "local storage",
     "react",
     "server side rendering",
-    "session storage",
-    "koa"
+    "session storage"
   ],
   "homepage": "https://github.com/TriPSs/react-esc/tree/master/packages/react-esc-storage",
   "bugs": {
@@ -27,8 +27,11 @@
   "scripts": {
     "build": "rollup -c=../../rollup.config.js",
     "build:watch": "npm run build -- --watch",
+    "cleanup": "rimraf cjs",
     "flow": "flow",
-    "flow:copy": "./node_modules/flow-copy-source/bin/flow-copy-source.js src ./ --ignore __tests__/*",
-    "cleanup": "rimraf cjs"
+    "flow:copy": "./node_modules/flow-copy-source/bin/flow-copy-source.js src ./ --ignore __tests__/*"
+  },
+  "dependencies": {
+    "warning": "^3.0.0"
   }
 }
