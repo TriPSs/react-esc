@@ -4,6 +4,8 @@ import { renderToString } from 'react-dom/server'
 import { StaticRouter } from 'react-router'
 import { Provider } from 'react-redux'
 import { Resolver } from 'react-esc-resolver'
+import { CookiesProvider } from 'react-cookie'
+
 import { renderHtmlLayout } from './RenderHtmlLayout'
 
 export default ({
@@ -15,11 +17,14 @@ export default ({
   config,
   scripts,
   redirectIfNecessary,
+  cookies,
 }) => new Promise((resolve, reject) => {
   Resolver.renderServer(() => (
     <Provider {...{ store }}>
       <StaticRouter {...{ location, context }}>
-        <AppContainer {...{ store, layout }} />
+        <CookiesProvider {...{ cookies }}>
+          <AppContainer {...{ store, layout }} />
+        </CookiesProvider>
       </StaticRouter>
     </Provider>
   )).then((Resolved) => {

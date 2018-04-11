@@ -1,6 +1,7 @@
 import Koa from 'koa'
 import serve from 'koa-static'
 import webpack from 'webpack'
+import cookiesMiddleware from 'universal-cookie-koa'
 import generateWebpackConfigClient from '../build/webpack.config.client'
 import Universal from './middleware/universal'
 import webpackDevMiddleware from './middleware/webpack-dev'
@@ -10,7 +11,7 @@ import _debug from 'debug'
 
 const debug = _debug('app:esc:server')
 
-export default async (config) => {
+export default async(config) => {
   const webpackConfigClient = generateWebpackConfigClient(config)
 
   const app = new Koa()
@@ -33,8 +34,8 @@ export default async (config) => {
       clientInfo = {
         assetsByChunkName: {
           app   : `app.${stats.hash}.js`,
-          vendor: `vendor.${stats.hash}.js`
-        }
+          vendor: `vendor.${stats.hash}.js`,
+        },
       }
     })
 
@@ -63,6 +64,9 @@ export default async (config) => {
       app.use(serve(config.utils_paths.public()))
     }
   }
+
+  // Enable the cookies middleware
+  app.use(cookiesMiddleware())
 
   let um = await new Universal.middleware(config)
   app.use(um(() => clientInfo))

@@ -4,6 +4,7 @@ import { StaticRouter } from 'react-router'
 import { Provider } from 'react-redux'
 import { Resolver } from 'react-esc-resolver'
 import Helmet from 'react-helmet'
+import { CookiesProvider } from 'react-cookie'
 
 import { JssProvider, SheetsRegistry, jss } from 'react-jss'
 import { minify } from 'html-minifier'
@@ -20,6 +21,7 @@ export default ({
   config,
   scripts,
   redirectIfNecessary,
+  cookies,
 }) => new Promise((resolve, reject) => {
   // Create a sheetsRegistry instance.
   const sheetsRegistry = new SheetsRegistry()
@@ -41,7 +43,9 @@ export default ({
     <Provider {...{ store }}>
       <StaticRouter {...{ location, context }}>
         <JssProvider registry={sheetsRegistry} jss={jss}>
-          <AppContainer {...{ store, layout }} />
+          <CookiesProvider {...{ cookies }}>
+            <AppContainer {...{ store, layout }} />
+          </CookiesProvider>
         </JssProvider>
       </StaticRouter>
     </Provider>

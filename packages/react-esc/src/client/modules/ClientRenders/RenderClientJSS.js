@@ -3,6 +3,7 @@ import { AppContainer } from 'react-hot-loader'
 import { Provider } from 'react-redux'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { jss, JssProvider } from 'react-jss'
+import { CookiesProvider } from 'react-cookie'
 
 import createGenerateClassName from '../JSS/createGenerateClassName'
 import MainContainer from '../../containers/MainContainer'
@@ -15,7 +16,7 @@ export default ({ Component, store, layout, config }) => () => {
   if (config.jss && config.jss.options) {
     options = {
       ...options,
-      ...config.jss.options
+      ...config.jss.options,
     }
   }
 
@@ -27,10 +28,12 @@ export default ({ Component, store, layout, config }) => () => {
         <Router>
           <MainContainer>
             <JssProvider jss={jss}>
-              <Component {...{
-                store,
-                layout,
-              }} />
+              <CookiesProvider>
+                <Component {...{
+                  store,
+                  layout,
+                }} />
+              </CookiesProvider>
             </JssProvider>
           </MainContainer>
         </Router>

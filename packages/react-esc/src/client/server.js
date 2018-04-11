@@ -1,7 +1,6 @@
 import React from 'react'
 import { getStyles } from 'simple-universal-style-loader'
 import _debug from 'debug'
-import { CookieStorage } from 'react-esc-storage'
 import hasOwnProperty from 'has-own-property'
 
 import createStore from './store/createStore'
@@ -15,12 +14,9 @@ export default async(config) => {
   return getClientInfo => async(ctx) => new Promise((resolve) => {
     debug('Handle route', ctx.req.url)
 
-    const store = createStore(config)
+    const store = createStore(config, ctx.request.universalCookies)
     const defaultLayout = require('modules/layout').default
     const AppContainer = require('containers/AppContainer').default
-
-    // Add Cookie to global so we can use it in the Storage module
-    global.cookie = new CookieStorage(ctx.cookies)
 
     // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
     // user agent is not known.
@@ -91,6 +87,7 @@ export default async(config) => {
       }
     }
 
+    console.log('ctx.request.universalCookies', ctx.request.universalCookies)
     let context = {}
     renderMethods[config.compiler_render]({
       AppContainer,
@@ -101,6 +98,7 @@ export default async(config) => {
       scripts,
       redirectIfNecessary,
       location: ctx.req.url,
+      cookies : ctx.request.universalCookies,
     }).then((body) => {
       if (hasOwnProperty(context, 'status')) {
         ctx.status = context.status

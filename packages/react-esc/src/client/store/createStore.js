@@ -1,13 +1,15 @@
 import { applyMiddleware, compose, createStore } from 'redux'
 import thunk from 'redux-thunk'
 
-export default ({ middlewares, custom_enhancers }) => {
+export default ({ middlewares, custom_enhancers }, cookies) => {
 
   // ======================================================
   // Middleware Configuration
   // ======================================================
   const middleware = [
-    thunk,
+    thunk.withExtraArgument({
+      cookies,
+    }),
   ]
 
   // Check if the logger middleware is enabled in the config
