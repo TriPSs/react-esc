@@ -1,6 +1,6 @@
 {
   "name": "react-esc",
-  "version": "4.0.0-beta.24",
+  "version": "4.0.0-beta.25",
   "description": "Easy to use Client and Server",
   "homepage": "https://github.com/TriPSs/react-esc",
   "bugs": {
@@ -69,7 +69,7 @@
     "react-dev-utils": "^5.0.1",
     "react-dom": "^16.3.1",
     "react-esc-resolver": "^4.0.0-beta.18",
-    "react-esc-storage": "^4.0.0-beta.24",
+    "react-esc-storage": "^4.0.0-beta.25",
     "react-helmet": "^5.2.0",
     "react-hot-loader": "^4.0.1",
     "react-jss": "^8.4.0",
