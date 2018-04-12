@@ -87,7 +87,6 @@ export default async(config) => {
       }
     }
 
-    console.log('ctx.request.universalCookies', ctx.request.universalCookies)
     let context = {}
     renderMethods[config.compiler_render]({
       AppContainer,

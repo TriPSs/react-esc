@@ -2,6 +2,7 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
 import { Resolver } from 'react-esc-resolver'
+import Cookie from 'universal-cookie'
 
 import renderMethods from './modules/ClientRenders'
 import createStore from './store/createStore'
@@ -12,7 +13,7 @@ export default (givenConfig) => {
 
   const { defaultLayout } = config
   const Root = require('containers/AppContainer').default
-  const store = createStore(config)
+  const store = createStore(config, new Cookie())
 
   // ========================================================
   // Render Setup
