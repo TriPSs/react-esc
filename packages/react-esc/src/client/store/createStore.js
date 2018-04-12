@@ -26,7 +26,10 @@ export default ({ middlewares, custom_enhancers }, cookies) => {
   // ======================================================
   // Add from the folder if enabled
   if (middlewares.byFolder) {
-    const customMiddlewares = require('store/middleware').default()
+    // Also give cookies with the function so middelwares can also use cookiesun
+    const customMiddlewares = require('store/middleware').default({
+      cookies
+    })
 
     customMiddlewares.forEach(customMiddleware => {
       middleware.push(customMiddleware)
