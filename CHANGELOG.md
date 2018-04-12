@@ -3,6 +3,22 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="4.0.0-beta.26"></a>
+# [4.0.0-beta.26](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.25...v4.0.0-beta.26) (2018-04-12)
+
+
+### Bug Fixes
+
+* **esc:** Removed log and added the Cookie to the createStore of the client ([6332dd7](https://github.com/TriPSs/react-esc/commit/6332dd7))
+
+
+### Features
+
+* **esc:** Give cookies with loading the middlewares so it can be used there to ([f810d73](https://github.com/TriPSs/react-esc/commit/f810d73))
+
+
+
+
 <a name="4.0.0-beta.25"></a>
 # [4.0.0-beta.25](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.24...v4.0.0-beta.25) (2018-04-11)
 
