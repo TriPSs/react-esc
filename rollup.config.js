@@ -19,6 +19,7 @@ const plugins = [
   json(),
   babel({
     plugins: [
+      'transform-runtime',
       'transform-class-properties',
       require(`${LERNA_ROOT_PATH || (PACKAGE_ROOT_PATH + '/../..')}/scripts/rollup/plugins/wrapWarningWithEnvCheck`),
     ],
@@ -28,6 +29,7 @@ const plugins = [
       'react',
       'stage-0',
     ],
+    runtimeHelpers: true,
     exclude: 'node_modules/**',
     babelrc: false,
   }),
