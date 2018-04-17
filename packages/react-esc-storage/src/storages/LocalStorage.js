@@ -1,10 +1,11 @@
-import warning from 'warning'
 import { canUseDom, hasOwnProperty } from '../../../shared'
 
 export default class LocalStorage {
 
   error = () => {
-    warning(true,`"localStorage" is not available on a server!`)
+    console.warn(`"localStorage" is not available on a server!`)
+
+    return null
   }
 
   get = (name, options = {}) => {

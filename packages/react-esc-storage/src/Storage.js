@@ -10,12 +10,18 @@ export default new (class Storage {
   LOCAL = 'local'
   SESSION = 'session'
 
+  cookieStorage = null
+
+  setCookieStorage = (storage) => {
+    this.cookieStorage = storage
+  }
+
   getStorage = (storageType) => {
     switch (storageType) {
 
       case this.COOKIE:
-        if (hasOwnProperty(global, 'cookie')) {
-          return new CookieStorage(global.cookie)
+        if (this.cookieStorage !== null) {
+          return this.cookieStorage
 
         } else if (canUseDom()) {
           return new CookieStorage(document.cookie, true)

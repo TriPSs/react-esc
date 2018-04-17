@@ -1,3 +1,5 @@
+import canUseDocument from '../../../shared/canUseDocument'
+
 export default class CookieStorage {
 
   cookies = null
@@ -11,31 +13,16 @@ export default class CookieStorage {
     expires : null,
   }
 
-  constructor(cookies, isString = false) {
-    this.isString = isString
-
-    if (!isString) {
-      this.cookies = cookies
-
-    } else {
-      this.cookies = this.parseCookieString(cookies)
-    }
+  constructor(cookies) {
+    this.cookies = this.parseCookieString(cookies)
   }
 
-  get = (name, givenOptions = {}) => {
-    if (!this.isString) {
-      return this.cookies.get(name, givenOptions)
-
-    } else {
-      return this.cookies[name]
-    }
+  get = (name) => {
+    return this.cookies[name]
   }
 
   set = (name, value, givenOptions = {}) => {
-    if (!this.isString) {
-      this.cookies.set(name, value, { ...this.defaultOptions, ...givenOptions })
-
-    } else if (typeof (document) !== 'undefined') {
+    if (canUseDocument()) {
       const options = { ...this.defaultOptions, ...givenOptions }
       let cookie = `${name}=${value}`
 

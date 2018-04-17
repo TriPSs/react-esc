@@ -1,5 +1,3 @@
-import warning from 'warning'
-
 export default class EmptyStorage {
 
   constructor(storageType) {
@@ -7,7 +5,9 @@ export default class EmptyStorage {
   }
 
   error = () => {
-    warning(`"${this.storageType}" is not an valid storage provider! Or provider is not found`)
+    console.warn(`"${this.storageType}" is not an valid storage provider! Or provider is not found`)
+
+    return null
   }
 
   get = this.error
