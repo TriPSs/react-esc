@@ -4,9 +4,9 @@ import PropTypes from 'prop-types'
 export default class MainContainer extends React.Component {
 
   static propTypes = {
-    children: PropTypes.oneOf([
-      PropTypes.element,
-      PropTypes.arrayOf(PropTypes.element),
+    children: PropTypes.oneOfType([
+      PropTypes.node,
+      PropTypes.arrayOf(PropTypes.node),
     ]),
   }
 
