@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="4.0.0-beta.27"></a>
+# [4.0.0-beta.27](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.26...v4.0.0-beta.27) (2018-04-20)
+
+
+### Bug Fixes
+
+* **esc:** Fixed prop types of MainContainer ([c8096fd](https://github.com/TriPSs/react-esc/commit/c8096fd))
+
+
+
+
 <a name="4.0.0-beta.26"></a>
 # [4.0.0-beta.26](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.25...v4.0.0-beta.26) (2018-04-12)
 
