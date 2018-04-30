@@ -1,6 +1,7 @@
 {
   "name": "react-esc-storage",
   "version": "4.0.0-beta.27",
+  "private": true,
   "description": "Easy to use Client and Server Storage",
   "keywords": [
     "cookies",

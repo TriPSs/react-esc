@@ -1,4 +1,4 @@
-# React-ESC-Storage 
+# **DEPRECATED** React-ESC-Storage 
 ![https://img.shields.io/npm/v/react-esc-storage.svg](https://img.shields.io/npm/v/react-esc-storage.svg?style=flat-square) [![npm downloads](https://img.shields.io/npm/dt/react-esc-storage.svg?maxAge=2592000&style=flat-square)](https://npm-stat.com/charts.html?package=react-esc-storage) [![](https://img.shields.io/github/issues-raw/tripss/react-esc-storage.svg?style=flat-square)](https://github.com/tripss/react-esc-storage/issues) [![](https://img.shields.io/david/tripss/react-esc-storage.svg?style=flat-square)](https://david-dm.org/tripss/react-esc-storage#info=dependencies)
 [![Average time to resolve an issue](http://isitmaintained.com/badge/resolution/tripss/react-esc-storage.svg)](http://isitmaintained.com/project/tripss/react-esc-storage "Average time to resolve an issue") [![Percentage of issues still open](http://isitmaintained.com/badge/open/tripss/react-esc-storage.svg)](http://isitmaintained.com/project/tripss/react-esc-storage "Percentage of issues still open")
 
