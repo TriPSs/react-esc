@@ -2,15 +2,17 @@
   "private": true,
   "scripts": {
     "bootstrap": "lerna bootstrap",
-    "build": "yarn run lerna:parrallel build",
+    "build": "yarn run lerna:parrallel build --scope react-esc*",
     "build:dev": "NODE_ENV=development npm run build",
     "build:prod": "NODE_ENV=production npm run build",
-    "build:watch": "lerna run --parallel build",
+    "build:watch": "lerna run --parallel build:watch --scope react-esc*",
     "ci:build": "npm run build:dev && npm run build:prod",
     "ci:publish": "yarn run build:prod && yarn run build:dev && lerna publish",
     "lerna:parrallel": "lerna run --parallel"
   },
   "devDependencies": {
+    "babel": "^6.23.0",
+    "babel-cli": "^6.26.0",
     "babel-core": "^6.26.0",
     "babel-plugin-add-react-displayname": "0.0.5",
     "babel-plugin-external-helpers": "^6.22.0",
@@ -31,18 +33,14 @@
     "rollup-plugin-json": "^2.3.0",
     "rollup-plugin-node-resolve": "^3.3.0",
     "rollup-plugin-replace": "^2.0.0",
-    "rollup-plugin-uglify": "^3.0.0"
+    "rollup-plugin-uglify": "^3.0.0",
+    "babel-plugin-transform-class-properties": "^6.24.1",
+    "babel-runtime": "^6.26.0"
   },
   "workspaces": {
     "packages": [
+      "example",
       "packages/*"
-    ],
-    "nohoist": [
-      "**"
     ]
-  },
-  "dependencies": {
-    "babel-plugin-transform-class-properties": "^6.24.1",
-    "babel-runtime": "^6.26.0"
   }
 }

@@ -1,0 +1,32 @@
+{
+  "name": "react-esc-render-jss",
+  "version": "4.0.0-beta.27",
+  "description": "JSS intergration for React-ESC",
+  "homepage": "https://github.com/TriPSs/react-esc/tree/master/packages/react-esc-jss",
+  "bugs": {
+    "url": "https://github.com/TriPss/react-esc/issues"
+  },
+  "keywords": [
+    "react",
+    "react-esc",
+    "react-esc-jss",
+    "jss",
+    "react-jss"
+  ],
+  "license": "MIT",
+  "author": {
+    "name": "Tycho Bokdam",
+    "email": "t.bokdam@seronaris.nl"
+  },
+  "main": "./lib/index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/TriPSs/react-esc.git"
+  },
+  "scripts": {
+    "build": "rollup -c=../../rollup.config.js",
+    "build:watch": "yarn run build --watch"
+  },
+  "dependencies": {
+  }
+}
