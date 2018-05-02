@@ -7,7 +7,7 @@ export default class MainContainer extends React.Component {
     children: PropTypes.oneOfType([
       PropTypes.node,
       PropTypes.arrayOf(PropTypes.node),
-    ]),
+    ]).isRequired,
   }
 
   // Remove the server-side injected CSS.
