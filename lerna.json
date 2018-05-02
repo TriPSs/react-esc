@@ -1,0 +1,19 @@
+{
+  "lerna": "2.5.1",
+  "version": "4.0.0-beta.27",
+  "npmClient": "yarn",
+  "useWorkspaces": true,
+  "commands": {
+    "publish": {
+      "cdVersion": "prerelease",
+      "preid": "beta",
+      "message": "chore(release): publish %s",
+      "conventionalCommits": true,
+      "ignore": [
+        "ignored-file",
+        "*.md",
+        "__tests__"
+      ]
+    }
+  }
+}

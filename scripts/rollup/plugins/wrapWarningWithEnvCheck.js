@@ -1,0 +1,44 @@
+module.exports = function (babel, options) {
+  const t = babel.types
+
+  const DEV_EXPRESSION = t.identifier('__DEV__')
+
+  const SEEN_SYMBOL = Symbol('expression.seen')
+
+  return {
+    visitor: {
+      CallExpression: {
+        exit: function (path) {
+          const node = path.node
+
+          // Ignore if it's already been processed
+          if (node[SEEN_SYMBOL]) {
+            return
+          }
+
+          if (path.get('callee').isIdentifier({ name: 'warning' })) {
+            node[SEEN_SYMBOL] = true
+
+            // Turns this code:
+            //
+            // warning(condition, argument, argument);
+            //
+            // into this:
+            //
+            // if (__DEV__) {
+            //   warning(condition, argument, argument);
+            // }
+            //
+            // The goal is to strip out warning calls entirely in production.
+            path.replaceWith(
+              t.ifStatement(
+                DEV_EXPRESSION,
+                t.blockStatement([t.expressionStatement(node)]),
+              ),
+            )
+          }
+        },
+      },
+    },
+  }
+}

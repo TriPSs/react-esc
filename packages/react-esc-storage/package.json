@@ -1,0 +1,35 @@
+{
+  "name": "react-esc-storage",
+  "version": "4.0.0-beta.27",
+  "private": true,
+  "description": "Easy to use Client and Server Storage",
+  "keywords": [
+    "cookies",
+    "koa",
+    "local storage",
+    "react",
+    "server side rendering",
+    "session storage"
+  ],
+  "homepage": "https://github.com/TriPSs/react-esc/tree/master/packages/react-esc-storage",
+  "bugs": {
+    "url": "https://github.com/TriPss/react-esc/issues"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Tycho Bokdam",
+    "email": "t.bokdam@seronaris.nl"
+  },
+  "main": "./index.js",
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/TriPSs/react-esc.git"
+  },
+  "scripts": {
+    "build": "rollup -c=../../rollup.config.js",
+    "build:watch": "npm run build -- --watch",
+    "cleanup": "rimraf cjs",
+    "flow": "flow",
+    "flow:copy": "./node_modules/flow-copy-source/bin/flow-copy-source.js src ./ --ignore __tests__/*"
+  }
+}
