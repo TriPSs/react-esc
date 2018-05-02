@@ -1,9 +1,11 @@
 // ========================================================
 // Default Configuration
 // ========================================================
+const env = process.env.NODE_ENV || 'development'
+
 export default {
 
-  env: process.env.NODE_ENV || 'development',
+  env,
 
   // ----------------------------------
   // App mount point config
@@ -32,10 +34,27 @@ export default {
   // Webpack Configuration
   // ----------------------------------
   webpack: {
+    mode   : 'production',
+    devTool: 'source-map',
+
     loaders: [],
     plugins: [],
 
-    globals: {},
+    globals: {
+      'process.env': {
+        NODE_ENV: JSON.stringify(env),
+      },
+
+      NODE_ENV: env,
+      __DEV__ : env === 'development',
+      __PROD__: env === 'production',
+      __TEST__: env === 'test',
+    },
+  },
+
+  utils: {
+    // This one can be generated using the buildPaths util
+    paths: {},
   },
 
 }
