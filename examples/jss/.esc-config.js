@@ -1,13 +1,12 @@
 module.exports = {
 
   webpack: {
-    rules: [
-      'scss',    // Enable react-esc-webpack-scss
-      'css',     // Enable react-esc-webpack-css
-      'image',   // Enable react-esc-webpack-image
+    loaders: [
+      'react-esc-webpack-image',   // Enable react-esc-webpack-image
     ],
 
-    globals: {}, // Globals
+    // Globals
+    globals: {},
   },
 
   client: {
