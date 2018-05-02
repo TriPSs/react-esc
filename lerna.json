@@ -1,14 +1,15 @@
 {
   "lerna": "2.5.1",
-  "version": "4.0.0-beta.27",
+  "version": "5.0.0-alpha.1",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "commands": {
     "publish": {
       "cdVersion": "prerelease",
-      "preid": "beta",
+      "preid": "alpha",
       "message": "chore(release): publish %s",
       "conventionalCommits": true,
+      "scope": "react-esc*",
       "ignore": [
         "ignored-file",
         "*.md",

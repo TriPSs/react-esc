@@ -48,7 +48,7 @@ export default formats.map(format => ({
     name     : LERNA_PACKAGE_NAME,
     file     : path.join(
       path.join(PACKAGE_ROOT_PATH, format),
-      `${PKG_JSON.name}.${NODE_ENV}.js`,
+      `${PKG_JSON.name}.${NODE_ENV || 'development'}.js`,
     ),
     format,
   },
