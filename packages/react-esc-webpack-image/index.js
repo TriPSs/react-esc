@@ -1,4 +1,4 @@
-module.exports = function webpackImage(webpackConfig) {
+module.exports = function webpackImage(config, options) {
 
   return {
   }
