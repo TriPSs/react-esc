@@ -15,7 +15,9 @@ cli.name(`${green('react-esc')} start`)
 .option('-c --config <location>', 'File location of the config file')
 .parse(process.argv)
 
-const projectPgk = require(path.resolve(process.cwd(), 'package.json'))
+const cwd = process.cwd()
+
+const projectPgk = require(path.resolve(cwd, 'package.json'))
 
 log(`CLI Version: ${version}`)
 log(`Project Version: ${projectPgk.version}`)
@@ -34,7 +36,7 @@ if (fs.existsSync(configLocation)) {
 */
 
 // TODO:: When above works use this as fallback when no config has bee found
-const configLocation = path.resolve(process.cwd(), cli.config || '.esc-config.js')
+const configLocation = path.resolve(cwd, cli.config || '.esc-config.js')
 if (fs.existsSync(configLocation)) {
   server.setup(require(configLocation))
 }
