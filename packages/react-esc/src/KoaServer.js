@@ -23,6 +23,7 @@ export default class KoaServer {
     server: null,
   }
 
+
   setup = (config, cwd = null) => {
     this.config = deepMerge(this.config, config)
 
