@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="4.0.0-beta.30"></a>
+# [4.0.0-beta.30](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.29...v4.0.0-beta.30) (2018-05-19)
+
+
+### Bug Fixes
+
+* **resolver:** Check in the render client witch method to use ([b2c6114](https://github.com/TriPSs/react-esc/commit/b2c6114))
+* **resolver:** Revert last change ([9bb14e2](https://github.com/TriPSs/react-esc/commit/9bb14e2))
+
+
+
+
 <a name="4.0.0-beta.29"></a>
 # [4.0.0-beta.29](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.28...v4.0.0-beta.29) (2018-05-19)
 
