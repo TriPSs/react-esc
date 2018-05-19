@@ -4,9 +4,9 @@ import { jss, JssProvider } from 'react-jss'
 import createGenerateClassName from './utils/createGenerateClassName'
 import MainContainer from './utils/MainContainer'
 
-export default {
+export default class JssClient {
 
-  render: ({ config }) => () => {
+  render({ config }) {
     let options = {
       createGenerateClassName,
     }
@@ -27,6 +27,6 @@ export default {
         </JssProvider>
       </MainContainer>
     )
-  },
+  }
 
 }

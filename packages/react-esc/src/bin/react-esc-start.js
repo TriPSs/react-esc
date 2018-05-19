@@ -4,7 +4,7 @@ import cli from 'commander'
 import { green } from 'chalk'
 import debug from 'debug'
 
-import Server from '../server'
+import KoaServer from '../server'
 import { version } from '../package.json'
 
 const log = debug('react-esc:cli')
@@ -22,7 +22,7 @@ const projectPgk = require(path.resolve(cwd, 'package.json'))
 log(`CLI Version: ${version}`)
 log(`Project Version: ${projectPgk.version}`)
 
-const server = new Server()
+const server = new KoaServer()
 
 /*
 // TODO:: Make following configs work, based on NODE_ENV

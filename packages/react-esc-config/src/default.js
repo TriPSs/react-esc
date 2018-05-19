@@ -40,6 +40,13 @@ export default {
     loaders: [],
     plugins: [],
 
+    quiet: true,
+    stats: {
+      chunks      : false,
+      chunkModules: false,
+      colors      : true,
+    },
+
     globals: {
       'process.env': {
         NODE_ENV: JSON.stringify(env),

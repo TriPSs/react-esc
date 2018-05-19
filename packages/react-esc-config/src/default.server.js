@@ -1,4 +1,5 @@
 import ip from 'ip'
+import path from 'path'
 
 import defaultConfig from './default'
 
@@ -13,6 +14,7 @@ export default {
     port: process.env.PORT || 3000,
     host: process.env.HOST || ip.address(),
 
+    entry     : path.resolve(__dirname, 'server.js'),
     output    : 'server.js',
     clientInfo: 'client_info.json',
     serve     : true,
@@ -20,12 +22,17 @@ export default {
     // Only use the compiled server outside development
     useCompiled: defaultConfig.env !== 'development',
 
+    render: null,
+
     dirs: {
       src   : 'src',
       dist  : 'dist',
       public: 'dist/public',
-      server: 'server',
+      server: 'src/esc-server',
+      client: 'src/esc-client',
     },
+
+    middlewares: [],
   },
 
 }
