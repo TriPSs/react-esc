@@ -31,9 +31,7 @@ export default class Resolver extends React.Component {
   }
 
   static renderClient = (render, node) => {
-    const renderMethod = !!module.hot ? ReactDOM.render : ReactDOM.hydrate
-
-    renderMethod((
+    ReactDOM.hydrate((
       <Resolver>
         {render}
       </Resolver>
