@@ -10,7 +10,7 @@ module.exports = {
   },
 
   client: {
-    render: null, // Render method used on the client
+    render: 'react-esc-render-jss', // Render method used on the client
   },
 
   server: {
@@ -19,7 +19,7 @@ module.exports = {
 
     serve: true,  // Serve files with node, put this on false when you have nginx / apache serving the files
 
-    render: null, // Render method used on the server
+    render: 'react-esc-render-jss', // Render method used on the server
   },
 
 }

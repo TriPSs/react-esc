@@ -1,104 +1,129 @@
-import fs from 'fs'
-import Koa from 'koa'
-import serve from 'koa-static'
-import cookiesMiddleware from 'universal-cookie-koa'
-
-import deepMerge from 'deepmerge'
+import React from 'react'
+import { renderToString } from 'react-dom/server'
+import { getStyles } from 'simple-universal-style-loader'
+import { Resolver } from 'react-esc-resolver'
 import debug from 'debug'
+import hasOwnProperty from 'has-own-property'
 
-import webpack from 'react-esc-webpack'
-import defaultConfig from 'react-esc-config/default.server'
-import { buildPaths } from 'react-esc-config/utils'
+import ServerRender from './render/ServerRender'
+import Assetic from './utils'
+
+/*import createStore from './store/createStore'
+ import * as Assetic from './modules/Assetic'
+ import handleError from './modules/HandleError'
+ import renderMethods from './modules/ServerRenders'*/
 
 const log = debug('react-esc:server')
 
-export default class Server {
+export default async(config) => {
 
-  config = defaultConfig
+  // Put the function to render the app here
+  let renderClass = null
 
-  webpackConfig = {
-    client: null,
-    server: null,
+  if (config.server.render !== null) {
+    const { RenderServer } = require(config.server.render)
+
+    renderClass = new RenderServer(config)
+
+  } else {
+    renderClass = new ServerRender(config)
   }
 
-  setup = (config) => {
-    this.config = deepMerge(this.config, config)
+  return getClientInfo => async(ctx) => new Promise((resolve, reject) => {
+    log('Handle route', ctx.req.url)
 
-    this.config.utils.paths = buildPaths(this.config.server.dirs)
-  }
+    const store = createStore(config, ctx.request.universalCookies)
+    const defaultLayout = require('modules/layout').default
+    const AppContainer = require('containers/AppContainer').default
 
-  buildApp = () => {
-    const app = new Koa()
-    let clientInfo
+    // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
+    // user agent is not known.
+    // -----------------------------------------------------------------------------
+    global.navigator = global.navigator || {}
+    global.navigator.userAgent = global.navigator.userAgent || ctx.req.headers['user-agent']
 
-    // Enable the cookies middleware
-    app.use(cookiesMiddleware())
-    if (this.config.env === 'development' && !this.config.server.useCompiled) {
-      // Build the compiler config
-      const compilerConfig = webpack.buildClientConfig(this.config)
-      const compiler = webpack.getCompiler(compilerConfig)
+    let compilerPath = config.compiler_public_path
 
-      // Enable webpack-dev and webpack-hot middleware
-      const { output: { publicPath } } = compilerConfig
+    // Remove the `/` if the compiler path has it, as the assets already has one
+    if (compilerPath.substr(compilerPath.length - 1) === '/') {
+      compilerPath = compilerPath.slice(0, -1)
+    }
 
-      // Catch the hash of the build in order to use it in the universal middleware
-      compiler.plugin('done', (stats) => {
-        // Create client info from the fresh build
-        clientInfo = {
-          assetsByChunkName: {
-            app   : `app.${stats.hash}.js`,
-            vendor: `vendor.${stats.hash}.js`,
-          },
-        }
-      })
+    const { app, vendor } = getClientInfo().assetsByChunkName
 
-      app.use(webpack.middelwares.devMiddleware(compiler, publicPath, this.config))
-      app.use(webpack.middelwares.hmrMiddleware(compiler))
+    let links = Assetic
+    .getStyles(defaultLayout, ([vendor, app]))
+    .map(asset => ({
+      rel : 'stylesheet',
+      href: `${compilerPath}${asset}`,
+    }))
 
-      // Serve static assets from ~/src/static since Webpack is unaware of
-      // these files. This middleware doesn't need to be enabled outside
-      // of development since this directory will be copied into ~/dist
-      // when the application is compiled.
-      app.use(serve(this.config.utils.paths.src('static')))
+    // This will be transferred to the client side in __LAYOUT__ variable
+    // when universal is enabled we need to make sure the client to know about the chunk styles
+    const layoutWithLinks = {
+      ...defaultLayout,
+      link: [
+        ...defaultLayout.link,
+        ...links,
+      ],
+    }
 
-    } else {
-      log('Read client info.')
-      // Get assets from client_info.json
-      fs.readJSON(config.utils_paths.dist(this.config.server.clientInfo), (err, data) => {
-        if (err) {
-          clientInfo = {}
-          log('Failed to read client_data!')
-          return
-        }
+    // React-helmet will overwrite the layout once the client start running so that
+    // we don't have to remove our unused styles generated on server side
+    const layout = {
+      ...layoutWithLinks,
+      script: [
+        ...defaultLayout.script,
+        { type: 'text/javascript', innerHTML: `___LAYOUT__ = ${JSON.stringify(layoutWithLinks)}` },
+      ],
+    }
 
-        clientInfo = data
-      })
+    // Only inline all css when in dev mode
+    if (config.compiler_css_inline) {
+      const styles = getStyles()
 
-      if (this.config.server.serve) {
-        app.use(serve(this.config.utils.paths.public()))
+      if (styles) {
+        layout.style = getStyles().map(style => ({
+          cssText: style.parts.map(part => `${part.css}\n`).join('\n'),
+        }))
       }
     }
 
-    return app
-  }
+    // ----------------------------------
+    // Everything went fine so far
+    // ----------------------------------
+    const scripts = Assetic
+    .getScripts(defaultLayout, [vendor, app])
+    .map((asset, i) => <script key={i} type='text/javascript' src={`${compilerPath}${asset}`} />)
 
-  start = (app = null, { port = null, host = null } = {}) => {
-    if (app === null) {
-      app = this.buildApp()
+    const redirectIfNecessary = (context, reject) => {
+      if (hasOwnProperty(context, 'url')) {
+        reject({
+          redirect: context.url,
+          status  : context.status || 302,
+        })
+      }
     }
 
-    if (port === null) {
-      ({ port } = this.config.server)
-    }
+    let context = {}
+    Resolver.renderServer(hot(module)(() => (
+      <Provider {...{ store }}>
+        <StaticRouter {...{ location, context }}>
+          <CookiesProvider {...{ cookies }}>
+            {renderClass.render(AppContainer, { layout, store })}
+          </CookiesProvider>
+        </StaticRouter>
+      </Provider>
+    )))
+    .then((Resolved) => {
+      redirectIfNecessary(context, reject)
 
-    if (host === null) {
-      ({ host } = this.config.server)
-    }
+      const content = renderToString(
+        <Resolved />,
+      )
 
-    app.listen(port)
+      resolve(renderClass.postRender({ content, scripts, store }))
+    }).catch(reject)
 
-    log(`Server is now running at http://${host}:${port}.`)
-    log(`Server accessible via localhost:${port} if you are using the project defaults.`)
-  }
-
+  })
 }

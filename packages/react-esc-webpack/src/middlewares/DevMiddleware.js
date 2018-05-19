@@ -4,23 +4,23 @@ import applyExpressMiddleware from './applyExpressMiddleware'
 import log from '../log'
 
 export default (compiler, publicPath, config) => {
-  const { paths } = config.utils
+  const { utils: { paths }, webpack: { quiet, stats } } = config
 
   log('Enable webpack dev middleware.')
 
   const middleware = webpackDevMiddleware(compiler, {
     publicPath,
-    contentBase: paths.src(), // TODO:: This will not work, paths is not in the config yet
+    contentBase: paths.src(),
     hot        : true,
-    logLevel   : config.compiler_quiet ? 'silent' : 'info',
+    logLevel   : quiet ? 'silent' : 'info',
     lazy       : false,
-    stats      : config.compiler_stats,
     headers    : { 'Access-Control-Allow-Origin': '*' },
+    stats,
   })
 
   return async(ctx, next) => {
-    let hasNext = await applyExpressMiddleware(middleware, ctx.req, {
-      end      : (content) => (ctx.body = content),
+    const hasNext = await applyExpressMiddleware(middleware, ctx.req, {
+      end      : content => (ctx.body = content),
       setHeader: () => {
         ctx.set.apply(ctx, arguments)
       },
