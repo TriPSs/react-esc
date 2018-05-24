@@ -6,7 +6,7 @@ import cookiesMiddleware from 'universal-cookie-koa'
 import deepMerge from 'deepmerge'
 import debug from 'debug'
 
-import webpack from 'react-esc-webpack'
+import * as webpack from 'react-esc-webpack'
 import defaultConfig from 'react-esc-config/default.server'
 import { buildPaths } from 'react-esc-config/utils'
 
@@ -59,8 +59,8 @@ export default class KoaServer {
         }
       })
 
-      app.use(webpack.middelwares.devMiddleware(compiler, publicPath, this.config))
-      app.use(webpack.middelwares.hmrMiddleware(compiler))
+      app.use(webpack.middlewares.devMiddleware(compiler, publicPath, this.config))
+      app.use(webpack.middlewares.hmrMiddleware(compiler))
 
       // Serve static assets from ~/src/static since Webpack is unaware of
       // these files. This middleware doesn't need to be enabled outside
@@ -71,7 +71,7 @@ export default class KoaServer {
     } else {
       log('Read client info.')
       // Get assets from client_info.json
-      fs.readJSON(config.utils_paths.dist(this.config.server.clientInfo), (err, data) => {
+      fs.readJSON(this.config.paths.dist(this.config.server.clientInfo), (err, data) => {
         if (err) {
           clientInfo = {}
           log('Failed to read client_data!')
@@ -82,8 +82,7 @@ export default class KoaServer {
       })
     }
 
-    const serverCompiler = webpack.getCompiler(webpack.buildServerConfig(this.config))
-    const universalMiddleware = await webpack.middlewares.universalMiddleware(serverCompiler, this.config)
+    const universalMiddleware = await webpack.middlewares.universalMiddleware(this.config)
 
     app.use(universalMiddleware(() => clientInfo))
 

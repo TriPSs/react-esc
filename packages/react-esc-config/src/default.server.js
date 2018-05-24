@@ -14,7 +14,7 @@ export default {
     port: process.env.PORT || 3000,
     host: process.env.HOST || ip.address(),
 
-    entry     : path.resolve(__dirname, 'server.js'),
+    entry     : 'server.js',
     output    : 'server.js',
     clientInfo: 'client_info.json',
     serve     : true,
@@ -28,8 +28,8 @@ export default {
       src   : 'src',
       dist  : 'dist',
       public: 'dist/public',
-      server: 'src/esc-server',
-      client: 'src/esc-client',
+      server: null,
+      client: null,
     },
 
     middlewares: [],

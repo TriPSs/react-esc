@@ -40,12 +40,15 @@ export default {
     loaders: [],
     plugins: [],
 
-    quiet: true,
-    stats: {
+    quiet   : true,
+    hashType: 'hash',
+    stats   : {
       chunks      : false,
       chunkModules: false,
       colors      : true,
     },
+
+    publicPath: '/',
 
     globals: {
       'process.env': {

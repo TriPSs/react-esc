@@ -4,7 +4,7 @@ import cli from 'commander'
 import { green } from 'chalk'
 import debug from 'debug'
 
-import KoaServer from '../server'
+import KoaServer from '../KoaServer'
 import { version } from '../package.json'
 
 const log = debug('react-esc:cli')

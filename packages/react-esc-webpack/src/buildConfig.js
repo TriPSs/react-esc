@@ -11,25 +11,37 @@ export default (config) => {
 
     devtool: config.webpack.devTool,
 
-    mode: config.webpack.mode,
+    mode: 'development', // config.webpack.mode,
 
     node: {
       fs: 'empty',
     },
 
-    /* resolve: {
-     modules   : [
-     paths.src(),
-     'node_modules',
-     ],
-     extensions: [
-     '.js',
-     '.jsx',
-     '.json',
-     ],
-     symlinks  : false,
-     },
-     */
+    resolve: {
+      modules: [
+        paths.src(),
+        'node_modules',
+      ],
+
+      extensions: [
+        '.js',
+        '.jsx',
+        '.json',
+      ],
+    },
+
+    module: {
+      rules: [
+        {
+          test   : /\.(js|jsx)$/,
+          exclude: /node_modules/,
+          loader : 'babel-loader',
+          options: {
+            cacheDirectory: true,
+          },
+        },
+      ],
+    },
 
     plugins: [
       new webpack.DefinePlugin(config.webpack.globals),
@@ -45,9 +57,7 @@ export default (config) => {
 
       externals: externals(),
 
-      entry: [
-        config.server.entry,
-      ],
+      entry: paths.server,
 
       output: {
         filename      : config.server.output,
@@ -55,14 +65,22 @@ export default (config) => {
         library       : 'server',
         libraryTarget : 'umd',
         umdNamedDefine: true,
-        publicPath    : config.compiler_public_path,
+        publicPath    : config.webpack.publicPath,
       },
     },
 
     /**
      * Client specific configuration
      */
-    client: {},
+    client: {
+
+      output: {
+        filename  : `[name].[${config.webpack.hashType}].js`,
+        path      : paths.public(),
+        publicPath: config.webpack.publicPath,
+      },
+
+    },
   }
 
   return webpackMerge(

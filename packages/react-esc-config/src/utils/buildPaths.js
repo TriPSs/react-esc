@@ -11,8 +11,10 @@ export default (dirs, cwd = null, root = null) => {
     }
   }
 
-  let server = dirs.server ? base.bind(null, dirs.server) : noop
-  let client = dirs.client ? base.bind(null, dirs.client) : noop
+  base = (...args) => Reflect.apply(path.resolve, base, [...args])
+
+  const server = dirs.server ? base(dirs.server) : path.join(root, 'server.js')
+  const client = dirs.client ? base(dirs.client) : path.join(root, 'client.js')
 
   return {
     src   : dirs.src ? base.bind(null, dirs.src) : noop,

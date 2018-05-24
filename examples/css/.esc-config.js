@@ -16,7 +16,7 @@ module.exports = {
       ],
     ],
 
-    globals: {}, // Globals
+    globals   : {}, // Globals
   },
 
   client: {

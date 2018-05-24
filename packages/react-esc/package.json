@@ -26,14 +26,18 @@
     "prepublish": "yarn run cleanup && yarn run build"
   },
   "dependencies": {
+    "babel-loader": "^7.1.4",
     "chalk": "^2.4.1",
     "commander": "^2.15.1",
     "deepmerge": "^2.1.0",
+    "has-own-property": "^1.0.0",
     "koa": "^2.5.1",
     "koa-static": "^4.0.2",
     "react": "^16.3.2",
     "react-cookie": "^2.1.4",
     "react-dom": "^16.3.2",
+    "react-esc-config": "5.0.0-alpha.1",
+    "react-esc-webpack": "5.0.0-alpha.1",
     "react-hot-loader": "^4.1.2",
     "react-redux": "^5.0.7",
     "react-router": "^4.2.0",
@@ -42,8 +46,6 @@
     "redux": "^4.0.0",
     "redux-thunk": "^2.2.0",
     "shelljs": "^0.8.1",
-    "universal-cookie-koa": "^2.1.2",
-    "react-esc-config": "5.0.0-alpha.1",
-    "react-esc-webpack": "5.0.0-alpha.1"
+    "universal-cookie-koa": "^2.1.2"
   }
 }

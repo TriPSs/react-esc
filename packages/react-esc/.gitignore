@@ -3,5 +3,10 @@ client/**
 client.js
 createStore.js
 server.js
+ServerRender.js
+KoaServer.js
+ClientRender.js
+utils/**
+render/**
 
 !src/**
