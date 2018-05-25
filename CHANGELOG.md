@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="4.0.0-beta.31"></a>
+# [4.0.0-beta.31](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.30...v4.0.0-beta.31) (2018-05-25)
+
+
+### Features
+
+* **esc-resolver:** Added the cache validator option, a function where you can check if the current prop is still correct ([a51c09c](https://github.com/TriPSs/react-esc/commit/a51c09c))
+
+
+
+
 <a name="4.0.0-beta.30"></a>
 # [4.0.0-beta.30](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.29...v4.0.0-beta.30) (2018-05-19)
 
