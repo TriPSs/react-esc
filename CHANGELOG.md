@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="4.0.0-beta.32"></a>
+# [4.0.0-beta.32](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.31...v4.0.0-beta.32) (2018-05-25)
+
+
+### Bug Fixes
+
+* **esc-resolver:** Bump version ([9672be4](https://github.com/TriPSs/react-esc/commit/9672be4))
+
+
+
+
 <a name="4.0.0-beta.31"></a>
 # [4.0.0-beta.31](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.30...v4.0.0-beta.31) (2018-05-25)
 
