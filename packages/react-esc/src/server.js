@@ -1,6 +1,8 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
 import { getStyles } from 'simple-universal-style-loader'
+import { Provider } from 'react-redux'
+import { StaticRouter } from 'react-router-dom'
 import { Resolver } from 'react-esc-resolver'
 import debug from 'debug'
 import hasOwnProperty from 'has-own-property'
@@ -8,8 +10,9 @@ import hasOwnProperty from 'has-own-property'
 import ServerRender from './render/ServerRender'
 import Assetic from './utils'
 
+import createStore from './createStore'
+
 /*import createStore from './store/createStore'
- import * as Assetic from './modules/Assetic'
  import handleError from './modules/HandleError'
  import renderMethods from './modules/ServerRenders'*/
 
@@ -33,8 +36,10 @@ export default async(config) => {
     log('Handle route', ctx.req.url)
 
     const store = createStore(config, ctx.request.universalCookies)
-    const defaultLayout = require('modules/layout').default
-    const AppContainer = require('containers/AppContainer').default
+
+    // TODO:: Vanaf hier
+    const defaultLayout = require('modules/layout').default // Locatie uit config
+    const AppContainer = require('containers/AppContainer').default // Locatie uit config
 
     // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
     // user agent is not known.
@@ -42,21 +47,22 @@ export default async(config) => {
     global.navigator = global.navigator || {}
     global.navigator.userAgent = global.navigator.userAgent || ctx.req.headers['user-agent']
 
-    let compilerPath = config.compiler_public_path
+    let compilerPath = config.webpack.publicPath
 
     // Remove the `/` if the compiler path has it, as the assets already has one
     if (compilerPath.substr(compilerPath.length - 1) === '/') {
       compilerPath = compilerPath.slice(0, -1)
     }
 
-    const { app, vendor } = getClientInfo().assetsByChunkName
+    const { assetsByChunkName } = getClientInfo()
+    const assets = Object.keys(assetsByChunkName).map(chunkName => assetsByChunkName[chunkName])
 
-    let links = Assetic
-    .getStyles(defaultLayout, ([vendor, app]))
-    .map(asset => ({
-      rel : 'stylesheet',
-      href: `${compilerPath}${asset}`,
-    }))
+    const links = Assetic
+      .getStyles(defaultLayout, assets)
+      .map(asset => ({
+        rel : 'stylesheet',
+        href: `${compilerPath}${asset}`,
+      }))
 
     // This will be transferred to the client side in __LAYOUT__ variable
     // when universal is enabled we need to make sure the client to know about the chunk styles
@@ -78,23 +84,14 @@ export default async(config) => {
       ],
     }
 
-    // Only inline all css when in dev mode
-    if (config.compiler_css_inline) {
-      const styles = getStyles()
-
-      if (styles) {
-        layout.style = getStyles().map(style => ({
-          cssText: style.parts.map(part => `${part.css}\n`).join('\n'),
-        }))
-      }
-    }
-
     // ----------------------------------
     // Everything went fine so far
     // ----------------------------------
     const scripts = Assetic
-    .getScripts(defaultLayout, [vendor, app])
-    .map((asset, i) => <script key={i} type='text/javascript' src={`${compilerPath}${asset}`} />)
+      .getScripts(defaultLayout, assets)
+      .map((asset, i) => (
+        <script key={i} type='text/javascript' src={`${compilerPath}${asset}`} />
+      ))
 
     const redirectIfNecessary = (context, reject) => {
       if (hasOwnProperty(context, 'url')) {
@@ -115,15 +112,14 @@ export default async(config) => {
         </StaticRouter>
       </Provider>
     )))
-    .then((Resolved) => {
-      redirectIfNecessary(context, reject)
+      .then((Resolved) => {
+        redirectIfNecessary(context, reject)
 
-      const content = renderToString(
-        <Resolved />,
-      )
+        const content = renderToString(
+          <Resolved />,
+        )
 
-      resolve(renderClass.postRender({ content, scripts, store }))
-    }).catch(reject)
-
+        resolve(renderClass.postRender({ content, scripts, store }))
+      }).catch(reject)
   })
 }
