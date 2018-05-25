@@ -18,16 +18,20 @@ export default class Resolver extends React.Component {
   }
 
   static defaultProps = {
-    props  : {},
-    resolve: {},
+    props         : {},
+    resolve       : {},
+    cache         : true,
+    cacheValidator: null,
   }
 
   static displayName = 'Resolver'
 
   static propTypes = {
-    children: PropTypes.func.isRequired,
-    props   : PropTypes.object,
-    resolve : PropTypes.object,
+    children      : PropTypes.func.isRequired,
+    props         : PropTypes.object,
+    resolve       : PropTypes.object,
+    cache         : PropTypes.bool,
+    cacheValidator: PropTypes.func,
   }
 
   static renderClient = (render, node) => {
@@ -106,18 +110,24 @@ export default class Resolver extends React.Component {
   }
 
   cached(resolve) {
-    const { props, cache } = this.props
+    const { props, cache, cacheValidator } = this.props
+
+    let cached = null
 
     if (cache || !canUseDom()) {
       if (hasOwnProperty(props, resolve)) {
-        return props[resolve]
+        cached = props[resolve]
 
       } else if (this.context.resolver) {
-        return this.context.resolver.cached(resolve)
+        cached = this.context.resolver.cached(resolve)
       }
     }
 
-    return null
+    if (cached && cacheValidator && typeof cacheValidator === 'function') {
+      return cacheValidator(props)
+    }
+
+    return cached
   }
 
   componentWillMount() {
@@ -244,12 +254,10 @@ export default class Resolver extends React.Component {
         return false
       }
 
-      const nextState = {
+      this.setAtomicState({
         pending : {},
         resolved: { ...state.resolved, ...resolved },
-      }
-
-      this.setAtomicState(nextState)
+      })
     })
   }
 
