@@ -9,6 +9,8 @@ module.exports = {
     globals: {},
   },
 
+  //  render: 'react-esc-render-jss', // Render method used
+
   client: {
     //  render: 'react-esc-render-jss', // Render method used on the client
   },

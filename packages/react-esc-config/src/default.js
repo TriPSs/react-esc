@@ -60,7 +60,17 @@ export default {
       __PROD__: env === 'production',
       __TEST__: env === 'test',
     },
+
+    clientEntries: {
+      vendor: [
+        'react',
+        'redux',
+        'react-redux',
+      ],
+    },
   },
+
+  render: null,
 
   utils: {
     // This one can be generated using the buildPaths util

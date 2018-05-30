@@ -73,6 +73,19 @@ export default (config) => {
      * Client specific configuration
      */
     client: {
+      name: 'client',
+
+      target: 'web',
+
+      entry: {
+        app: config.webpack.globals.__DEV__
+          ? [
+            'react-hot-loader/patch',
+            `webpack-hot-middleware/client?path=${config.webpack.publicPath}__webpack_hmr`,
+            paths.client,
+          ] : paths.client,
+        ...config.webpack.clientEntries,
+      },
 
       output: {
         filename  : `[name].[${config.webpack.hashType}].js`,

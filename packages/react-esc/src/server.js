@@ -4,17 +4,15 @@ import { getStyles } from 'simple-universal-style-loader'
 import { Provider } from 'react-redux'
 import { StaticRouter } from 'react-router-dom'
 import { Resolver } from 'react-esc-resolver'
+import { hot } from 'react-hot-loader'
+import { CookiesProvider } from 'react-cookie'
 import debug from 'debug'
 import hasOwnProperty from 'has-own-property'
 
 import ServerRender from './render/ServerRender'
-import Assetic from './utils'
+import { Assetic } from './utils'
 
 import createStore from './createStore'
-
-/*import createStore from './store/createStore'
- import handleError from './modules/HandleError'
- import renderMethods from './modules/ServerRenders'*/
 
 const log = debug('react-esc:server')
 
@@ -23,8 +21,8 @@ export default async(config) => {
   // Put the function to render the app here
   let renderClass = null
 
-  if (config.server.render !== null) {
-    const { RenderServer } = require(config.server.render)
+  if (config.render !== null) {
+    const { RenderServer } = require(config.render)
 
     renderClass = new RenderServer(config)
 
@@ -37,7 +35,6 @@ export default async(config) => {
 
     const store = createStore(config, ctx.request.universalCookies)
 
-    // TODO:: Vanaf hier
     const defaultLayout = require('modules/layout').default // Locatie uit config
     const AppContainer = require('containers/AppContainer').default // Locatie uit config
 
@@ -101,14 +98,12 @@ export default async(config) => {
         })
       }
     }
-
+    console.log('URLLL', ctx.req.url, '\n\n\n')
     let context = {}
     Resolver.renderServer(hot(module)(() => (
-      <Provider {...{ store }}>
-        <StaticRouter {...{ location, context }}>
-          <CookiesProvider {...{ cookies }}>
-            {renderClass.render(AppContainer, { layout, store })}
-          </CookiesProvider>
+      <Provider store={store}>
+        <StaticRouter location={ctx.req.url} context={context}>
+          {renderClass.render(AppContainer, { layout, store })}
         </StaticRouter>
       </Provider>
     )))
@@ -119,7 +114,16 @@ export default async(config) => {
           <Resolved />,
         )
 
-        resolve(renderClass.postRender({ content, scripts, store }))
+        if (hasOwnProperty(context, 'status')) {
+          ctx.status = context.status
+
+        } else {
+          ctx.status = 200
+        }
+
+        ctx.body = renderClass.postRender({ content, scripts, store })
+
+        resolve()
       }).catch(reject)
   })
 }

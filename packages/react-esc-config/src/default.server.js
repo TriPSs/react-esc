@@ -22,8 +22,6 @@ export default {
     // Only use the compiled server outside development
     useCompiled: defaultConfig.env !== 'development',
 
-    render: null,
-
     dirs: {
       src   : 'src',
       dist  : 'dist',

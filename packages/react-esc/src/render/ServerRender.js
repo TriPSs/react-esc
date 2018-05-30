@@ -19,9 +19,14 @@ export default class ServerRender {
 
   postRender({ content, scripts, store }) {
     const head = Helmet.rewind()
-    const body = <div key={'body'} {...this.config.app_mount_point} dangerouslySetInnerHTML={{ __html: content }} />
+    const body = (
+      <div
+        key={'body'}
+        {...this.config.app_mount_point}
+        dangerouslySetInnerHTML={{ __html: content }} />
+    )
 
-    return renderHtmlLayout(head, [body, scripts], css, store.getState())
+    return renderHtmlLayout(head, [body, scripts], store.getState())
   }
 
 }

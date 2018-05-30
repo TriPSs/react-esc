@@ -59,8 +59,25 @@ export default class KoaServer {
         }
       })
 
-      app.use(webpack.middlewares.devMiddleware(compiler, publicPath, this.config))
-      app.use(webpack.middlewares.hmrMiddleware(compiler))
+
+      const { utils: { paths }, webpack: { quiet, stats } } = this.config
+      // TODO:: Format this on webpack package
+      app.use(webpack.middleware({
+        config  : {
+          dev: {
+            publicPath,
+            contentBase: paths.src(),
+            hot        : true,
+            logLevel   : quiet ? 'silent' : 'info',
+            lazy       : false,
+            headers    : { 'Access-Control-Allow-Origin': '*' },
+            stats,
+          },
+        },
+        compiler: compiler,
+      }))
+      //    app.use(webpack.middlewares.devMiddleware(compiler, publicPath, this.config))
+//      app.use(webpack.middlewares.hmrMiddleware(compiler))
 
       // Serve static assets from ~/src/static since Webpack is unaware of
       // these files. This middleware doesn't need to be enabled outside
@@ -105,7 +122,6 @@ export default class KoaServer {
     app.listen(port)
 
     log(`Server is now running at http://${host}:${port}.`)
-    log(`Server accessible via localhost:${port} if you are using the project defaults.`)
   }
 
 }

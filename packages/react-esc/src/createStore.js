@@ -15,7 +15,7 @@ export default ({ store }, cookies) => {
   // ======================================================
   // Store Instantiation and HMR Setup
   // ======================================================
-  const reducers = require(store.reducersLoc).default
+  const reducers = require('store/reducers').default
   return createStore(
     reducers(),
     (typeof window !== 'undefined' ? window.___INITIAL_STATE__ : {}),
