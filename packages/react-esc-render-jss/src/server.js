@@ -2,7 +2,7 @@ import React from 'react'
 import Helmet from 'react-helmet'
 
 import { JssProvider, SheetsRegistry, jss } from 'react-jss'
-import { minify } from 'html-minifier'
+/*import { minify } from 'html-minifier'*/
 
 import createGenerateClassName from './utils/createGenerateClassName'
 import renderHtmlLayout from './utils/renderHtmlLayout'
@@ -39,10 +39,18 @@ export default class JssServer {
 
   postRender({ content, scripts, store }) {
     // Grab the CSS from our sheetsRegistry.
-    const css = minify(this.sheetsRegistry.toString(), { collapseWhitespace: true })
+    //const css = minify(this.sheetsRegistry.toString(), { collapseWhitespace: true })
+    const css = this.sheetsRegistry.toString()
+
+    console.log('css', css)
 
     const head = Helmet.rewind()
-    const body = <div key='body' {...this.config.app_mount_point} dangerouslySetInnerHTML={{ __html: content }} />
+    const body = (
+      <div
+        key='body'
+        {...this.config.app.mountPoint}
+        dangerouslySetInnerHTML={{ __html: content }} />
+    )
 
     return renderHtmlLayout(head, [body, scripts], css, store.getState())
   }

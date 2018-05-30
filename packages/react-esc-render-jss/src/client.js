@@ -6,7 +6,13 @@ import MainContainer from './utils/MainContainer'
 
 export default class JssClient {
 
-  render({ config }) {
+  jss
+
+  config
+
+  constructor(config) {
+    this.config = config
+
     let options = {
       createGenerateClassName,
     }
@@ -20,13 +26,15 @@ export default class JssClient {
 
     jss.setup(options)
 
-    return (App, ...props) => (
-      <MainContainer>
-        <JssProvider jss={jss}>
-          <App {...props} />
-        </JssProvider>
-      </MainContainer>
-    )
+    this.jss = jss
   }
+
+  render = (App, ...props) => (
+    <MainContainer>
+      <JssProvider jss={this.jss}>
+        <App {...props} />
+      </JssProvider>
+    </MainContainer>
+  )
 
 }

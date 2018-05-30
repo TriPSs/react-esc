@@ -9,10 +9,9 @@ module.exports = {
     globals: {},
   },
 
-  //  render: 'react-esc-render-jss', // Render method used
+  render: 'react-esc-render-jss', // Render method used
 
   client: {
-    //  render: 'react-esc-render-jss', // Render method used on the client
   },
 
   server: {
@@ -20,8 +19,6 @@ module.exports = {
     host: process.env.HOST || 'localhost',  // Host the server runs on
 
     serve: true,  // Serve files with node, put this on false when you have nginx / apache serving the files
-
-    // render: 'react-esc-render-jss', // Render method used on the server
   },
 
 }

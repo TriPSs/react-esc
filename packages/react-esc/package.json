@@ -26,6 +26,7 @@
     "prepublish": "yarn run cleanup && yarn run build"
   },
   "dependencies": {
+    "react-esc-render-jss": "5.0.0-alpha.1",
     "babel-loader": "^7.1.4",
     "chalk": "^2.4.1",
     "commander": "^2.15.1",

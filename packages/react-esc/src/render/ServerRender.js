@@ -22,7 +22,7 @@ export default class ServerRender {
     const body = (
       <div
         key={'body'}
-        {...this.config.app_mount_point}
+        {...this.config.app.mountPoint}
         dangerouslySetInnerHTML={{ __html: content }} />
     )
 

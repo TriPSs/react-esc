@@ -5,7 +5,6 @@ import { Provider } from 'react-redux'
 import { StaticRouter } from 'react-router-dom'
 import { Resolver } from 'react-esc-resolver'
 import { hot } from 'react-hot-loader'
-import { CookiesProvider } from 'react-cookie'
 import debug from 'debug'
 import hasOwnProperty from 'has-own-property'
 
@@ -19,16 +18,19 @@ const log = debug('react-esc:server')
 export default async(config) => {
 
   // Put the function to render the app here
-  let renderClass = null
+  let RenderServer = null
 
-  if (config.render !== null) {
-    const { RenderServer } = require(config.render)
+  switch (config.render) {
+    case 'react-esc-render-jss':
+    case 'jss':
+      ({ RenderServer } = require('react-esc-render-jss'))
+      break
 
-    renderClass = new RenderServer(config)
-
-  } else {
-    renderClass = new ServerRender(config)
+    default:
+      RenderServer = ServerRender
   }
+
+  const renderClass = new RenderServer(config)
 
   return getClientInfo => async(ctx) => new Promise((resolve, reject) => {
     log('Handle route', ctx.req.url)
@@ -98,7 +100,7 @@ export default async(config) => {
         })
       }
     }
-    console.log('URLLL', ctx.req.url, '\n\n\n')
+
     let context = {}
     Resolver.renderServer(hot(module)(() => (
       <Provider store={store}>
@@ -106,24 +108,24 @@ export default async(config) => {
           {renderClass.render(AppContainer, { layout, store })}
         </StaticRouter>
       </Provider>
-    )))
-      .then((Resolved) => {
-        redirectIfNecessary(context, reject)
 
-        const content = renderToString(
-          <Resolved />,
-        )
+    ))).then((Resolved) => {
+      redirectIfNecessary(context, reject)
 
-        if (hasOwnProperty(context, 'status')) {
-          ctx.status = context.status
+      const content = renderToString(
+        <Resolved />,
+      )
 
-        } else {
-          ctx.status = 200
-        }
+      if (hasOwnProperty(context, 'status')) {
+        ctx.status = context.status
 
-        ctx.body = renderClass.postRender({ content, scripts, store })
+      } else {
+        ctx.status = 200
+      }
 
-        resolve()
-      }).catch(reject)
+      ctx.body = renderClass.postRender({ content, scripts, store })
+
+      resolve()
+    }).catch(reject)
   })
 }

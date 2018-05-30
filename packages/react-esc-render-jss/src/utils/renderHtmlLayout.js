@@ -1,7 +1,7 @@
 import React from 'react'
 import server from 'react-dom/server'
 
-export default (head, body, initialState = {}) => {
+export default (head, body, css, initialState = {}) => {
   return '<!DOCTYPE html>' + (0, server.renderToStaticMarkup)(React.createElement(
     'html',
     head.htmlAttributes.toComponent(),
@@ -14,6 +14,13 @@ export default (head, body, initialState = {}) => {
       head.link.toComponent(),
       head.script.toComponent(),
       head.style.toComponent(),
+      React.createElement(
+        'style',
+        {
+          id                     : 'jss-server-side',
+          dangerouslySetInnerHTML: { __html: css },
+        },
+      ),
       React.createElement(
         'script',
         {
