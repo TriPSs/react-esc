@@ -3,6 +3,8 @@ import webpackConfig, { cssLoaderConfig, postCssLoaderConfig, sassLoaderConfig }
 import webpackMerge from 'webpack-merge'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import UglifyJSPlugin from 'uglifyjs-webpack-plugin'
+import CompressionPlugin from 'compression-webpack-plugin'
+
 import _debug from 'debug'
 
 export default (config) => {
@@ -34,39 +36,45 @@ export default (config) => {
       },
 
       module: {
-        rules: [
-          {
-            test  : /\.scss$/,
-            loader: ExtractTextPlugin.extract({
-              fallback: 'simple-universal-style-loader',
-              use     : [
-                cssLoaderConfig,
-                postCssLoaderConfig,
-                sassLoaderConfig([paths.src('styles')]),
-              ],
-            }),
-          }, {
-            test  : /\.css/,
-            loader: ExtractTextPlugin.extract({
-              fallback: 'simple-universal-style-loader',
-              use     : [
-                cssLoaderConfig,
-                postCssLoaderConfig,
-              ],
-            }),
-          },
-        ],
+        rules: [],
       },
 
-      plugins: [
-        new ExtractTextPlugin({
-          filename : '[name].css',
-          allChunks: true,
-          disable  : !__PROD__,
-        }),
-      ],
+      plugins: [],
     },
   )
+
+  if (!config.jss.noCss) {
+    webpackConfigClient.module.rules.push({
+      test  : /\.scss$/,
+      loader: ExtractTextPlugin.extract({
+        fallback: 'simple-universal-style-loader',
+        use     : [
+          cssLoaderConfig,
+          postCssLoaderConfig,
+          sassLoaderConfig([paths.src('styles')]),
+        ],
+      }),
+    })
+
+    webpackConfigClient.module.rules.push({
+      test  : /\.css/,
+      loader: ExtractTextPlugin.extract({
+        fallback: 'simple-universal-style-loader',
+        use     : [
+          cssLoaderConfig,
+          postCssLoaderConfig,
+        ],
+      }),
+    })
+
+    webpackConfigClient.plugins.push(
+      new ExtractTextPlugin({
+        filename : '[name].css',
+        allChunks: true,
+        disable  : !__PROD__,
+      }),
+    )
+  }
 
   if (__DEV__) {
     debug('Enable plugins for live development (HMR, NoErrors).')
@@ -113,6 +121,16 @@ export default (config) => {
             join_vars   : true,
           },
         },
+      }),
+
+      new webpack.HashedModuleIdsPlugin(),
+
+      new CompressionPlugin({
+        asset    : '[path].gz[query]',
+        algorithm: 'gzip',
+        test     : /\.js$|\.css$|\.html$|\.eot?.+$|\.ttf?.+$|\.woff?.+$|\.svg?.+$/,
+        threshold: 10240,
+        minRatio : 0.8,
       }),
     )
   }

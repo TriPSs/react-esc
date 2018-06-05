@@ -164,6 +164,7 @@ export default (config) => {
     plugins: [
       new webpack.DefinePlugin({ ...config.globals, ...config.custom_globals }),
       new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
+      new webpack.optimize.ModuleConcatenationPlugin(),
     ],
   }
 }
