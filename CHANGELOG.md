@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="4.0.0-beta.33"></a>
+# [4.0.0-beta.33](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.32...v4.0.0-beta.33) (2018-06-05)
+
+
+### Features
+
+* **esc:** Improved webpack config for production and made it optional to add the css plugins ([a2bc900](https://github.com/TriPSs/react-esc/commit/a2bc900))
+
+
+
+
 <a name="4.0.0-beta.32"></a>
 # [4.0.0-beta.32](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.31...v4.0.0-beta.32) (2018-05-25)
 
