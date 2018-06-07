@@ -159,12 +159,12 @@ export default (config) => {
         }, {
           test   : /\.(woff|woff2|otf|eot|ttf)$/i,
           loaders: ['file-loader?hash=sha512&digest=hex&name=fonts/font-[name]-[hash:6].[ext]'],
-        }],
+        },
+      ],
     },
     plugins: [
       new webpack.DefinePlugin({ ...config.globals, ...config.custom_globals }),
       new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /en/),
-      new webpack.optimize.ModuleConcatenationPlugin(),
     ],
   }
 }
