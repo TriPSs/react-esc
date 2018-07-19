@@ -6,6 +6,7 @@ export const styles = {
 
   root: {
     backgroundColor: 'black',
+    color          : 'white',
   },
 
 }

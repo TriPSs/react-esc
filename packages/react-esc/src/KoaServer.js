@@ -59,11 +59,10 @@ export default class KoaServer {
         }
       })
 
-
       const { utils: { paths }, webpack: { quiet, stats } } = this.config
       // TODO:: Format this on webpack package
-      app.use(webpack.middleware({
-        config  : {
+      const middleware = await webpack.middleware({
+        config: {
           dev: {
             publicPath,
             contentBase: paths.src(),
@@ -74,10 +73,10 @@ export default class KoaServer {
             stats,
           },
         },
-        compiler: compiler,
-      }))
-      //    app.use(webpack.middlewares.devMiddleware(compiler, publicPath, this.config))
-//      app.use(webpack.middlewares.hmrMiddleware(compiler))
+        compiler,
+      })
+
+      app.use(middleware)
 
       // Serve static assets from ~/src/static since Webpack is unaware of
       // these files. This middleware doesn't need to be enabled outside

@@ -3,3 +3,4 @@ cjs
 .idea
 lerna-debug.log
 yarn-error.log
+examples/**/dist

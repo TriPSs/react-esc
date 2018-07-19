@@ -10,11 +10,8 @@ import renderHtmlLayout from './utils/renderHtmlLayout'
 export default class JssServer {
 
   constructor(config) {
-    this.sheetsRegistry = new SheetsRegistry()
     this.config = config
-  }
 
-  render(App, ...props) {
     let options = {
       createGenerateClassName,
     }
@@ -28,8 +25,14 @@ export default class JssServer {
 
     jss.setup(options)
 
+    this.jss = jss
+  }
+
+  render(App, ...props) {
+    this.sheetsRegistry = new SheetsRegistry()
+
     return (
-      <JssProvider registry={this.sheetsRegistry} jss={jss}>
+      <JssProvider registry={this.sheetsRegistry} jss={this.jss}>
         <App {...{
           props,
         }} />

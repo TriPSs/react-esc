@@ -4,7 +4,7 @@
   "description": "Example for React-ESC",
   "private": true,
   "scripts": {
-    "start": "DEBUG=react-esc:* react-esc"
+    "start": "DEBUG=react-esc:* react-esc start"
   },
   "dependencies": {
     "react-esc": "5.0.0-alpha.1"

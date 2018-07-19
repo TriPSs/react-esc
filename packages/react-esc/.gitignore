@@ -1,6 +1,7 @@
 bin/**
 client/**
 client.js
+config.js
 createStore.js
 server.js
 ServerRender.js

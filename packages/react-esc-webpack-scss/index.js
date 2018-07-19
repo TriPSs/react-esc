@@ -1,5 +1,3 @@
-module.exports = function webpackImage(config, options) {
-
-  return {
-  }
+module.exports = (config, options) => {
+  return {}
 }

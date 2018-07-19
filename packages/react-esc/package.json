@@ -33,7 +33,7 @@
     "deepmerge": "^2.1.0",
     "has-own-property": "^1.0.0",
     "koa": "^2.5.1",
-    "koa-static": "^4.0.2",
+    "koa-static": "^5.0.0",
     "react": "^16.3.2",
     "react-cookie": "^2.1.4",
     "react-dom": "^16.3.2",

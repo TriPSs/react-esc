@@ -17,6 +17,7 @@ function cssLoaderConfig(options) {
 }
 
 export default ({ webpack: { globals: { __PROD__ } } }, options) => ({
+
   /**
    * Server configuration
    */
@@ -60,4 +61,5 @@ export default ({ webpack: { globals: { __PROD__ } } }, options) => ({
       }),
     ],
   },
+
 })

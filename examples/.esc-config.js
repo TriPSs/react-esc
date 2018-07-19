@@ -14,9 +14,7 @@ module.exports = {
     globals: {},
   },
 
-  client: {
-    render: null, // Render method used on the client
-  },
+  render: 'react-esc-render-jss', // Render method used
 
   server: {
     port: process.env.PORT || 3000,         // Port the server runs on

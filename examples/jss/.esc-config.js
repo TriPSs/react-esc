@@ -10,10 +10,7 @@ module.exports = {
   },
 
   render: 'react-esc-render-jss', // Render method used
-
-  client: {
-  },
-
+  
   server: {
     port: process.env.PORT || 3000,         // Port the server runs on
     host: process.env.HOST || 'localhost',  // Host the server runs on
