@@ -13,10 +13,6 @@ import createStore from './createStore'
 
 import givenConfig from './config'
 
-console.log('givenConfig', givenConfig)
-
-// const configLocation = path.resolve(process.cwd(), '.esc-config.js')
-
 const config = deepMerge(defaultConfig, givenConfig)
 const AppContainer = require('containers/AppContainer').default
 const store = createStore(config, new Cookie())
