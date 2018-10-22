@@ -14,7 +14,7 @@ import createStore from './createStore'
 import givenConfig from './config'
 
 const config = deepMerge(defaultConfig, givenConfig)
-const AppContainer = require('containers/AppContainer').default
+const AppContainer = require('App').default
 const store = createStore(config, new Cookie())
 const MOUNT_NODE = document.getElementById(config.app.mountPoint.id)
 

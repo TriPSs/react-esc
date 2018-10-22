@@ -38,7 +38,7 @@ export default async(config) => {
     const store = createStore(config, ctx.request.universalCookies)
 
     const defaultLayout = require('modules/layout').default // Locatie uit config
-    const AppContainer = require('containers/AppContainer').default // Locatie uit config
+    const AppContainer = require('App').default // Locatie uit config
 
     // Tell any CSS tooling (such as Material UI) to use all vendor prefixes if the
     // user agent is not known.

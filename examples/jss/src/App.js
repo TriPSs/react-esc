@@ -1,5 +1,4 @@
 import React from 'react'
-import { Route, Switch } from 'react-router'
 import withStyles from 'react-jss'
 
 export const styles = {
@@ -11,10 +10,10 @@ export const styles = {
 
 }
 
-export const AppContainer = ({ classes }) => (
+export const App = ({ classes }) => (
   <div className={classes.root}>
-    APPS sads
+    APPS
   </div>
 )
 
-export default withStyles(styles)(AppContainer)
+export default withStyles(styles)(App)
