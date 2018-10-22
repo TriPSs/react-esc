@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="5.0.0-alpha.5"></a>
+# [5.0.0-alpha.5](https://github.com/TriPSs/react-esc/compare/v5.0.0-alpha.4...v5.0.0-alpha.5) (2018-10-22)
+
+
+### Bug Fixes
+
+* **esc:** Fixed unknown and unused import ([a8423d1](https://github.com/TriPSs/react-esc/commit/a8423d1))
+* **render-jss:** Fixed that the creation of sheets registry was on the wrong place ([7e14f67](https://github.com/TriPSs/react-esc/commit/7e14f67))
+
+
+
+
 <a name="5.0.0-alpha.4"></a>
 # [5.0.0-alpha.4](https://github.com/TriPSs/react-esc/compare/v5.0.0-alpha.3...v5.0.0-alpha.4) (2018-10-22)
 
