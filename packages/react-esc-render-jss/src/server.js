@@ -26,11 +26,11 @@ export default class JssServer {
     jss.setup(options)
 
     this.jss = jss
+
+    this.sheetsRegistry = new SheetsRegistry()
   }
 
   render(App, ...props) {
-    this.sheetsRegistry = new SheetsRegistry()
-
     return (
       <JssProvider registry={this.sheetsRegistry} jss={this.jss}>
         <App {...{
