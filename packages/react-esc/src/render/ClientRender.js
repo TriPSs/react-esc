@@ -6,7 +6,7 @@ export default class ClientRender {
     this.config = config
   }
 
-  render = (App, { ...props }) => (
+  render = (App, props) => (
     <App {...props} />
   )
 

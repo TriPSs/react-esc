@@ -9,11 +9,9 @@ export default class ServerRender {
     this.config = config
   }
 
-  render(App, ...props) {
+  render(App, props) {
     return (
-      <App {...{
-        props,
-      }} />
+      <App {...props} />
     )
   }
 

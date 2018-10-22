@@ -30,12 +30,10 @@ export default class JssServer {
     this.sheetsRegistry = new SheetsRegistry()
   }
 
-  render(App, ...props) {
+  render(App, props) {
     return (
       <JssProvider registry={this.sheetsRegistry} jss={this.jss}>
-        <App {...{
-          props,
-        }} />
+        <App {...props} />
       </JssProvider>
     )
   }
@@ -44,8 +42,6 @@ export default class JssServer {
     // Grab the CSS from our sheetsRegistry.
     //const css = minify(this.sheetsRegistry.toString(), { collapseWhitespace: true })
     const css = this.sheetsRegistry.toString()
-
-    console.log('css', css)
 
     const head = Helmet.rewind()
     const body = (

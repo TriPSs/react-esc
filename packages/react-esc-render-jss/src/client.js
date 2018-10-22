@@ -29,7 +29,7 @@ export default class JssClient {
     this.jss = jss
   }
 
-  render = (App, ...props) => (
+  render = (App, props) => (
     <MainContainer>
       <JssProvider jss={this.jss}>
         <App {...props} />
