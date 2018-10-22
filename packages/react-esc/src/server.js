@@ -1,6 +1,5 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
-import { getStyles } from 'simple-universal-style-loader'
 import { Provider } from 'react-redux'
 import { StaticRouter } from 'react-router-dom'
 import { Resolver } from 'react-esc-resolver'
@@ -29,8 +28,6 @@ export default async(config) => {
     default:
       RenderServer = ServerRender
   }
-
-  const renderClass = new RenderServer(config)
 
   return getClientInfo => async(ctx) => new Promise((resolve, reject) => {
     log('Handle route', ctx.req.url)
@@ -100,6 +97,9 @@ export default async(config) => {
         })
       }
     }
+
+    // Generate a new renderClass every request
+    const renderClass = new RenderServer(config)
 
     let context = {}
     Resolver.renderServer(hot(module)(() => (

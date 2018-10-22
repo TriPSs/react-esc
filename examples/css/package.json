@@ -7,6 +7,6 @@
     "start": "DEBUG=react-esc:* react-esc"
   },
   "dependencies": {
-    "react-esc": "5.0.0-alpha.1"
+    "react-esc": "5.0.0-alpha.3"
   }
 }
