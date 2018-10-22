@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="5.0.0-alpha.7"></a>
+# [5.0.0-alpha.7](https://github.com/TriPSs/react-esc/compare/v5.0.0-alpha.6...v5.0.0-alpha.7) (2018-10-22)
+
+
+### Bug Fixes
+
+* Fixed that layout was not passed correctly ([8705bc2](https://github.com/TriPSs/react-esc/commit/8705bc2))
+
+
+
+
 <a name="5.0.0-alpha.6"></a>
 # [5.0.0-alpha.6](https://github.com/TriPSs/react-esc/compare/v5.0.0-alpha.5...v5.0.0-alpha.6) (2018-10-22)
 

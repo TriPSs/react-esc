@@ -1,6 +1,6 @@
 {
   "name": "react-esc-render-jss",
-  "version": "5.0.0-alpha.6",
+  "version": "5.0.0-alpha.7",
   "description": "JSS intergration for React-ESC",
   "homepage": "https://github.com/TriPSs/react-esc/tree/master/packages/react-esc-jss",
   "bugs": {
