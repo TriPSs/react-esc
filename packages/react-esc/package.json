@@ -1,6 +1,6 @@
 {
   "name": "react-esc",
-  "version": "5.0.0-alpha.3",
+  "version": "5.0.0-alpha.4",
   "description": "Easy to use Client and Server",
   "homepage": "https://github.com/TriPSs/react-esc/tree/master/packages/react-esc",
   "bugs": {
@@ -26,7 +26,11 @@
     "prepublish": "yarn run cleanup && yarn run build"
   },
   "dependencies": {
+    "@babel/core": "^7.1.2",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
     "babel-loader": "^8.0.4",
+    "babel-runtime": "^6.26.0",
     "chalk": "^2.4.1",
     "commander": "^2.19.0",
     "deepmerge": "^2.2.1",
