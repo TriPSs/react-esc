@@ -3,6 +3,27 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="5.0.0-alpha.2"></a>
+# [5.0.0-alpha.2](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.27...v5.0.0-alpha.2) (2018-10-22)
+
+
+### Bug Fixes
+
+* **esc-config:** Fixed that configs where ignored by git ([f8568ff](https://github.com/TriPSs/react-esc/commit/f8568ff))
+
+
+### Features
+
+* **esc:** Updated CLI to open .esc-config.js file and worked on the server ([fe4ec22](https://github.com/TriPSs/react-esc/commit/fe4ec22))
+* **esc-config:** Added the react-esc-config package ([853607c](https://github.com/TriPSs/react-esc/commit/853607c))
+* **esc-render-jss:** Feat added the react-esc-render-jss package ([df62490](https://github.com/TriPSs/react-esc/commit/df62490))
+* **esc-webpack:** Added react-esc-webpack package ([d3c532f](https://github.com/TriPSs/react-esc/commit/d3c532f))
+* Added code of conduct ([f3ee502](https://github.com/TriPSs/react-esc/commit/f3ee502))
+* Added more webpack loaders ([68eb88e](https://github.com/TriPSs/react-esc/commit/68eb88e))
+
+
+
+
 <a name="4.0.0-beta.27"></a>
 # [4.0.0-beta.27](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.26...v4.0.0-beta.27) (2018-04-20)
 

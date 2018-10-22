@@ -1,6 +1,6 @@
 {
   "name": "react-esc-webpack-image",
-  "version": "5.0.0-alpha.1",
+  "version": "5.0.0-alpha.2",
   "description": "Easy to use Client and Server",
   "homepage": "https://github.com/TriPSs/react-esc/tree/master/packages/react-esc-webpack-image",
   "bugs": {
@@ -16,6 +16,5 @@
     "type": "git",
     "url": "git://github.com/TriPSs/react-esc.git"
   },
-  "scripts": {
-  }
+  "scripts": {}
 }

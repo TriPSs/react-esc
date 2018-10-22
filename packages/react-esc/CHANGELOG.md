@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="5.0.0-alpha.2"></a>
+# [5.0.0-alpha.2](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.27...v5.0.0-alpha.2) (2018-10-22)
+
+
+### Features
+
+* **esc:** Updated CLI to open .esc-config.js file and worked on the server ([fe4ec22](https://github.com/TriPSs/react-esc/commit/fe4ec22))
+
+
+
+
 <a name="4.0.0-beta.27"></a>
 # [4.0.0-beta.27](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.26...v4.0.0-beta.27) (2018-04-20)
 
