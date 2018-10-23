@@ -123,9 +123,11 @@ export default async(config) => {
         ctx.status = 200
       }
 
+      const head = Helmet.renderStatic()
+
       ctx.body = renderClass.postRender({
         content,
-        head: Helmet.rewind(),
+        head,
         body: (
           <div
             key='body'
