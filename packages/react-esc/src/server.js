@@ -1,5 +1,6 @@
 import React from 'react'
 import { renderToString } from 'react-dom/server'
+import Helmet from 'react-helmet'
 import { Provider } from 'react-redux'
 import { StaticRouter } from 'react-router-dom'
 import { Resolver } from 'react-esc-resolver'
@@ -108,7 +109,6 @@ export default async(config) => {
           {renderClass.render(AppContainer, { layout, store })}
         </StaticRouter>
       </Provider>
-
     ))).then((Resolved) => {
       redirectIfNecessary(context, reject)
 
@@ -123,7 +123,18 @@ export default async(config) => {
         ctx.status = 200
       }
 
-      ctx.body = renderClass.postRender({ content, scripts, store })
+      ctx.body = renderClass.postRender({
+        content,
+        head: Helmet.rewind(),
+        body: (
+          <div
+            key='body'
+            {...config.app.mountPoint}
+            dangerouslySetInnerHTML={{ __html: content }} />
+        ),
+        scripts,
+        store,
+      })
 
       resolve()
     }).catch(reject)
