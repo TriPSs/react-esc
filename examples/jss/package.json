@@ -7,6 +7,7 @@
     "start": "DEBUG=react-esc:* react-esc start"
   },
   "dependencies": {
-    "react-esc": "5.0.0-alpha.3"
+    "react-esc": "5.0.0-alpha.8",
+    "react-esc-render-jss": "^5.0.0-alpha.8"
   }
 }

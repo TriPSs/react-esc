@@ -41,7 +41,6 @@
   },
   "workspaces": {
     "packages": [
-      "examples/*",
       "packages/*"
     ]
   }

@@ -1,5 +1,5 @@
 {
-  "name": "jss-example",
+  "name": "material-example",
   "version": "4.0.0-beta.27",
   "description": "Example for React-ESC",
   "private": true,
@@ -7,6 +7,8 @@
     "start": "DEBUG=react-esc:* react-esc start"
   },
   "dependencies": {
-    "react-esc": "5.0.0-alpha.3"
+    "@material-ui/core": "^3.3.0",
+    "react-esc": "5.0.0-alpha.8",
+    "react-esc-render-jss": "5.0.0-alpha.8"
   }
 }
