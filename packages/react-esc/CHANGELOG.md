@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="5.0.0-alpha.9"></a>
+# [5.0.0-alpha.9](https://github.com/TriPSs/react-esc/compare/v5.0.0-alpha.8...v5.0.0-alpha.9) (2018-10-25)
+
+
+### Bug Fixes
+
+* **esc:** Fixed helmet ([ac28d3e](https://github.com/TriPSs/react-esc/commit/ac28d3e))
+
+
+
+
 <a name="5.0.0-alpha.8"></a>
 # [5.0.0-alpha.8](https://github.com/TriPSs/react-esc/compare/v5.0.0-alpha.7...v5.0.0-alpha.8) (2018-10-23)
 
