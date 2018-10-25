@@ -1,6 +1,6 @@
 import React from 'react'
+import ReactDOM from 'react-dom'
 import deepMerge from 'deepmerge'
-import { hot } from 'react-hot-loader'
 import { Provider } from 'react-redux'
 import Cookie from 'universal-cookie'
 import { BrowserRouter as Router } from 'react-router-dom'
@@ -48,7 +48,7 @@ let render = (App) => {
   )
 }
 
-// Enable HMR and catch runtime errors in RedBox
+// Catch runtime errors in RedBox
 // This code is excluded from production bundle
 if (__DEV__ && module.hot) {
   const renderApp = render
@@ -61,10 +61,13 @@ if (__DEV__ && module.hot) {
   render = (Root) => {
     try {
       renderApp(Root)
+
     } catch (error) {
       renderError(error)
     }
   }
+
+
 }
 
 render(AppContainer)

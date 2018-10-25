@@ -4,7 +4,6 @@ import Helmet from 'react-helmet'
 import { Provider } from 'react-redux'
 import { StaticRouter } from 'react-router-dom'
 import { Resolver } from 'react-esc-resolver'
-import { hot } from 'react-hot-loader'
 import debug from 'debug'
 import hasOwnProperty from 'has-own-property'
 
@@ -103,13 +102,13 @@ export default async(config) => {
     const renderClass = new RenderServer(config)
 
     let context = {}
-    Resolver.renderServer(hot(module)(() => (
+    Resolver.renderServer(() => (
       <Provider store={store}>
         <StaticRouter location={ctx.req.url} context={context}>
           {renderClass.render(AppContainer, { layout, store })}
         </StaticRouter>
       </Provider>
-    ))).then((Resolved) => {
+    )).then((Resolved) => {
       redirectIfNecessary(context, reject)
 
       const content = renderToString(

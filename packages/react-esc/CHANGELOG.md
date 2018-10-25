@@ -3,6 +3,38 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="5.0.0-alpha.13"></a>
+# [5.0.0-alpha.13](https://github.com/TriPSs/react-esc/compare/v5.0.0-alpha.9...v5.0.0-alpha.13) (2018-10-25)
+
+
+
+
+**Note:** Version bump only for package react-esc
+
+<a name="5.0.0-alpha.12"></a>
+# [5.0.0-alpha.12](https://github.com/TriPSs/react-esc/compare/v5.0.0-alpha.9...v5.0.0-alpha.12) (2018-10-25)
+
+
+
+
+**Note:** Version bump only for package react-esc
+
+<a name="5.0.0-alpha.11"></a>
+# [5.0.0-alpha.11](https://github.com/TriPSs/react-esc/compare/v5.0.0-alpha.9...v5.0.0-alpha.11) (2018-10-25)
+
+
+
+
+**Note:** Version bump only for package react-esc
+
+<a name="5.0.0-alpha.10"></a>
+# [5.0.0-alpha.10](https://github.com/TriPSs/react-esc/compare/v5.0.0-alpha.9...v5.0.0-alpha.10) (2018-10-25)
+
+
+
+
+**Note:** Version bump only for package react-esc
+
 <a name="5.0.0-alpha.9"></a>
 # [5.0.0-alpha.9](https://github.com/TriPSs/react-esc/compare/v5.0.0-alpha.8...v5.0.0-alpha.9) (2018-10-25)
 

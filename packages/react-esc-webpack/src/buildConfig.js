@@ -38,6 +38,11 @@ export default (config) => {
           loader : 'babel-loader',
           options: {
             cacheDirectory: true,
+
+            plugins:
+              config.webpack.globals.__DEV__ ?
+                ['react-hot-loader/babel']
+                : [],
           },
         },
       ],
@@ -78,12 +83,7 @@ export default (config) => {
       target: 'web',
 
       entry: {
-        app: config.webpack.globals.__DEV__
-          ? [
-            'react-hot-loader/patch',
-            `webpack-hot-middleware/client?path=${config.webpack.publicPath}__webpack_hmr`,
-            paths.client,
-          ] : paths.client,
+        app: [paths.client],
         ...config.webpack.clientEntries,
       },
 
