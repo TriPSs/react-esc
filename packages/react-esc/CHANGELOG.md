@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="5.0.0-alpha.14"></a>
+# [5.0.0-alpha.14](https://github.com/TriPSs/react-esc/compare/v5.0.0-alpha.9...v5.0.0-alpha.14) (2019-01-11)
+
+
+### Features
+
+* Improved webpack config + HMR ([daa81a0](https://github.com/TriPSs/react-esc/commit/daa81a0))
+
+
+
+
 <a name="5.0.0-alpha.13"></a>
 # [5.0.0-alpha.13](https://github.com/TriPSs/react-esc/compare/v5.0.0-alpha.9...v5.0.0-alpha.13) (2018-10-25)
 
