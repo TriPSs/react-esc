@@ -1,5 +1,4 @@
 import ip from 'ip'
-import path from 'path'
 
 import defaultConfig from './default'
 

@@ -8,7 +8,7 @@ import debug from 'debug'
 import hasOwnProperty from 'has-own-property'
 
 import ServerRender from './render/ServerRender'
-import { Assetic } from './utils'
+import { Assetic, handleError } from './utils'
 
 import createStore from './createStore'
 
@@ -138,6 +138,11 @@ export default async(config) => {
       })
 
       resolve()
-    }).catch(reject)
+    }).catch(error => handleError(
+      error,
+      resolve,
+      ctx,
+      defaultLayout,
+    ))
   })
 }

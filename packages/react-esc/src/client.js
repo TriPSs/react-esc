@@ -39,7 +39,7 @@ let render = (App) => {
       <Provider store={store}>
         <Router>
 
-          {renderClass.render(App, { layout })}
+          {renderClass.render(App, { layout, store })}
 
         </Router>
       </Provider>
@@ -66,8 +66,6 @@ if (__DEV__ && module.hot) {
       renderError(error)
     }
   }
-
-
 }
 
 render(AppContainer)

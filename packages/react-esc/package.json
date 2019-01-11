@@ -37,6 +37,7 @@
     "has-own-property": "^1.0.0",
     "koa": "^2.5.3",
     "koa-static": "^5.0.0",
+    "pretty-error": "^2.1.1",
     "react": "^16.5.2",
     "react-cookie": "^3.0.4",
     "react-dom": "^16.5.2",
@@ -50,6 +51,8 @@
     "redbox-react": "^1.6.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
+    "rollup": "^1.1.0",
+    "rollup-plugin-node-resolve": "^4.0.0",
     "shelljs": "^0.8.2",
     "universal-cookie": "^3.0.4",
     "universal-cookie-koa": "^3.0.4"
