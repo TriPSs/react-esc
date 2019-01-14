@@ -1,6 +1,7 @@
 export { default as buildConfig } from './buildConfig'
 export { default as buildClientConfig } from './buildClient'
 export { default as buildServerConfig } from './buildServer'
-export { default as getCompiler } from './getCompiler'
+export { default as buildCompiler } from './buildCompiler'
+export { default as compile } from './compile'
 export { default as middleware } from 'koa-webpack'
 export * as middlewares from './middlewares'

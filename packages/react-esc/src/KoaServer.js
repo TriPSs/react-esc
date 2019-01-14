@@ -26,7 +26,7 @@ export default class KoaServer {
   setup = (config, cwd = null) => {
     this.config = deepMerge(this.config, config)
 
-    this.config.utils.paths = buildPaths(this.config.server.dirs, cwd, __dirname)
+    this.config.utils.paths = buildPaths(this.config.utils.dirs, cwd, __dirname)
   }
 
   buildApp = async() => {
@@ -42,7 +42,7 @@ export default class KoaServer {
     if (this.config.env === 'development' && !this.config.server.useCompiled) {
       // Build the compiler config
       const compilerConfig = webpack.buildClientConfig(this.config)
-      const compiler = webpack.getCompiler(compilerConfig)
+      const compiler = webpack.buildCompiler(compilerConfig)
 
       // Enable webpack-dev and webpack-hot middleware
       const { output: { publicPath } } = compilerConfig

@@ -7,6 +7,7 @@ cli.version(version, '-v, --version')
 .usage('<command> [options]')
 .option('-d, --debug', 'Set what to output with DEBUG', 'react-esc:*')
 .command('start', 'Start the React ESC server').alias('s')
+.command('compile', 'Compile the project').alias('c')
 .parse(process.argv)
 
 

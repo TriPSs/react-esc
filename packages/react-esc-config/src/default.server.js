@@ -21,14 +21,6 @@ export default {
     // Only use the compiled server outside development
     useCompiled: defaultConfig.env !== 'development',
 
-    dirs: {
-      src   : 'src',
-      dist  : 'dist',
-      public: 'dist/public',
-      server: null,
-      client: null,
-    },
-
     middlewares: [],
   },
 

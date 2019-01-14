@@ -80,6 +80,14 @@ export default {
   utils: {
     // This one can be generated using the buildPaths util
     paths: {},
+
+    dirs: {
+      src   : 'src',
+      dist  : 'dist',
+      public: 'dist/public',
+      server: null,
+      client: null,
+    },
   },
 
 }

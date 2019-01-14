@@ -3,13 +3,7 @@ import path from 'path'
 const noop = () => {}
 
 export default (dirs, cwd = null, root = null) => {
-  let base = process.cwd()
-
-  if (cwd === null) {
-    if (typeof cwd === 'string') {
-      base = path.resolve(base, cwd)
-    }
-  }
+  let base = cwd || process.cwd()
 
   base = (...args) => Reflect.apply(path.resolve, base, [...args])
 
