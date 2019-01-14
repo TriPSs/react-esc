@@ -3,6 +3,14 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="5.0.0-alpha.16"></a>
+# [5.0.0-alpha.16](https://github.com/TriPSs/react-esc/compare/v5.0.0-alpha.15...v5.0.0-alpha.16) (2019-01-14)
+
+
+
+
+**Note:** Version bump only for package undefined
+
 <a name="5.0.0-alpha.15"></a>
 # [5.0.0-alpha.15](https://github.com/TriPSs/react-esc/compare/v5.0.0-alpha.14...v5.0.0-alpha.15) (2019-01-14)
 
