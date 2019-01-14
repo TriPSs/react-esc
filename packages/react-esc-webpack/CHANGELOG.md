@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="5.0.0-alpha.15"></a>
+# [5.0.0-alpha.15](https://github.com/TriPSs/react-esc/compare/v5.0.0-alpha.14...v5.0.0-alpha.15) (2019-01-14)
+
+
+### Bug Fixes
+
+* Multiple fixes and started on compile ([c34a23e](https://github.com/TriPSs/react-esc/commit/c34a23e))
+
+
+
+
 <a name="5.0.0-alpha.14"></a>
 # [5.0.0-alpha.14](https://github.com/TriPSs/react-esc/compare/v5.0.0-alpha.9...v5.0.0-alpha.14) (2019-01-11)
 
