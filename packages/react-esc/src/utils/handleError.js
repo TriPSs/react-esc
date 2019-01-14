@@ -5,9 +5,9 @@ import { renderToStaticMarkup } from 'react-dom/server'
 import { renderHtmlLayout } from '../render/renderHtmlLayout'
 import _debug from 'debug'
 
-export default (error, resolve, ctx, defaultLayout) => {
-  const debug = _debug('app:esc:server:universal:server:error')
+const debug = _debug('react-esc:server:error')
 
+export default (error, resolve, ctx, defaultLayout) => {
   if (error && error.hasOwnProperty('redirect')) {
     if (error.hasOwnProperty('status')) {
       ctx.status = error.status

@@ -23,12 +23,6 @@ export default (config) => {
     module: {
       rules: [
         {
-          test   : /\.(js|jsx)$/,
-          exclude: /node_modules/,
-          loader : 'babel-loader',
-
-        },
-        {
           test   : /\.(woff|woff2|otf|eot|ttf)$/i,
           loaders: ['file-loader?hash=sha512&digest=hex&name=fonts/font-[name]-[hash:6].[ext]'],
         },

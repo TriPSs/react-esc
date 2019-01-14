@@ -27,11 +27,6 @@ export default {
     middleware: {
       byFolder  : false,
       collection: [],
-
-      logger: {          // Redux logger config
-        enabled: false,
-        options: {},
-      },
     },
   },
 

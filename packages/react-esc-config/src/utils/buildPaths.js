@@ -11,6 +11,7 @@ export default (dirs, cwd = null, root = null) => {
   const client = dirs.client ? base(dirs.client) : path.join(root, 'client.js')
 
   return {
+    base,
     src   : dirs.src ? base.bind(null, dirs.src) : noop,
     dist  : dirs.dist ? base.bind(null, dirs.dist) : noop,
     public: dirs.public ? base.bind(null, dirs.public) : noop,

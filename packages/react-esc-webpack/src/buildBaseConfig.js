@@ -1,13 +1,9 @@
 import webpack from 'webpack'
 import webpackMerge from 'webpack-merge'
-import externals from 'webpack-node-externals'
-import HtmlPlugin from 'html-webpack-plugin'
 
 import buildLoaders from './buildLoaders'
 
 export default (config) => {
-  const { utils: { paths } } = config
-
   const webpackConfig = {
 
     devtool: config.webpack.devTool,
@@ -20,7 +16,7 @@ export default (config) => {
 
     resolve: {
       modules: [
-        paths.src(),
+        config.utils.paths.src(),
         'node_modules',
       ],
 
@@ -52,53 +48,6 @@ export default (config) => {
     plugins: [
       new webpack.DefinePlugin(config.webpack.globals),
     ],
-
-    /**
-     * Server specific configuration
-     */
-    server: {
-      name: 'server',
-
-      target: 'node',
-
-      externals: externals(),
-
-      entry: paths.server,
-
-      output: {
-        filename      : config.server.output,
-        path          : paths.dist(),
-        library       : 'server',
-        libraryTarget : 'umd',
-        umdNamedDefine: true,
-        publicPath    : config.webpack.publicPath,
-      },
-    },
-
-    /**
-     * Client specific configuration
-     */
-    client: {
-      name: 'client',
-
-      target: 'web',
-
-      entry: {
-        app: [paths.client],
-        ...config.webpack.clientEntries,
-      },
-
-      plugins: !config.server
-        ? [new HtmlPlugin(config.client.htmlPlugin)]
-        : [],
-
-      output: {
-        filename  : `[name].[${config.webpack.hashType}].js`,
-        path      : paths.public(),
-        publicPath: config.webpack.publicPath,
-      },
-
-    },
   }
 
   return webpackMerge(

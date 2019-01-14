@@ -2,9 +2,9 @@ import webpack from 'webpack'
 import log from './log'
 
 export default (config, webpackConfig, type) => new Promise((resolve, reject) => {
+  log(`Starting compiler for ${type}`)
   const compiler = webpack(webpackConfig)
 
-  log(`Starting compiler for ${type}`)
   // Run the compiler
   compiler.run((error, stats) => {
     if (error) {

@@ -1,7 +1,8 @@
 import path from 'path'
 
 const defaultSettings = {
-  withApp    : false, // Also pass the app as second param: middleware(options, app)
+  withApp    : false, // Also pass the app
+  withConfig : false, // Also pass the config
   returnValue: null,  // This middleware returns a certain value that is what app.use needs
   local      : false, // Is package name a relative path?
 }
@@ -35,12 +36,14 @@ export default function getMiddleware(app, config, mw, mwOptions = null, mwSetti
   // If we have a middleware continue otherwise return false
   if (middleware) {
     if (typeof middleware === 'function') {
-      if (mwOptions !== null) {
+      const middlewareArgument = {}
 
+      if (mwOptions !== null) {
         let options = mwOptions
         // If mwOptions a function execute it and use the return value as options instead
         if (typeof mwOptions === 'function') {
-          options = mwOptions(config)
+          // Also pass the config to the options
+          options = mwOptions({ config })
 
           // If the return value is false cancel the loading of this middleware
           if (typeof options === 'boolean' && options === false) {
@@ -48,18 +51,22 @@ export default function getMiddleware(app, config, mw, mwOptions = null, mwSetti
           }
         }
 
-        if (settings.withApp) {
-          // Also give the app as argument
-          middleware = middleware(options, app)
-
-        } else {
-          // Only give the options as argument
-          middleware = middleware(options)
-        }
-      } else {
-        // Just execute it
-        middleware = middleware()
+        // Add the final options
+        middlewareArgument.options = options
       }
+
+      // Add the app if enabled
+      if (settings.withApp) {
+        middlewareArgument.app = app
+      }
+
+      // Add the config if enabled
+      if (settings.withConfig) {
+        middlewareArgument.config = config
+      }
+
+      // Just execute it
+      middleware = middleware(middlewareArgument)
     }
 
     // Get the return value

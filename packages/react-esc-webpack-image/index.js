@@ -1,4 +1,4 @@
-module.exports = (config, options) => {
+module.exports = () => {
   return {
     module: {
       rules: [

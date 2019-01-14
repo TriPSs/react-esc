@@ -1,9 +1,32 @@
 import webpackMerge from 'webpack-merge'
+import externals from 'webpack-node-externals'
 
-import buildConfig from './buildConfig'
+import buildBaseConfig from './buildBaseConfig'
 
 export default (config) => {
-  const { server, client, ...rest } = buildConfig(config)
+  return webpackMerge(
+    buildBaseConfig(config),
 
-  return webpackMerge(rest, server)
+    /**
+     * Server specific configuration
+     */
+    {
+      name: 'server',
+
+      target: 'node',
+
+      externals: externals(),
+
+      entry: config.utils.paths.server,
+
+      output: {
+        filename      : config.server.output,
+        path          : config.utils.paths.dist(),
+        library       : 'server',
+        libraryTarget : 'umd',
+        umdNamedDefine: true,
+        publicPath    : config.webpack.publicPath,
+      },
+    },
+  )
 }

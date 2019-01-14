@@ -1,4 +1,3 @@
-export { default as buildConfig } from './buildConfig'
 export { default as buildClientConfig } from './buildClient'
 export { default as buildServerConfig } from './buildServer'
 export { default as buildCompiler } from './buildCompiler'

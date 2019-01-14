@@ -1,3 +1,3 @@
 import debug from 'debug'
 
-export default debug('react-esc-webpack')
+export default debug('react-esc:webpack')

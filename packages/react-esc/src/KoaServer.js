@@ -1,4 +1,4 @@
-import fs from 'fs'
+import fs from 'fs-extra'
 import Koa from 'koa'
 import serve from 'koa-static'
 import cookiesMiddleware from 'universal-cookie-koa'
@@ -29,6 +29,11 @@ export default class KoaServer {
     this.config.utils.paths = buildPaths(this.config.utils.dirs, cwd, __dirname)
   }
 
+  /**
+   * Builds a app
+   *
+   * @returns {Promise<module.Application|*>}
+   */
   buildApp = async() => {
     const app = new Koa()
     let clientInfo
@@ -37,7 +42,17 @@ export default class KoaServer {
     app.use(cookiesMiddleware())
 
     // Load middlewares
-    this.config.server.middlewares.forEach(middleware => app.use(getMiddleware(app, this.config, middleware)))
+    this.config.server.middlewares.forEach(mw => {
+      const middleware = getMiddleware(app, this.config, mw)
+
+      // If we get multiple middlewares then use them all
+      if (Array.isArray(middleware)) {
+        middleware.forEach(mw => app.use(mw))
+
+      } else {
+        app.use(middleware)
+      }
+    })
 
     if (this.config.env === 'development' && !this.config.server.useCompiled) {
       // Build the compiler config
@@ -85,16 +100,20 @@ export default class KoaServer {
 
     } else {
       log('Read client info.')
-      // Get assets from client_info.json
-      fs.readJSON(this.config.paths.dist(this.config.server.clientInfo), (err, data) => {
-        if (err) {
-          clientInfo = {}
-          log('Failed to read client_data!')
-          return
-        }
 
-        clientInfo = data
-      })
+      // Get assets from client_info.json
+      clientInfo = fs.readJsonSync(this.config.utils.paths.dist(this.config.server.clientInfo), { throw: false })
+
+      if (!clientInfo) {
+        clientInfo = {}
+      }
+
+      // Serve all the statis files if enabled
+      if (this.config.server.serve) {
+        const servePublic = this.config.utils.paths.public()
+        log(`Enabling serving of the static files in "${servePublic}"`)
+        app.use(serve(servePublic))
+      }
     }
 
     const universalMiddleware = await webpack.middlewares.universalMiddleware(this.config)
