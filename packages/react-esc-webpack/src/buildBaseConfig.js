@@ -1,6 +1,7 @@
 import webpack from 'webpack'
 import webpackMerge from 'webpack-merge'
 import externals from 'webpack-node-externals'
+import HtmlPlugin from 'html-webpack-plugin'
 
 import buildLoaders from './buildLoaders'
 
@@ -86,6 +87,10 @@ export default (config) => {
         app: [paths.client],
         ...config.webpack.clientEntries,
       },
+
+      plugins: !config.server
+        ? [new HtmlPlugin(config.client.htmlPlugin)]
+        : [],
 
       output: {
         filename  : `[name].[${config.webpack.hashType}].js`,
