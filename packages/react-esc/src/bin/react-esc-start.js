@@ -4,7 +4,6 @@ import { green } from 'chalk'
 import debug from 'debug'
 
 import start from './commands/start'
-import getConfig from './utils/getConfig'
 import { version } from '../package.json'
 
 const log = debug('react-esc:cli')
@@ -22,6 +21,4 @@ const projectPgk = require(path.resolve(cwd, 'package.json'))
 log(`CLI Version: ${version}`)
 log(`Project Version: ${projectPgk.version}`)
 
-const config = getConfig(cwd, cli)
-
-start(config)
+start(cli)

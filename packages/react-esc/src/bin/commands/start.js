@@ -1,7 +1,7 @@
 import getConfig from '../utils/getConfig'
 import KoaServer from '../../KoaServer'
 
-export default (config = null) => {
+export default ({ config = null }) => {
   const server = new KoaServer()
 
   if (config === null || typeof config === 'string') {
