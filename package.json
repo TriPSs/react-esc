@@ -6,10 +6,10 @@
     "build:dev": "NODE_ENV=development npm run build",
     "build:prod": "NODE_ENV=production npm run build",
     "build:watch": "lerna run --parallel build:watch --scope react-esc*",
-    "packages:watch": "lerna run --parallel build:watch --scope react-esc*",
     "ci:build": "npm run build:dev && npm run build:prod",
     "ci:publish": "yarn run build:prod && yarn run build:dev && lerna publish",
-    "lerna:parrallel": "lerna run --parallel"
+    "lerna:parrallel": "lerna run --parallel",
+    "packages:watch": "lerna run --parallel build:watch --scope react-esc*"
   },
   "devDependencies": {
     "@babel/cli": "^7.0.0",
@@ -41,6 +41,7 @@
   },
   "workspaces": {
     "packages": [
+      "examples/**/*",
       "packages/*"
     ]
   }
