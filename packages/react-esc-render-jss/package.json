@@ -1,6 +1,6 @@
 {
   "name": "react-esc-render-jss",
-  "version": "5.0.0-beta.1",
+  "version": "5.0.0-beta.6",
   "description": "JSS intergration for React-ESC",
   "homepage": "https://github.com/TriPSs/react-esc/tree/master/packages/react-esc-jss",
   "bugs": {
@@ -25,13 +25,13 @@
   },
   "scripts": {
     "build": "rollup -c=../../rollup.config.js",
-    "build:watch": "yarn run build --watch"
+    "build:watch": "npm run build -- --watch"
   },
   "dependencies": {
-    "html-minifier": "^3.5.20",
+    "html-minifier": "^3.5.21",
     "prop-types": "^15.6.2",
-    "react": "^16.5.2",
-    "react-dom": "^16.5.2",
+    "react": "^16.7.0",
+    "react-dom": "^16.7.0",
     "react-jss": "^8.6.1"
   }
 }

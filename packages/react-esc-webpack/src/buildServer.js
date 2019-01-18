@@ -26,6 +26,7 @@ export default (config) => {
         libraryTarget : 'umd',
         umdNamedDefine: true,
         publicPath    : config.webpack.publicPath,
+        globalObject  : 'true',
       },
     },
   )

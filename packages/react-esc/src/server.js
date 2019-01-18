@@ -6,6 +6,7 @@ import { StaticRouter } from 'react-router-dom'
 import { Resolver } from 'react-esc-resolver'
 import debug from 'debug'
 import hasOwnProperty from 'has-own-property'
+import { CookiesProvider } from 'react-cookie'
 
 import ServerRender from './render/ServerRender'
 import { Assetic, handleError } from './utils'
@@ -105,7 +106,9 @@ export default async(config) => {
     Resolver.renderServer(() => (
       <Provider store={store}>
         <StaticRouter location={ctx.req.url} context={context}>
-          {renderClass.render(AppContainer, { layout, store })}
+          <CookiesProvider cookies={ctx.request.universalCookies}>
+            {renderClass.render(AppContainer, { layout })}
+          </CookiesProvider>
         </StaticRouter>
       </Provider>
     )).then((Resolved) => {

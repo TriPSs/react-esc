@@ -1,6 +1,6 @@
 {
   "name": "react-esc-webpack-css",
-  "version": "5.0.0-beta.1",
+  "version": "5.0.0-beta.6",
   "description": "Easy to use Client and Server",
   "homepage": "https://github.com/TriPSs/react-esc/tree/master/packages/react-esc-webpack-css",
   "bugs": {
@@ -18,7 +18,7 @@
   },
   "scripts": {
     "build": "rollup -c=../../rollup.config.js",
-    "build:watch": "yarn run build --watch"
+    "build:watch": "npm run build -- --watch"
   },
   "dependencies": {
     "extract-text-webpack-plugin": "^3.0.2",

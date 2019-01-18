@@ -1,8 +1,8 @@
 {
-  "name": "react-esc-webpack-scss",
+  "name": "react-esc-webpack-copy",
   "version": "5.0.0-beta.6",
-  "description": "Easy to use Client and Server",
-  "homepage": "https://github.com/TriPSs/react-esc/tree/master/packages/react-esc-webpack-scss",
+  "description": "Copy for react-esc",
+  "homepage": "https://github.com/TriPSs/react-esc/tree/master/packages/react-esc-webpack-worker",
   "bugs": {
     "url": "https://github.com/TriPss/react-esc/issues"
   },
@@ -18,6 +18,6 @@
   },
   "scripts": {},
   "dependencies": {
-    "simple-universal-style-loader": "^0.14.4"
+    "copy-webpack-plugin": "^4.6.0"
   }
 }

@@ -2,6 +2,7 @@ import React from 'react'
 import ReactDOM from 'react-dom'
 import deepMerge from 'deepmerge'
 import { Provider } from 'react-redux'
+import { CookiesProvider } from 'react-cookie'
 import Cookie from 'universal-cookie'
 import { BrowserRouter as Router } from 'react-router-dom'
 import { Resolver } from 'react-esc-resolver'
@@ -38,9 +39,11 @@ let render = (App) => {
   Resolver.renderClient(() => (
       <Provider store={store}>
         <Router>
+          <CookiesProvider>
 
-          {renderClass.render(App, { layout, store })}
+            {renderClass.render(App, { layout })}
 
+          </CookiesProvider>
         </Router>
       </Provider>
     ),

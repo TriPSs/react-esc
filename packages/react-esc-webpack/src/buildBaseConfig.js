@@ -8,7 +8,7 @@ export default (config) => {
 
     devtool: config.webpack.devTool,
 
-    mode: 'development', // config.webpack.mode,
+    mode: config.webpack.mode,
 
     node: {
       fs: 'empty',

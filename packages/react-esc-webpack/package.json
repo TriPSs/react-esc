@@ -1,6 +1,6 @@
 {
   "name": "react-esc-webpack",
-  "version": "5.0.0-beta.1",
+  "version": "5.0.0-beta.6",
   "description": "Easy to use Client and Server",
   "homepage": "https://github.com/TriPSs/react-esc/tree/master/packages/react-esc-webpack",
   "bugs": {
@@ -18,17 +18,17 @@
   },
   "scripts": {
     "build": "rollup -c=../../rollup.config.js",
-    "build:watch": "yarn run build -w"
+    "build:watch": "npm run build -- --watch"
   },
   "dependencies": {
-    "debug": "^3.1.0",
+    "debug": "^4.1.1",
     "html-webpack-plugin": "^3.2.0",
     "koa-webpack": "^5.2.1",
-    "react-hot-loader": "^4.3.11",
-    "webpack": "^4.6.0",
-    "webpack-dev-middleware": "^3.1.3",
-    "webpack-hot-middleware": "^2.22.1",
-    "webpack-merge": "^4.1.2",
+    "react-hot-loader": "^4.6.3",
+    "webpack": "^4.28.4",
+    "webpack-dev-middleware": "^3.5.1",
+    "webpack-hot-middleware": "^2.24.3",
+    "webpack-merge": "^4.2.1",
     "webpack-node-externals": "^1.7.2"
   }
 }

@@ -18,11 +18,6 @@ export default class KoaServer {
 
   config = defaultConfig
 
-  webpackConfig = {
-    client: null,
-    server: null,
-  }
-
   setup = (config, cwd = null) => {
     this.config = deepMerge(this.config, config)
 

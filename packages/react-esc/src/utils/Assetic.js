@@ -19,11 +19,11 @@ const normalizeAssets = (assets) => {
 }
 
 export const getAssets = (layout, localAssets = []) => (
-  Array.concat(
-    layout.script.map(item => item.src),
-    layout.link.map(item => item.href),
-    normalizeAssets(localAssets.map(asset => fixLocalAsset(asset))),
-  )
+  [
+    ...layout.script.map(item => item.src),
+    ...layout.link.map(item => item.href),
+    ...normalizeAssets(localAssets.map(asset => fixLocalAsset(asset))),
+  ]
 )
 
 export const getAssetsByExtension = (layout, extension, localAssets = []) => (

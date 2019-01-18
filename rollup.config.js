@@ -2,7 +2,7 @@ import resolve from 'rollup-plugin-node-resolve'
 import commonjs from 'rollup-plugin-commonjs'
 import json from 'rollup-plugin-json'
 import babel from 'rollup-plugin-babel'
-import uglify from 'rollup-plugin-uglify'
+import { uglify } from 'rollup-plugin-uglify'
 import path from 'path'
 
 const { LERNA_PACKAGE_NAME, LERNA_ROOT_PATH, NODE_ENV } = process.env
@@ -18,19 +18,24 @@ const plugins = [
   json(),
   babel({
     plugins: [
-      'transform-runtime',
-      'transform-class-properties',
+      '@babel/plugin-transform-runtime',
+      '@babel/plugin-proposal-class-properties',
+      '@babel/plugin-proposal-object-rest-spread',
+      '@babel/plugin-proposal-export-default-from',
+      '@babel/plugin-proposal-export-namespace-from',
+      '@babel/plugin-syntax-dynamic-import',
+
       require(`${LERNA_ROOT_PATH || (PACKAGE_ROOT_PATH + '/../..')}/scripts/rollup/plugins/wrapWarningWithEnvCheck`),
     ],
+
     presets: [
-      ['env', { modules: false }],
-      ['es2015-rollup'],
-      'react',
-      'stage-0',
+      ['@babel/preset-env', { modules: false }],
+      '@babel/preset-react',
     ],
+
     runtimeHelpers: true,
-    exclude: 'node_modules/**',
-    babelrc: false,
+    exclude       : 'node_modules/**',
+    babelrc       : false,
   }),
   commonjs(),
 ]

@@ -1,6 +1,6 @@
 {
   "name": "react-esc-config",
-  "version": "5.0.0-beta.1",
+  "version": "5.0.0-beta.6",
   "description": "Config for React-ESC",
   "homepage": "https://github.com/TriPSs/react-esc/tree/master/packages/react-esc-config",
   "bugs": {
@@ -21,8 +21,8 @@
     "url": "git://github.com/TriPSs/react-esc.git"
   },
   "scripts": {
-    "build": "npm run cleanup && babel src -d ./",
-    "build:watch": "babel src --watch -d ./",
+    "build": "npm run cleanup && babel --root-mode upward src -d ./",
+    "build:watch": "npm run build -- --watch",
     "cleanup": "rimraf ./server ./client ./utils",
     "prepublish": "yarn run cleanup && yarn run build"
   },

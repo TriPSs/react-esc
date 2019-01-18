@@ -26,9 +26,10 @@ export default (config) => {
         : [],
 
       output: {
-        filename  : `[name].[${config.webpack.hashType}].js`,
-        path      : config.utils.paths.public(),
-        publicPath: config.webpack.publicPath,
+        filename    : `[name].[${config.webpack.hashType}].js`,
+        path        : config.utils.paths.public(),
+        publicPath  : config.webpack.publicPath,
+        globalObject: 'this',
       },
     },
   )
