@@ -1,6 +1,6 @@
 {
   "name": "react-esc-resolver",
-  "version": "5.0.0-beta.6",
+  "version": "5.0.0-beta.7",
   "description": "Easy to use Client and Server Resolver",
   "keywords": [
     "async-rendering",

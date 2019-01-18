@@ -1,6 +1,6 @@
 {
   "name": "react-esc-webpack-worker",
-  "version": "5.0.0-beta.6",
+  "version": "5.0.0-beta.7",
   "description": "Worker loader for react-esc",
   "homepage": "https://github.com/TriPSs/react-esc/tree/master/packages/react-esc-webpack-worker",
   "bugs": {
