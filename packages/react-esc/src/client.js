@@ -35,7 +35,7 @@ const renderClass = new RenderClient(config)
 
 const buildApp = App => {
   const layout = { ...(window.___LAYOUT__ || {}) }
-  
+
   return (
     <Provider store={store}>
       <Router>
