@@ -74,7 +74,7 @@ export default class KoaServer {
       })
 
       const { utils: { paths }, webpack: { quiet, stats } } = this.config
-      
+
       app.use(await this.getMiddleware(publicPath, quiet, compiler, paths, stats))
 
       // Serve static assets from ~/src/static since Webpack is unaware of

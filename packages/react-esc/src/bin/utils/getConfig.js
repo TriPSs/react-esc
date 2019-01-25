@@ -15,7 +15,7 @@ export default (cwd, cli) => {
     execSync(
       `rollup ${configLocation} --file ${configLoc} --format cjs -c ${path.resolve(__dirname, '../../rollup.config.js')}`,
       {
-        stdio: 'ignore',
+        stdio: 'pipe',
       },
     )
 

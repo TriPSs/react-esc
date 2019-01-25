@@ -24,6 +24,11 @@ export default function getMiddleware(app, config, mw, mwOptions = null, mwSetti
     }
   }
 
+  // If the middleware is a function just return it as it can be already be setup
+  if (typeof mw === 'function') {
+    return mw
+  }
+
   // Require the middleware
   let middleware = null
   if (!settings.local) {

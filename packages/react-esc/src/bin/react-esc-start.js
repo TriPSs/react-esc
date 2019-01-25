@@ -25,5 +25,5 @@ try {
   start(cli)
 
 } catch (e) {
-  console.log(red(`Error while starting server: ${e}`))
+  console.log(red(`Error while starting server: ${e.message || e}`))
 }
