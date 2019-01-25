@@ -1,6 +1,6 @@
 import path from 'path'
 import cli from 'commander'
-import { green } from 'chalk'
+import { green, red } from 'chalk'
 import debug from 'debug'
 
 import start from './commands/start'
@@ -21,4 +21,9 @@ const projectPgk = require(path.resolve(cwd, 'package.json'))
 log(`CLI Version: ${version}`)
 log(`Project Version: ${projectPgk.version}`)
 
-start(cli)
+try {
+  start(cli)
+
+} catch (e) {
+  console.log(red(`Error while starting server: ${e}`))
+}

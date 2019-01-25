@@ -19,6 +19,12 @@ module.exports = {
 
   // server: false, // This disables the server
 
+  // Only when server === false
+  devServer: {
+    port: process.env.PORT || 3000,         // Port the dev server runs on
+    host: process.env.HOST || 'localhost',  // Host the dev server runs on
+  },
+
   server: {
     port: process.env.PORT || 3000,         // Port the server runs on
     host: process.env.HOST || 'localhost',  // Host the server runs on

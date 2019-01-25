@@ -22,7 +22,7 @@ export default (config) => {
 
       // If the user does not want a server then add the Html plugin
       plugins: typeof config.server === 'boolean' && !config.server
-        ? [new HtmlPlugin(config.client.htmlPlugin)]
+        ? [new HtmlPlugin(config.webpack.htmlPlugin)]
         : [],
 
       output: {

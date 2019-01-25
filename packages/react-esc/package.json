@@ -1,6 +1,6 @@
 {
   "name": "react-esc",
-  "version": "5.0.0-beta.7",
+  "version": "5.0.0-beta.8",
   "description": "Easy to use Client and Server",
   "homepage": "https://github.com/TriPSs/react-esc/tree/master/packages/react-esc",
   "bugs": {
@@ -19,7 +19,6 @@
   },
   "scripts": {
     "build": "npm run cleanup && babel --root-mode upward src -d ./",
-    "build:old": "echo 'test'",
     "build:watch": "npm run build -- --watch",
     "cleanup": "echo 'cleanup'",
     "cleanup:old": "rimraf ./bin ./build ./client ./config ./server ./eject.js",

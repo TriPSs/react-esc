@@ -7,8 +7,4 @@ export default {
 
   ...defaultConfig,
 
-  client: {
-    htmlPlugin: {},
-  },
-
 }

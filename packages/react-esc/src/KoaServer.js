@@ -18,18 +18,23 @@ export default class KoaServer {
 
   config = defaultConfig
 
+  withFullSSR = true
+
   setup = (config, cwd = null) => {
     this.config = deepMerge(this.config, config)
 
     this.config.utils.paths = buildPaths(this.config.utils.dirs, cwd, __dirname)
+
+    // Check if the user want's with SSR
+    this.withFullSSR = typeof this.config.server === 'boolean' ? this.config.server : true
   }
 
   /**
-   * Builds a app
+   * Builds a full SSR app
    *
    * @returns {Promise<module.Application|*>}
    */
-  buildApp = async() => {
+  buildSsrApp = async() => {
     const app = new Koa()
     let clientInfo
 
@@ -69,23 +74,8 @@ export default class KoaServer {
       })
 
       const { utils: { paths }, webpack: { quiet, stats } } = this.config
-      // TODO:: Format this on webpack package
-      const middleware = await webpack.middleware({
-        config: {
-          dev: {
-            publicPath,
-            contentBase: paths.src(),
-            hot        : true,
-            logLevel   : quiet ? 'silent' : 'info',
-            lazy       : false,
-            headers    : { 'Access-Control-Allow-Origin': '*' },
-            stats,
-          },
-        },
-        compiler,
-      })
-
-      app.use(middleware)
+      
+      app.use(await this.getMiddleware(publicPath, quiet, compiler, paths, stats))
 
       // Serve static assets from ~/src/static since Webpack is unaware of
       // these files. This middleware doesn't need to be enabled outside
@@ -118,17 +108,47 @@ export default class KoaServer {
     return app
   }
 
+  /**
+   * Builds a app
+   */
+  buildApp = async() => {
+    const app = new Koa()
+
+    // Build the compiler config
+    const compilerConfig = webpack.buildClientConfig(this.config)
+    const compiler = webpack.buildCompiler(compilerConfig)
+
+    // Enable webpack-dev and webpack-hot middleware
+    const { output: { publicPath } } = compilerConfig
+
+    const { utils: { paths }, webpack: { quiet, stats } } = this.config
+
+    app.use(await this.getMiddleware(publicPath, quiet, compiler, paths, stats))
+
+    return app
+  }
+
   start = async(app = null, { port = null, host = null } = {}) => {
+    let portAndHostInfoFrom = 'server'
+
     if (app === null) {
-      app = await this.buildApp()
+      if (this.withFullSSR) {
+        app = await this.buildSsrApp()
+
+      } else {
+        app = await this.buildApp()
+
+        portAndHostInfoFrom = 'devServer'
+      }
     }
 
     if (port === null) {
-      ({ port } = this.config.server)
+      ({ port } = this.config[portAndHostInfoFrom])
+
     }
 
     if (host === null) {
-      ({ host } = this.config.server)
+      ({ host } = this.config[portAndHostInfoFrom])
     }
 
     app.listen(port)
@@ -136,4 +156,29 @@ export default class KoaServer {
     log(`Server is now running at http://${host}:${port}.`)
   }
 
+  /**
+   * Get's a configured middleware
+   *
+   * @param publicPath
+   * @param quiet
+   * @param compiler
+   * @param paths
+   * @param stats
+   */
+  getMiddleware = async(publicPath, quiet, compiler, paths, stats) => webpack.middleware({
+    config: {
+      dev: {
+        publicPath,
+        contentBase: paths.src(),
+        hot        : true,
+        logLevel   : quiet ? 'silent' : 'info',
+        lazy       : false,
+        headers    : { 'Access-Control-Allow-Origin': '*' },
+        stats,
+      },
+    },
+    compiler,
+  })
+
 }
+

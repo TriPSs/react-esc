@@ -9,6 +9,11 @@ export default {
 
   ...defaultConfig,
 
+  devServer: {
+    port: process.env.PORT || 3000,
+    host: process.env.HOST || ip.address(),
+  },
+
   server: {
     port: process.env.PORT || 3000,
     host: process.env.HOST || ip.address(),

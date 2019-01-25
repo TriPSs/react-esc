@@ -68,6 +68,18 @@ export default {
         'react-redux',
       ],
     },
+
+    htmlPlugin: {
+      inject  : false,
+      template: require('html-webpack-template'),
+
+      appMountId: 'root',
+
+      minify : {
+        removeComments    : true,
+        collapseWhitespace: true,
+      },
+    },
   },
 
   render: null,

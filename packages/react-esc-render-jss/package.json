@@ -28,7 +28,6 @@
     "build:watch": "npm run build -- --watch"
   },
   "dependencies": {
-    "html-minifier": "^3.5.21",
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-dom": "^16.7.0",
