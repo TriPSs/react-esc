@@ -1,4 +1,5 @@
 import fs from 'fs-extra'
+import path from 'path'
 import Koa from 'koa'
 import serve from 'koa-static'
 import cookiesMiddleware from 'universal-cookie-koa'
@@ -109,21 +110,30 @@ export default class KoaServer {
   }
 
   /**
-   * Builds a app
+   * Builds a dev app
    */
-  buildApp = async() => {
+  buildDevApp = async() => {
     const app = new Koa()
 
     // Build the compiler config
     const compilerConfig = webpack.buildClientConfig(this.config)
     const compiler = webpack.buildCompiler(compilerConfig)
 
-    // Enable webpack-dev and webpack-hot middleware
     const { output: { publicPath } } = compilerConfig
-
     const { utils: { paths }, webpack: { quiet, stats } } = this.config
 
-    app.use(await this.getMiddleware(publicPath, quiet, compiler, paths, stats))
+    const middleware = await this.getMiddleware(publicPath, quiet, compiler, paths, stats)
+
+    // Enable webpack-dev and webpack-hot middleware
+    app.use(middleware)
+
+    // This serves the created index html for all routes
+    app.use(async(ctx) => {
+      const filename = path.resolve(compilerConfig.output.path, 'index.html')
+
+      ctx.type = 'html'
+      ctx.body = middleware.devMiddleware.fileSystem.createReadStream(filename)
+    })
 
     return app
   }
@@ -136,7 +146,7 @@ export default class KoaServer {
         app = await this.buildSsrApp()
 
       } else {
-        app = await this.buildApp()
+        app = await this.buildDevApp()
 
         portAndHostInfoFrom = 'devServer'
       }
@@ -167,7 +177,7 @@ export default class KoaServer {
    */
   getMiddleware = async(publicPath, quiet, compiler, paths, stats) => webpack.middleware({
     config: {
-      dev: {
+      devMiddleware: {
         publicPath,
         contentBase: paths.src(),
         hot        : true,

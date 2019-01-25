@@ -33,22 +33,29 @@ switch (config.render) {
 
 const renderClass = new RenderClient(config)
 
-let render = (App) => {
+const buildApp = App => {
   const layout = { ...(window.___LAYOUT__ || {}) }
+  
+  return (
+    <Provider store={store}>
+      <Router>
+        <CookiesProvider>
 
-  Resolver.renderClient(() => (
-      <Provider store={store}>
-        <Router>
-          <CookiesProvider>
+          {renderClass.render(App, { layout })}
 
-            {renderClass.render(App, { layout })}
-
-          </CookiesProvider>
-        </Router>
-      </Provider>
-    ),
-    MOUNT_NODE,
+        </CookiesProvider>
+      </Router>
+    </Provider>
   )
+}
+
+let render = (App) => {
+  if (typeof config.server === 'boolean' && !config.server) {
+    ReactDOM.render(buildApp(App), MOUNT_NODE)
+
+  } else {
+    Resolver.renderClient(() => buildApp(App), MOUNT_NODE)
+  }
 }
 
 // Catch runtime errors in RedBox
