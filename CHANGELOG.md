@@ -3,13 +3,20 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="5.0.0-beta.12"></a>
+# [5.0.0-beta.12](https://github.com/TriPSs/react-esc/compare/v5.0.0-beta.11...v5.0.0-beta.12) (2019-02-05)
+
+
+### Bug Fixes
+
+* **esc:** Removed concatenation plugin ([de636e8](https://github.com/TriPSs/react-esc/commit/de636e8))
+
+
+
 <a name="4.0.0-beta.34"></a>
 # [4.0.0-beta.34](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.33...v4.0.0-beta.34) (2018-06-05)
 
 
-
-
-**Note:** Version bump only for package undefined
 
 <a name="4.0.0-beta.33"></a>
 # [4.0.0-beta.33](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.32...v4.0.0-beta.33) (2018-06-05)
@@ -18,7 +25,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 * **esc:** Improved webpack config for production and made it optional to add the css plugins ([a2bc900](https://github.com/TriPSs/react-esc/commit/a2bc900))
-
 
 
 
@@ -32,7 +38,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-
 <a name="4.0.0-beta.31"></a>
 # [4.0.0-beta.31](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.30...v4.0.0-beta.31) (2018-05-25)
 
@@ -40,7 +45,6 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 ### Features
 
 * **esc-resolver:** Added the cache validator option, a function where you can check if the current prop is still correct ([a51c09c](https://github.com/TriPSs/react-esc/commit/a51c09c))
-
 
 
 
@@ -55,14 +59,10 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-
 <a name="4.0.0-beta.29"></a>
 # [4.0.0-beta.29](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.28...v4.0.0-beta.29) (2018-05-19)
 
 
-
-
-**Note:** Version bump only for package undefined
 
 <a name="4.0.0-beta.28"></a>
 # [4.0.0-beta.28](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.27...v4.0.0-beta.28) (2018-05-19)
@@ -70,110 +70,33 @@ See [Conventional Commits](https://conventionalcommits.org) for commit guideline
 
 
 
-**Note:** Version bump only for package undefined
-
-<a name="4.0.0-beta.27"></a>
-# [4.0.0-beta.27](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.26...v4.0.0-beta.27) (2018-04-20)
+<a name="5.0.0-beta.11"></a>
+# [5.0.0-beta.11](https://github.com/TriPSs/react-esc/compare/v5.0.0-beta.7...v5.0.0-beta.11) (2019-02-05)
 
 
 ### Bug Fixes
 
-* **esc:** Fixed prop types of MainContainer ([c8096fd](https://github.com/TriPSs/react-esc/commit/c8096fd))
-* **esc-storage:** Replaced warning with console.warn ([e13b264](https://github.com/TriPSs/react-esc/commit/e13b264))
-
-
-
-
-<a name="4.0.0-beta.26"></a>
-# [4.0.0-beta.26](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.25...v4.0.0-beta.26) (2018-04-12)
-
-
-### Bug Fixes
-
-* **esc:** Removed log and added the Cookie to the createStore of the client ([6332dd7](https://github.com/TriPSs/react-esc/commit/6332dd7))
+* Multiple fixes also for non SSR applications ([371f5ec](https://github.com/TriPSs/react-esc/commit/371f5ec))
 
 
 ### Features
 
-* **esc:** Give cookies with loading the middlewares so it can be used there to ([f810d73](https://github.com/TriPSs/react-esc/commit/f810d73))
+* **esc:** Also accept middlewares that are functions ([d0c7718](https://github.com/TriPSs/react-esc/commit/d0c7718))
+* Added better support for non SSR applications ([aa16b17](https://github.com/TriPSs/react-esc/commit/aa16b17))
 
 
 
 
-<a name="4.0.0-beta.25"></a>
-# [4.0.0-beta.25](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.24...v4.0.0-beta.25) (2018-04-11)
-
-
-
-
-**Note:** Version bump only for package undefined
-
-<a name="4.0.0-beta.24"></a>
-# [4.0.0-beta.24](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.23...v4.0.0-beta.24) (2018-04-11)
-
-
-
-
-**Note:** Version bump only for package undefined
-
-<a name="4.0.0-beta.23"></a>
-# [4.0.0-beta.23](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.22...v4.0.0-beta.23) (2018-04-11)
-
-
-
-
-**Note:** Version bump only for package undefined
-
-<a name="4.0.0-beta.22"></a>
-# [4.0.0-beta.22](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.21...v4.0.0-beta.22) (2018-04-10)
-
-
-
-
-**Note:** Version bump only for package undefined
-
-<a name="4.0.0-beta.21"></a>
-# [4.0.0-beta.21](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.20...v4.0.0-beta.21) (2018-04-10)
-
-
-
-
-**Note:** Version bump only for package undefined
-
-<a name="4.0.0-beta.20"></a>
-# [4.0.0-beta.20](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.19...v4.0.0-beta.20) (2018-04-10)
-
-
-
-
-**Note:** Version bump only for package undefined
-
-<a name="4.0.0-beta.19"></a>
-# [4.0.0-beta.19](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.18...v4.0.0-beta.19) (2018-04-10)
+<a name="5.0.0-beta.10"></a>
+# [5.0.0-beta.10](https://github.com/TriPSs/react-esc/compare/v5.0.0-beta.7...v5.0.0-beta.10) (2019-01-25)
 
 
 ### Bug Fixes
 
-* **esc-storage:** Fixed warning crashing ([15cef27](https://github.com/TriPSs/react-esc/commit/15cef27))
+* Multiple fixes also for non SSR applications ([371f5ec](https://github.com/TriPSs/react-esc/commit/371f5ec))
 
 
+### Features
 
-
-<a name="4.0.0-beta.18"></a>
-# [4.0.0-beta.18](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.17...v4.0.0-beta.18) (2018-04-09)
-
-
-### Bug Fixes
-
-* **all:** Build commands ([1af88c4](https://github.com/TriPSs/react-esc/commit/1af88c4))
-
-
-
-
-<a name="4.0.0-beta.17"></a>
-# [4.0.0-beta.17](https://github.com/TriPSs/react-esc/compare/v4.0.0-beta.14...v4.0.0-beta.17) (2018-04-09)
-
-
-
-
-**Note:** Version bump only for package undefined
+* **esc:** Also accept middlewares that are functions ([d0c7718](https://github.com/TriPSs/react-esc/commit/d0c7718))
+* Added better support for non SSR applications ([aa16b17](https://github.com/TriPSs/react-esc/commit/aa16b17))

@@ -1,0 +1,7 @@
+default.client.js
+default.layout.js
+default.server.js
+default.js
+utils
+
+!src/**

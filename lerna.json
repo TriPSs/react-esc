@@ -1,6 +1,6 @@
 {
   "lerna": "2.5.1",
-  "version": "4.0.0-beta.34",
+  "version": "5.0.0-beta.12",
   "npmClient": "yarn",
   "useWorkspaces": true,
   "commands": {
@@ -9,6 +9,7 @@
       "preid": "beta",
       "message": "chore(release): publish %s",
       "conventionalCommits": true,
+      "scope": "react-esc*",
       "ignore": [
         "ignored-file",
         "*.md",

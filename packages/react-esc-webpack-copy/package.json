@@ -1,0 +1,23 @@
+{
+  "name": "react-esc-webpack-copy",
+  "version": "5.0.0-beta.11",
+  "description": "Copy for react-esc",
+  "homepage": "https://github.com/TriPSs/react-esc/tree/master/packages/react-esc-webpack-worker",
+  "bugs": {
+    "url": "https://github.com/TriPss/react-esc/issues"
+  },
+  "license": "MIT",
+  "main": "./index.js",
+  "author": {
+    "name": "Tycho Bokdam",
+    "email": "t.bokdam@seronaris.nl"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/TriPSs/react-esc.git"
+  },
+  "scripts": {},
+  "dependencies": {
+    "copy-webpack-plugin": "^4.6.0"
+  }
+}

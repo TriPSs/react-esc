@@ -14,7 +14,7 @@ export default (prop, Loader, promise = null) => {
     static displayName = `${names}ClientResolver`
 
     static contextTypes = {
-      resolver: PropTypes.instanceOf(Resolver),
+      resolver: PropTypes.object,
     }
 
     constructor(props, context) {

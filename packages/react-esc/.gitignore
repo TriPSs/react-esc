@@ -1,13 +1,14 @@
-*
+bin/**
+client/**
+client.js
+config.js
+createStore.js
+server.js
+ServerRender.js
+KoaServer.js
+ClientRender.js
+rollup.config.js
+utils/**
+render/**
 
-!.gitignore
-!.npmignore
-!LICENSE
-!package.json
-!package-lock.json
-!yarn.lock
-!readme.md
-!src/**/**
-!src/**/*
-!src
-!CHANGELOG.md
+!src/**
