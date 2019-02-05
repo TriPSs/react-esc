@@ -70,12 +70,9 @@ export default {
     },
 
     htmlPlugin: {
-      inject  : false,
-      template: require('html-webpack-template'),
-
       appMountId: 'root',
 
-      minify : {
+      minify: {
         removeComments    : true,
         collapseWhitespace: true,
       },
