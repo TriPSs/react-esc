@@ -1,6 +1,6 @@
 {
   "name": "react-esc",
-  "version": "5.0.0-beta.20",
+  "version": "5.0.0-beta.22",
   "description": "Easy to use Client and Server",
   "homepage": "https://github.com/TriPSs/react-esc/tree/master/packages/react-esc",
   "bugs": {
@@ -54,9 +54,9 @@
     "redbox-react": "^1.6.0",
     "redux": "^4.0.1",
     "redux-thunk": "^2.3.0",
-    "rollup": "^1.1.0",
-    "rollup-plugin-babel": "^4.3.0",
-    "rollup-plugin-node-resolve": "^4.0.0",
+    "rollup": "^1.10.1",
+    "rollup-plugin-babel": "^4.3.2",
+    "rollup-plugin-node-resolve": "^4.2.3",
     "shelljs": "^0.8.3",
     "universal-cookie": "^3.1.0",
     "universal-cookie-koa": "^3.1.0"

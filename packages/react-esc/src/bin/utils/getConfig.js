@@ -1,7 +1,10 @@
 import fs from 'fs'
 import path from 'path'
-import { execSync } from 'child_process'
 import debug from 'debug'
+
+import { rollup } from 'rollup'
+import babel from 'rollup-plugin-babel'
+import resolve from 'rollup-plugin-node-resolve'
 
 const log = debug('react-esc:cli:config')
 
@@ -9,7 +12,7 @@ const { NODE_ENV } = process.env
 
 const ENV = NODE_ENV || 'development'
 
-export default (cwd, { config, compileConfig }) => {
+export default async (cwd, { config, compileConfig }) => {
   const configCompiledLocation = path.resolve(cwd, '.compiled.esc-config.js')
 
   const configLocation = path.resolve(cwd, config || '.esc-config.js')
@@ -21,16 +24,39 @@ export default (cwd, { config, compileConfig }) => {
     return {}
   }
 
-  if ((!configExists || ENV === 'development') && compileConfig) {
+  if ((!configExists || ENV === 'development') && compileConfig !== 'false') {
     log('Compiling new config...')
 
-    // TODO:: Change this to use rollup directly here
-    execSync(
-      `rollup ${configLocation} --file ${configCompiledLocation} --format cjs -c ${path.resolve(__dirname, '../../rollup.config.js')}`,
-      {
-        stdio: 'pipe',
-      },
-    )
+    const bundle = await rollup({
+      input: configLocation,
+
+      context: 'null',
+
+      moduleContext: 'null',
+
+      plugins: [
+
+        babel({
+          babelrc: false,
+
+          plugins: [
+            '@babel/plugin-proposal-export-namespace-from',
+            '@babel/plugin-proposal-class-properties',
+            '@babel/plugin-proposal-object-rest-spread',
+          ],
+
+          runtimeHelpers: true,
+
+          exclude: /node_modules/,
+        }),
+
+      ],
+    })
+
+    await bundle.write({
+      file: configCompiledLocation,
+      format: 'cjs'
+    })
   }
 
   if (fs.existsSync(configCompiledLocation)) {

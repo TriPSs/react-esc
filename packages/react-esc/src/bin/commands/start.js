@@ -1,11 +1,11 @@
 import getConfig from '../utils/getConfig'
 import KoaServer from '../../KoaServer'
 
-export default ({ config = null, compileConfig } = {}) => {
+export default async ({ config = null, compileConfig } = {}) => {
   const server = new KoaServer()
 
   if (config === null || typeof config === 'string') {
-    config = getConfig(process.cwd(), { config, compileConfig })
+    config = await getConfig(process.cwd(), { config, compileConfig })
   }
 
   server.setup(config)
