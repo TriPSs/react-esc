@@ -7,12 +7,11 @@ export default {
   moduleContext: 'null',
 
   plugins: [
-    resolve({
-      jsnext: true,
-    }),
+    resolve(),
 
     babel({
       babelrc: false,
+
       plugins: [
         '@babel/plugin-proposal-export-namespace-from',
         '@babel/plugin-proposal-class-properties',
@@ -21,7 +20,7 @@ export default {
 
       runtimeHelpers: true,
 
-      exclude: /node_modules/
+      exclude: /node_modules/,
     }),
   ],
 

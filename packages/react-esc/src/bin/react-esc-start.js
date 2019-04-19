@@ -11,7 +11,7 @@ const log = debug('react-esc:cli')
 cli.name(`${green('react-esc')} start`)
   .description('Start the React ESC server.')
   .option('-c --config <location>', 'File location of the config file')
-  .option('-m --mode', 'Mode')
+  .option('--compile-config <compile>', 'Compile new config', true)
   .parse(process.argv)
 
 const cwd = process.cwd()
