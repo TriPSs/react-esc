@@ -20,6 +20,7 @@ import { version } from '../package.json'
   cli.name(`${green('react-esc')} compile`)
     .description('Compile the project.')
     .option('-c --config <location>', 'File location of the config file')
+    .option('--compile-config <compile>', 'Compile new config', true)
     .parse(process.argv)
 
   const cwd = process.cwd()
@@ -30,7 +31,7 @@ import { version } from '../package.json'
   log(`Project Version: ${projectPgk.version}`)
 
   log('Create client config')
-  let clientConfig = deepMerge(defaultClientConfig, getConfig(cwd, cli))
+  let clientConfig = deepMerge(defaultClientConfig, await getConfig(cwd, cli))
   clientConfig.utils.paths = buildPaths(clientConfig.utils.dirs, null, getRoot())
 
   // Create webpack client config
