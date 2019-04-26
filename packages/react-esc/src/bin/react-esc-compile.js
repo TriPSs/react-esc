@@ -36,12 +36,13 @@ import { version } from '../package.json'
 
   // Create webpack client config
   const webpackClient = webpack.buildClientConfig(clientConfig)
-  let stats = await webpack.compile(clientConfig, webpackClient, 'client')
+  const stats = await webpack.compile(clientConfig, webpackClient, 'client')
 
   // User also wants a server so let's compile that
   if (typeof clientConfig.server !== 'boolean' || clientConfig.server) {
     log('Create server config')
-    let serverConfig = deepMerge(defaultServerConfig, getConfig(cwd, cli))
+
+    let serverConfig = deepMerge(defaultServerConfig, await getConfig(cwd, cli))
     serverConfig.utils.paths = buildPaths(serverConfig.utils.dirs, null, getRoot())
 
     log('Write client info')

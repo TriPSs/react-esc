@@ -1,4 +1,5 @@
 import webpackMerge from 'webpack-merge'
+import log from './log'
 
 function loadPackage(config, rule, options = {}) {
   if (Array.isArray(rule)) {
@@ -8,6 +9,8 @@ function loadPackage(config, rule, options = {}) {
   }
 
   if (rule.indexOf('react-esc-webpack') > -1) {
+    log(`Enable '${rule}' loader`)
+
     return require(rule)(config, options)
   }
 
@@ -22,7 +25,7 @@ export default (config) => {
 
     module: {
       rules: [
-               {
+        {
           test   : /\.(woff|woff2|otf|eot|ttf)$/i,
           loaders: ['file-loader?hash=sha512&digest=hex&name=fonts/font-[name]-[hash:6].[ext]'],
         },
