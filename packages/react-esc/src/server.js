@@ -90,13 +90,22 @@ export default async(config) => {
         <script key={i} type='text/javascript' src={`${compilerPath}${asset}`} />
       ))
 
-    const redirectIfNecessary = (context, reject) => {
+    const redirectIfNecessary = (context) => {
       if (hasOwnProperty(context, 'url')) {
-        reject({
-          redirect: context.url,
-          status  : context.status || 302,
-        })
+        handleError(
+          {
+            redirect: context.url,
+            status  : context.status || 302,
+          },
+          resolve,
+          ctx,
+          defaultLayout,
+        )
+
+        return true
       }
+
+      return false
     }
 
     // Generate a new renderClass every request
@@ -112,35 +121,36 @@ export default async(config) => {
         </StaticRouter>
       </Provider>
     )).then((Resolved) => {
-      redirectIfNecessary(context, reject)
+      // Redirect if necessary
+      if (!redirectIfNecessary(context)) {
+        const content = renderToString(
+          <Resolved />,
+        )
 
-      const content = renderToString(
-        <Resolved />,
-      )
+        if (hasOwnProperty(context, 'status')) {
+          ctx.status = context.status
 
-      if (hasOwnProperty(context, 'status')) {
-        ctx.status = context.status
+        } else {
+          ctx.status = 200
+        }
 
-      } else {
-        ctx.status = 200
+        const head = Helmet.renderStatic()
+
+        ctx.body = renderClass.postRender({
+          content,
+          head,
+          body: (
+            <div
+              key='body'
+              {...config.app.mountPoint}
+              dangerouslySetInnerHTML={{ __html: content }} />
+          ),
+          scripts,
+          store,
+        })
+
+        resolve()
       }
-
-      const head = Helmet.renderStatic()
-
-      ctx.body = renderClass.postRender({
-        content,
-        head,
-        body: (
-          <div
-            key='body'
-            {...config.app.mountPoint}
-            dangerouslySetInnerHTML={{ __html: content }} />
-        ),
-        scripts,
-        store,
-      })
-
-      resolve()
     }).catch(error => handleError(
       error,
       resolve,

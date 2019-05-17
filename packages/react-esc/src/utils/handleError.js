@@ -2,14 +2,16 @@ import React from 'react'
 import Helmet from 'react-helmet'
 import PrettyError from 'pretty-error'
 import { renderToStaticMarkup } from 'react-dom/server'
-import { renderHtmlLayout } from '../render/renderHtmlLayout'
+import hasOwnProperty from 'has-own-property'
 import _debug from 'debug'
+
+import renderHtmlLayout from '../render/renderHtmlLayout'
 
 const debug = _debug('react-esc:server:error')
 
 export default (error, resolve, ctx, defaultLayout) => {
-  if (error && error.hasOwnProperty('redirect')) {
-    if (error.hasOwnProperty('status')) {
+  if (error && hasOwnProperty(error, 'redirect')) {
+    if (hasOwnProperty(error, 'status')) {
       ctx.status = error.status
     }
 

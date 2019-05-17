@@ -1,6 +1,7 @@
 import fs from 'fs'
 import path from 'path'
 import debug from 'debug'
+import { red } from 'chalk'
 
 import { rollup } from 'rollup'
 import babel from 'rollup-plugin-babel'
@@ -19,7 +20,7 @@ export default async (cwd, { config, compileConfig }) => {
   const configExists = fs.existsSync(configCompiledLocation)
 
   if (!configExists && !compileConfig) {
-    console.error('Config does not exists and compiling a new one is turned off!')
+    log(red('Config does not exists and compiling a new one is turned off!'))
 
     return {}
   }
