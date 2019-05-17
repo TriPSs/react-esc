@@ -3,6 +3,17 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+<a name="5.0.1"></a>
+## [5.0.1](https://github.com/TriPSs/react-esc/compare/v5.0.0-beta.31...v5.0.1) (2019-05-17)
+
+
+### Bug Fixes
+
+* **esc:** Fixed that redirects where not happening ([a4a6e80](https://github.com/TriPSs/react-esc/commit/a4a6e80))
+
+
+
+
 <a name="5.0.0-beta.31"></a>
 # [5.0.0-beta.31](https://github.com/TriPSs/react-esc/compare/v5.0.0-beta.12...v5.0.0-beta.31) (2019-04-26)
 

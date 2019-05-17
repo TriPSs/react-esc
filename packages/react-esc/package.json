@@ -1,6 +1,6 @@
 {
   "name": "react-esc",
-  "version": "5.0.0-beta.31",
+  "version": "5.0.1",
   "description": "Easy to use Client and Server",
   "homepage": "https://github.com/TriPSs/react-esc/tree/master/packages/react-esc",
   "bugs": {
@@ -44,9 +44,9 @@
     "react": "^16.8.4",
     "react-cookie": "^3.1.1",
     "react-dom": "^16.8.4",
-    "react-esc-config": "^5.0.0-beta.11",
-    "react-esc-resolver": "^5.0.0-beta.11",
-    "react-esc-webpack": "^5.0.0-beta.31",
+    "react-esc-config": "^5.0.1",
+    "react-esc-resolver": "^5.0.1",
+    "react-esc-webpack": "^5.0.1",
     "react-helmet": "^5.2.0",
     "react-redux": "^6.0.1",
     "react-router": "^5.0.0",
